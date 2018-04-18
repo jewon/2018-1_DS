@@ -126,24 +126,6 @@ public:
 	LinkedListType<T> Connect(LinkedListType<T>* ListB);
 
 	/**
-	*	@brief	파라미터의 학술대회명과 일치하는 리스트의 레코드를 화면에 출력함
-	*	@pre	리스트 초기화
-	*	@post	파라미터의 학술대회명과 일치하는 리스트의 레코드가 화면에 출력됨
-	*	@param	data	출력할 레코드의 학술대회명을 갖는 레코드, 학술대회명만 입력되어 있어도 상관 없음
-	*	@return	출력 성공시 1, 실패시 0을 반환
-	*/
-	//int Display(T &data);
-
-	/**
-	*	@brief	배열 번호를 알고 있는 경우 배열 번호를 파라미터로 받아 레코드를 화면에 출력
-	*	@pre	리스트 초기화
-	*	@post	파라미터의 배열번호에 해당하는 리스트의 레코드가 화면에 출력됨
-	*	@param	ArrayNumber	출력할 레코드의 배열 번호
-	*	@return	출력 성공시 1, 실패시 0을 반환
-	*/
-	//int Display(int ArrayNumber);
-
-	/**
 	*	@brief	파라미터의 학술대회명과 일치하는 리스트의 레코드를 읽어들임
 	*	@pre	리스트 초기화
 	*	@post	파라미터의 학술대회명과 일치하는 리스트의 레코드가 파라미터에 저장됨
@@ -176,15 +158,6 @@ public:
 	*	@return	출력된 노드의 갯수 반환 (없으면 0)
 	*/
 	LinkedListType<T> FindByName(string word);
-
-	/**
-	*	@brief	파라미터의 이름(Primary Key) 일치하는 리스트의 레코드를 읽어들임
-	*	@pre	리스트 초기화
-	*	@post	파라미터의 학술대회명과 일치하는 리스트의 레코드가 파라미터에 저장됨
-	*	@param	data	찾을 레코드의 학술대회를 가지는 레코드, 학술대회만 입력되어 있어도 상관 없음, 함수 실행시 레코드 내용 저장
-	*	@return	일치하는 레코드가 있으면 1, 아닐경우 0 반환
-	*/
-	//int Get(T& data); Primary key를 기준으로 데이터를 검색하고 해당 데이터를 가져옴
 
 private:
 	NodeType<T>* m_pList;	///< 첫 노드 가리키는 포인터
@@ -357,12 +330,12 @@ int LinkedListType<T>::Get(T &item)
 	bool found = false;
 	while (iter.NotNull()) {
 		count++;
-		if (item == iter.GetCurrentNode().data) {
+		if (item == iter.GetCurrentNode()) {
 			found = true;
-			item = iter.GetCurrentNode().data;
+			item = iter.GetCurrentNode();
 			break;
 		}
-		else if (item < iter.GetCurrentNode().data) {
+		else if (item < iter.GetCurrentNode()) {
 			break;
 		}
 		else {
@@ -425,36 +398,6 @@ void LinkedListType<T>::GetNextItem(T& item)
 	//item 에 current position 의 info 를 삽입
 	item = m_pCurPointer->data;
 }
-
-//이전 버전 코드
-/*
-template<typename T>
-int LinkedListType<T>::Get(T& data)
-{
-	ResetList();
-	T inData;
-
-	while (1)
-	{
-		int i = GetNextItem(inData); //레코드 읽어오기
-		if (i > 0)
-		{//레코드 읽어와지면
-			switch (data.CompareByName(inData))
-			{
-			case EQUAL:
-				data = inData; //data에 레코드를 저장하고
-				return 1; //레코드의 위치를 반환해줌
-				break;
-			case GREATER: //입력된 이름이 더 크면
-				break; //다음 순서로
-			case LESS: //입력된 이름이 더 작으면
-				return 0; //입력된 학술대회명가 없는 경우이므로 -1 리턴
-				break;
-			}
-		}
-		else return 0; // 실패시(빈 리스트일 경우 포함) 0 리턴
-	}
-}*/	
 
 // 리스트 내의 모든 아이템 정보 출력(하위리스트 정보는 갯수만 출력)
 template<typename T>

@@ -52,21 +52,6 @@ public:
 	}
 
 	/**
-	*	@brief	자신의 내부 정보를 수정할 수 있는 메뉴를 출력함
-	*	@pre	.
-	*	@post	.
-	*	@return	SetMenu에서 받을 수 있는 입력 int의 최대치 (메뉴 갯수)
-	*/
-	int GetMenu();
-
-	/**
-	*	@brief	자신의 내부 정보를 수정할 수 있는 메뉴를 출력함
-	*	@pre	.
-	*	@post	사용자가 선택한 메뉴 수행
-	*/
-	void SetMenu(int c_Command);
-
-	/**
 	*	@brief	세션명 반환
 	*	@pre	세션명 초기화
 	*	@post	.
@@ -159,6 +144,9 @@ public:
 	*/
 	bool operator>(SessionType item);
 
+	/**
+	*	@brief	이름을 기준으로 두 아이템 비교하는 오퍼레이터
+	*/
 	bool operator<(SessionType item);
 
 	/**

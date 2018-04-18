@@ -254,6 +254,9 @@ public:
 	*/
 	bool operator>(PaperType item);
 
+	/**
+	*	@brief	이름을 기준으로 두 아이템 비교하는 오퍼레이터
+	*/
 	bool operator<(PaperType item);
 
 	/**

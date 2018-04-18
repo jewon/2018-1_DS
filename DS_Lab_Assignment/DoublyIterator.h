@@ -16,10 +16,7 @@ template <typename T>
 struct NodeType;
 
 /**
-*	Iterator class for DoublySortedLinkedList.  (not using header and trailer nodes).
-*	제시된 ADT에 대한 견해
-*	- 객체 return하는 메서드에서 결과가 null인 경우 return이 없는 문제 발생
-*	- 객체 보다는 포인터가 (nullptr의 존재) 더 안정적인 분기문 형성이 되지 않을 까 예상.
+*	더블링크드리스트 이터레이터 클래스
 */
 template <typename T>
 class DoublyIterator
@@ -27,49 +24,49 @@ class DoublyIterator
 	friend class LinkedListType<T>;
 public:
 	/**
-	*	Initialize m_List and m_pCurPointer. (constructor overloading)
+	*	생성자 : m_List에 리스트를 받고, m_pCurPointer를 시작 노드로 초기화
 	*/
 	DoublyIterator(const LinkedListType<T>& list) : m_List(list), m_pCurPointer(list.m_pList) {}
 
 	/**
 	*	@brief	현재 노드를 가리키는 포인터가 null인지 아닌지 판단하는 메서드.
-	*	@pre	Iterator has been initialized.
-	*	@post	None.
-	*	@return	nullptr true, otherwise false.
+	*	@pre	이터레이터 초기화
+	*	@post	.
+	*	@return	NULL이면 true, 아니면 false.
 	*/
 	bool NotNull();	
 
 	/**
 	*	@brief	현재 노드 포인터의 다음 노드가 null인지 아닌지 판단하는 메서드.
-	*	@pre	Iterator has been initialized.
-	*	@post	None.
-	*	@return	nullptr true, otherwise false.
+	*	@pre	이터레이터 초기화
+	*	@post	.
+	*	@return	NULL이면 true, 아니면 false.
 	*/
 	bool NextNotNull();
 
 	/**
-	*	@brief	Get first data of the list.
-	*	@pre	Iterator has been initialized.
-	*	@post	Current pointer is moved to the first node.
-	*	@return	Return first data of the list.
+	*	@brief	첫 번째 노드의 데이터 반환
+	*	@pre	이터레이터 초기화
+	*	@post	m_pCurPointer가 첫 노드로 이동
+	*	@return	첫 번쨰 노드의 T타입 데이터
 	*/
 	T First();
 
 	/**
-	*	@brief	Get next data of the current pointer.
-	*	@pre	Iterator has been initialized.
-	*	@post	Current pointer is moved to the next node.
-	*	@return	Return next data of the list.
+	*	@brief	다음 노드의 데이터 반환
+	*	@pre	이터레이터 초기화
+	*	@post	m_pCurPointer가 다음 노드로 이동
+	*	@return	다음 노드의 T타입 데이터
 	*/
 	T Next();
 
 	/**
-	*	@brief	Get current data of the list and go to the next node. 현재 노드. 객체반환은 return by value
-	*	@pre	Iterator has been initialized.
-	*	@post	Current pointer is moved to next node.
-	*	@return	Return current data of the list.
+	*	@brief	현재 노드를 반환해주고 이터레이터 포인터를 다음 노드로 옮김
+	*	@pre	이터레이터 초기화
+	*	@post	m_pCurPointer가 다음 노드로 이동
+	*	@return	현재 노드
 	*/
-	NodeType<T> GetCurrentNode();
+	T GetCurrentNode();
 
 private:
 	const LinkedListType<T>& m_List;	///< 사용할 리스트의 참조 변수
@@ -117,9 +114,9 @@ T DoublyIterator<T>::Next() {
 
 // 현재 node를 return
 template <typename T>
-NodeType<T> DoublyIterator<T>::GetCurrentNode() {
+T DoublyIterator<T>::GetCurrentNode() {
 	if (m_pCurPointer!=nullptr) {
-		return *m_pCurPointer;
+		return m_pCurPointer->data;
 	}
 }
 

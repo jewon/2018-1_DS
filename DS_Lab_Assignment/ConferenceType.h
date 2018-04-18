@@ -55,21 +55,6 @@ public:
 	}
 
 	/**
-	*	@brief	자신의 내부 정보를 수정할 수 있는 메뉴를 출력함
-	*	@pre	.
-	*	@post	.
-	*	@return	SetMenu에서 받을 수 있는 입력 int의 최대치 (메뉴 갯수)
-	*/
-	int GetMenu();
-
-	/**
-	*	@brief	자신의 내부 정보를 수정할 수 있는 메뉴를 출력함
-	*	@pre	.
-	*	@post	사용자가 선택한 메뉴 수행
-	*/
-	void SetMenu(int c_Command);
-
-	/**
 	*	@brief	학술대회명 반환
 	*	@pre	학술대회명 초기화
 	*	@post	.
@@ -239,7 +224,14 @@ public:
 	*	@pre	.
 	*	@post	학술대회 레코드가 입력됨
 	*	@param	inName	입력할 이름
-	*	@param	inAddress	입력할 기관
+	*	@param	inDate	입력할 시작일
+	*	@param	inTimes	입력할 횟수
+	*	@param	inOrgan	입력할 기관
+	*	@param	inSimple	입력할 약자
+	*	@param	inPlace	입력할 장소
+	*	@param	inDateTime	입력할 일시
+	*	@param	inISBN	입력할 횟수
+	*	@param	inSessionList	입력할 세션리스트
 	*/
 	void SetRecord(string inName, string inDate, int inTimes, string inOrgan, string inSimple, string inPlace, string inDateTime, string inISBN, LinkedListType <SessionType> inSessionList)
 	{
@@ -456,6 +448,9 @@ public:
 	*/
 	bool operator>(ConferenceType item);
 
+	/**
+	*	@brief	이름을 기준으로 두 아이템 비교하는 오퍼레이터
+	*/
 	bool operator<(ConferenceType item);
 
 	/**
