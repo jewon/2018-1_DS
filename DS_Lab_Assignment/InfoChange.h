@@ -192,7 +192,6 @@ int InfoChange<T>::Change()
 		}
 		else
 		{
-			
 			return 1;
 		}
 	}

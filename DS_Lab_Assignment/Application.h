@@ -47,8 +47,20 @@ public:
 	*/
 	int GetCommand();
 
+	/**
+	*	@brief	추가 기능 명령 목록을 화면에 출력하고 명령을 입력받는다.
+	*	@pre	.
+	*	@post	.
+	*	@return	입력한 명령
+	*/
 	int MoreFeaturesGetcommand();
 
+	/**
+	*	@brief	추가 기능 명령을 입력받고, 입력에 따라 수행한다.
+	*	@pre	.
+	*	@post	.
+	*	@return	.
+	*/
 	void MoreFeatures();
 
 	/**

@@ -150,7 +150,7 @@ public:
 	*	@param	data	찾을 레코드의 학술대회를 가지는 레코드, 학술대회만 입력되어 있어도 상관 없음, 함수 실행시 레코드 내용 저장
 	*	@return	일치하는 레코드가 있으면 해당 레코드 위치, 아닐경우 -1 반환
 	*/
-	int Get(T item);
+	int Get(T &item);
 
 	/**
 	*	@brief	리스트 리터레이터를 초기화한다
@@ -211,7 +211,7 @@ template <typename T>
 LinkedListType<T>::~LinkedListType()
 {
 	//리스트내의 모든 node 제거
-	//MakeEmpty(); : 구조상 다른 소멸자 필요
+	MakeEmpty(); // : 구조상 다른 소멸자 필요
 }
 
 // 리스트 포함하는 정보 추상이름 알려줌
@@ -348,7 +348,7 @@ int LinkedListType<T>::Replace(T data) {
 
 // Retrieve list element whose key matches item's key (if present).
 template <typename T>
-int LinkedListType<T>::Get(T item)
+int LinkedListType<T>::Get(T &item)
 {
 	NodeType<T>* pNode;
 	DoublyIterator<T> iter(*this);
@@ -373,8 +373,8 @@ int LinkedListType<T>::Get(T item)
 	if (found) {
 		return count;
 	}
-	else return 0;
-
+	else
+		return 0;
 }
 
 
