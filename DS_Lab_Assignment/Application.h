@@ -9,6 +9,7 @@ using namespace std;
 #include "LinkedListType.h"
 #include "ConferenceType.h"
 #include "InfoChange.h"
+#include "MoreFeatures.h"
 
 #define FILENAMESIZE 1024
 
@@ -48,28 +49,12 @@ public:
 	int GetCommand();
 
 	/**
-	*	@brief	추가 기능 명령 목록을 화면에 출력하고 명령을 입력받는다.
-	*	@pre	.
-	*	@post	.
-	*	@return	입력한 명령
-	*/
-	int MoreFeaturesGetcommand();
-
-	/**
-	*	@brief	추가 기능 명령을 입력받고, 입력에 따라 수행한다.
+	*	@brief	추가 기능 클래스의 기능을 실행한다.
 	*	@pre	.
 	*	@post	.
 	*	@return	.
 	*/
-	void MoreFeatures();
-
-	/**
-	*	@brief	논문 검색을 수행한다.
-	*	@pre	.
-	*	@post	논문 검색 결과가 콘솔에 출력된다.
-	*	@return	.
-	*/
-	void PaperSearch();
+	void RunMoreFeatures();
 
 private:
 	ifstream m_InFile;		///< input file descriptor.

@@ -116,6 +116,7 @@
     <ClInclude Include="DoublyIterator.h" />
     <ClInclude Include="InfoChange.h" />
     <ClInclude Include="LinkedListType.h" />
+    <ClInclude Include="MoreFeatures.h" />
     <ClInclude Include="PaperType.h" />
     <ClInclude Include="SessionType.h" />
   </ItemGroup>
@@ -123,6 +124,7 @@
     <ClCompile Include="Application.cpp" />
     <ClCompile Include="ConferenceType.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="MoreFeatures.cpp" />
     <ClCompile Include="PaperType.cpp" />
     <ClCompile Include="SessionType.cpp" />
   </ItemGroup>
