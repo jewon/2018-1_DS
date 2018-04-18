@@ -135,22 +135,6 @@ public:
 	int Get(T &item);
 
 	/**
-	*	@brief	리스트 리터레이터를 초기화한다
-	*	@pre	리스트 초기화
-	*	@post	이터레이터가 리셋됨
-	*/
-	void ResetList();
-
-	/**
-	*	@brief	리스트 이터레이터를 다음으로 넘기고 리스트 레코드 읽어들임
-	*	@pre	리스트와 이터레이터가 초기화 되지 않아야 한다
-	*	@post	이터레이터가 다음 리스트로 넘어감
-	*	@param	data	현재 이터레이터가 가리키는 레코드를 저장할 변수 (초기화 필요 없음)
-	*	@return	이터레이터가 레코드 끝에 도달하지 않았으면 현재 이터레이터 위치, 아닐 경우 -1 반환
-	*/
-	void GetNextItem(T& item);
-
-	/**
 	*	@brief	리스트의 이름을 기준으로 검색하여 특정 단어가 포함된 노드 출력
 	*	@pre	리스트 초기화
 	*	@post	특정 단어 포함된 노드 출력
@@ -184,7 +168,7 @@ template <typename T>
 LinkedListType<T>::~LinkedListType()
 {
 	//리스트내의 모든 node 제거
-	MakeEmpty(); // : 구조상 다른 소멸자 필요
+	// MakeEmpty(); // : 구조상 다른 소멸자 필요?
 }
 
 // 리스트 포함하는 정보 추상이름 알려줌
@@ -214,7 +198,7 @@ void LinkedListType<T>::MakeEmpty()
 }
 
 
-// Get number of elements in the list.
+// 리스트의 길이 반환
 template <typename T>
 int LinkedListType<T>::GetLength() const
 {
@@ -247,7 +231,7 @@ int LinkedListType<T>::Add(T item)
 				// GetCurrentNode는 return by value이므로 수정 및 실 메모리 접근 불가해서 사용 못함
 				pNode = iter.m_pCurPointer;
 
-				if (node->data > pNode->data) { // 넣으려고 하는게 더 작음
+				if (node->data < pNode->data) { // 넣으려고 하는게 더 작음
 					node->next = pNode;
 					if (m_nLength == 1) {	// 맨 앞
 						m_pList= node;
@@ -350,15 +334,6 @@ int LinkedListType<T>::Get(T &item)
 		return 0;
 }
 
-
-// 이터레이터 초기화
-template <typename T>
-void LinkedListType<T>::ResetList()
-{
-	// current pointer 초기화
-	// m_pCurPointer = NULL;
-}
-
 // 개수제한은 없지만, 실제 메모리가 가득 차서 더 이상 할당이 불가능한 경우 시스템 예외 처리
 template <typename T>
 bool LinkedListType<T>::IsFull() {
@@ -382,23 +357,6 @@ bool LinkedListType<T>::IsEmpty() {
 	else return false;
 }
 
-// 리스트의 다음 Item가져옴
-template <typename T>
-void LinkedListType<T>::GetNextItem(T& item)
-{
-	// current pointer 이 NULL이라면 처음 node를 가리킴.
-	if (m_pCurPointer == NULL)
-	{
-		m_pCurPointer = m_pList;
-	}
-	else
-		//current position 을 다음 노드로 이동
-		m_pCurPointer = m_pCurPointer->next;
-
-	//item 에 current position 의 info 를 삽입
-	item = m_pCurPointer->data;
-}
-
 // 리스트 내의 모든 아이템 정보 출력(하위리스트 정보는 갯수만 출력)
 template<typename T>
 void LinkedListType<T>::DisplayAll()
@@ -408,7 +366,6 @@ void LinkedListType<T>::DisplayAll()
 	if (!IsEmpty())
 	{
 		T item;
-		this->ResetList();
 		cout << "\n\t*****" << TName << " List*****\n";
 		for (int i = 0; i < this->GetLength(); i++)
 		{
@@ -432,20 +389,23 @@ void LinkedListType<T>::DisplayAllBrief()
 		data.DisplayBriefOnScreen();
 }
 
-// 현재 리스트에 파라미터 리스트를 연결함 (소팅X)
+// 현재 리스트에 파라미터 리스트를 연결함 (주의: 소팅은 하지 않는다, 출력용으로만 사용)
 template<typename T>
 LinkedListType<T> LinkedListType<T>::Connect(LinkedListType<T> * ListB)
 {
 	DoublyIterator<T> iter(*this);
 	DoublyIterator<T> iterB(*ListB);
 
+	if (!this->IsEmpty() && !ListB->IsEmpty())
+	{
+		this->m_pLast->next = ListB->m_pList;
+		ListB->m_pList->prev = this->m_pLast;
+		this->m_nLength += ListB->GetLength();
 
-	this->m_pLast->next = ListB->m_pList;
-	ListB->m_pList->prev = this->m_pLast;
-
-	ListB->m_nLength = 0;
-	ListB->m_pList = nullptr;
-	ListB->m_pLast = nullptr;
+		ListB->m_nLength = 0;
+		ListB->m_pList = nullptr;
+		ListB->m_pLast = nullptr;
+	}
 
 	return *this;
 }

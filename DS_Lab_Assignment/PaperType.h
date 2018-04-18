@@ -6,11 +6,6 @@
 using namespace std;
 
 /**
-*	두 이름의 정보를 비교 (상위 클래스에서도 사용)
-*/
-enum RelationType { LESS, GREATER, EQUAL };
-
-/**
 *	페이퍼타입
 */
 class PaperType
@@ -53,21 +48,6 @@ public:
 	{
 		return "이름\t저자\t페이지";
 	}
-
-	/**
-	*	@brief	자신의 내부 정보를 수정할 수 있는 메뉴를 출력함
-	*	@pre	.
-	*	@post	.
-	*	@return	SetMenu에서 받을 수 있는 입력 int의 최대치 (메뉴 갯수)
-	*/
-	int GetMenu();
-
-	/**
-	*	@brief	자신의 내부 정보를 수정할 수 있는 메뉴를 출력함
-	*	@pre	.
-	*	@post	사용자가 선택한 메뉴 수행
-	*/
-	void SetMenu(int c_Command);
 
 	/**
 	*	@brief	논문명 반환
@@ -213,18 +193,6 @@ public:
 	*	@post	레코드가 입력됨
 	*/
 	void SetRecordFromKB();
-
-	/**
-	*	두 레코드 비교
-	*	@brief	두 레코드를 논문 이름 기준으로 비교
-	*	@pre	두 레코드 모두 초기화
-	*	@post	.
-	*	@param	data	비교할 대상
-	*	@return	return LESS this.m_pName < data.m_pName인 경우
-	*			return GREATER this.m_pName > data.m_pName인 경우
-	*			둘 다 아니면 return EQUAL.
-	*/
-	RelationType CompareByName(const PaperType &data);
 
 	/**
 	*	@brief	Infochange 클래스 접근해 정보 수정시 사용

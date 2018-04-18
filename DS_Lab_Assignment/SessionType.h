@@ -18,7 +18,6 @@ public:
 	SessionType()
 	{
 		m_sName = "noName";
-		PaperList.ResetList();
 	}
 
 	/**

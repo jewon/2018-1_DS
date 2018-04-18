@@ -22,9 +22,7 @@ public:
 	*	디폴트 생성자
 	*/
 	ConferenceType()
-	{
-		SessionList.ResetList();
-	}
+	{}
 
 	/**
 	*	소멸자
@@ -407,18 +405,6 @@ public:
 	*	@return	성공시 1, 실패시 0 반환
 	*/
 	int WriteDataToFile(ofstream& fout);
-
-	/**
-	*	두 레코드 비교
-	*	@brief	두 레코드를 학술대회 이름 기준으로 비교
-	*	@pre	두 레코드 모두 초기화
-	*	@post	.
-	*	@param	data	비교할 대상
-	*	@return	return LESS this.m_hName < data.m_hName인 경우
-	*			return GREATER this.m_hName > data.m_hName인 경우
-	*			둘 다 아니면 return EQUAL.
-	*/
-	RelationType CompareByName(const ConferenceType &data);
 
 	/**
 	*	@brief	Infochange 클래스 접근해 정보 수정시 사용

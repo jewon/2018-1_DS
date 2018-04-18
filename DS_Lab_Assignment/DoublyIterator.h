@@ -104,7 +104,8 @@ T DoublyIterator<T>::First() {
 
 // 다음 node로 이동 후 item을 return.
 template <typename T>
-T DoublyIterator<T>::Next() {
+T DoublyIterator<T>::Next() 
+{
 	T output = m_pCurPointer->data; 
 	if (NotNull()) {
 		m_pCurPointer = m_pCurPointer->next;

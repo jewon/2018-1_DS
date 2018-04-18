@@ -1,10 +1,10 @@
 /**
 *	@mainpage	Sorted Array List
-*				자료구조_Lab4 과제
+*				자료구조_Lab5 과제
 *				채옥삼 교수님
 *				2013103571 최재원
 *
-*	@date	2018.04.05
+*	@date	2018.04.18
 *	@author	최재원
 */
 

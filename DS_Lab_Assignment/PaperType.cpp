@@ -29,16 +29,6 @@ void PaperType::SetRecordFromKB()
 	SetPagesFromKB();
 }
 
-RelationType PaperType::CompareByName(const PaperType & data)
-{
-	if (this->m_pName.compare(data.m_pName) > 0)
-		return GREATER;
-	else if (this->m_pName.compare(data.m_pName) < 0)
-		return LESS;
-	else
-		return EQUAL;
-}
-
 // 사용자에 의한 레코드 수정
 int PaperType::Modify()
 {

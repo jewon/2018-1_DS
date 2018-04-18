@@ -110,18 +110,6 @@ int ConferenceType::WriteDataToFile(ofstream& fout)
 	return 1;
 }
 
-
-// 두 레코드 ID로 비교
-RelationType ConferenceType::CompareByName(const ConferenceType &data)
-{
-	if (this->m_hName.compare(data.m_hName) > 0)
-		return GREATER;
-	else if (this->m_hName.compare(data.m_hName) < 0)
-		return LESS;
-	else
-		return EQUAL;
-}
-
 // 사용자에 의한 레코드 수정
 int ConferenceType::Modify()
 {

@@ -58,13 +58,13 @@ void MoreFeatures::PaperSearch()
 	ConferenceType dummyConf;
 	DoublyIterator<ConferenceType> iter(i_List);
 
-	if (iter.NextNotNull())
+	if (iter.NotNull())
 	{
 		dummyConf = iter.Next();
 		FoundPaperList = dummyConf.SearchPaper(word);
 	}
 
-	while (iter.NextNotNull())
+	while (iter.NotNull())
 	{
 		dummyConf = iter.Next();
 		FoundPaperList.Connect(&dummyConf.SearchPaper(word));
@@ -84,7 +84,7 @@ void MoreFeatures::DisplayConferenceBrief()
 		cout << "\t아무것도 입력되지 않았습니다.\n";
 		return;
 	}
-	while (iter.NextNotNull())
+	while (iter.NotNull())
 	{
 		temp = iter.Next();
 		temp.DisplayBriefOnScreen();
