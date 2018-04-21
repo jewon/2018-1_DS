@@ -5,6 +5,11 @@ void Base::Update()
 	
 }
 
+LinkedListType<ConferenceType>* Base::Setup()
+{
+	return i_pList;
+}
+
 LinkedListType<SessionType>* Base::SessionListAdd()
 {
 	ListPointerNode<SessionType> * NewSessionListNode = new ListPointerNode<SessionType>;
@@ -45,7 +50,7 @@ LinkedListType<PaperType>* Base::PaperListAdd()
 	return NewPaperListNode->ListPointer;
 }
 
-void Base::SessionListDeleete(LinkedListType<SessionType>* inListPointer)
+void Base::SessionListDelete(LinkedListType<SessionType>* inListPointer)
 {
 	if (s_LP_length == 0)
 		return;

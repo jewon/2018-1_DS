@@ -7,7 +7,6 @@ void Application::Run()
 
 	// 부가기능 수행을 위한 클래스 로딩
 
-
 	while (1)
 	{
 		// 명령 입력받음

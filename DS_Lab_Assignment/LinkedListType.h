@@ -27,6 +27,8 @@ struct NodeType
 template <typename T>
 class LinkedListType
 {
+	// 정적 내부 클래스
+	static class Base B;
 	friend class DoublyIterator<T>;
 public:
 	/**
@@ -146,6 +148,8 @@ public:
 	*	@return	출력된 노드의 갯수 반환 (없으면 0)
 	*/
 	LinkedListType<T> FindByName(string word);
+
+	LinkedListType<T> * GetThis();
 
 private:
 	NodeType<T>* m_pList;	///< 첫 노드 가리키는 포인터
@@ -288,7 +292,7 @@ int LinkedListType<T>::Delete(T data)
 		return 1;
 	}
 	else return 0;
-
+	
 }
 
 
@@ -434,5 +438,13 @@ LinkedListType<T> LinkedListType<T>::FindByName(string word)
 
 	return FoundList;
 }
+
+template<typename T>
+inline LinkedListType<T>* LinkedListType<T>::GetThis()
+{
+	return this;
+}
+
+
 
 #endif	// _LINKED_LIST_H

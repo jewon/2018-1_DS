@@ -18,6 +18,7 @@ using namespace std;
 */
 class Application
 {
+
 public:
 	/**
 	*	기본 생성자
@@ -26,6 +27,7 @@ public:
 	{
 		m_Command = 0;
 		f_Command = 0;
+		
 	}
 
 	/**
@@ -55,7 +57,6 @@ public:
 	*	@return	.
 	*/
 	void RunMoreFeatures();
-
 private:
 	ifstream m_InFile;		///< input file descriptor.
 	ofstream m_OutFile;		///< output file descriptor.
