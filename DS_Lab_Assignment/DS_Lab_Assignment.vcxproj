@@ -112,6 +112,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="Application.h" />
+    <ClInclude Include="Base.h" />
     <ClInclude Include="ConferenceType.h" />
     <ClInclude Include="DoublyIterator.h" />
     <ClInclude Include="InfoChange.h" />
@@ -122,6 +123,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Application.cpp" />
+    <ClCompile Include="Base.cpp" />
     <ClCompile Include="ConferenceType.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="MoreFeatures.cpp" />

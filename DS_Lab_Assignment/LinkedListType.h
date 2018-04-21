@@ -1,6 +1,10 @@
 #ifndef _LINKED_LIST_H
 #define _LINKED_LIST_H
 
+#include<iostream>
+#include<string>
+using namespace std;
+
 #include "DoublyIterator.h"
 
 /**
@@ -168,7 +172,7 @@ template <typename T>
 LinkedListType<T>::~LinkedListType()
 {
 	//리스트내의 모든 node 제거
-	// MakeEmpty(); // : 구조상 다른 소멸자 필요?
+	//  MakeEmpty(); // : 구조상 다른 소멸자 필요?
 }
 
 // 리스트 포함하는 정보 추상이름 알려줌
