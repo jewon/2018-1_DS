@@ -36,7 +36,7 @@ public:
 	*	@pre	.
 	*	@post	논문 검색 결과가 콘솔에 출력된다.
 	*/
-	void PaperSearch();
+	//void PaperSearch();
 
 	/**
 	*	@brief	학술대회 목록을 간략히 출력한다.

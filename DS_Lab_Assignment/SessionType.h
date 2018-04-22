@@ -18,6 +18,7 @@ public:
 	SessionType()
 	{
 		m_sName = "noName";
+		PaperList = NULL;
 	}
 
 	/**
@@ -25,7 +26,19 @@ public:
 	*/
 	~SessionType() 
 	{
-		
+		PaperList = NULL;
+	}
+
+	LinkedListType<PaperType> * MakePaperList()
+	{
+		PaperList = new LinkedListType<PaperType>;
+		return PaperList;
+	}
+
+	void DeleteSessionList()
+	{
+		delete PaperList;
+		PaperList = NULL;
 	}
 
 	/**
@@ -67,7 +80,7 @@ public:
 	*	@post	.
 	*	@return	논문 리스트
 	*/
-	LinkedListType <PaperType> GetPaperList()
+	LinkedListType <PaperType> * GetPaperList()
 	{
 		return PaperList;
 	}
@@ -89,8 +102,10 @@ public:
 	*	@post	논문리스트 입력됨
 	*	@param	inPaperList	입력할 논문리스트
 	*/
-	void SetPaperList(LinkedListType <PaperType> inPaperList)
+	void SetPaperList(LinkedListType <PaperType> * inPaperList)
 	{
+		if(PaperList != NULL)
+			delete PaperList;
 		PaperList = inPaperList;
 	}
 
@@ -153,6 +168,8 @@ public:
 	*/
 	bool operator==(SessionType item);
 
+	//SessionType & SessionType::operator=(const SessionType & c);
+
 	/**
 	*	@brief	이름 출력
 	*	@pre	이름 존재
@@ -171,7 +188,8 @@ public:
 	void DisplayRecordOnScreen()
 	{
 		DisplayNameOnScreen();
-		cout << "\tPapers : " << PaperList.GetLength() << endl;
+		if (PaperList != NULL)
+			cout << "\tPapers : " << PaperList->GetLength() << endl;
 	}
 
 	/**
@@ -193,12 +211,12 @@ public:
 	*/
 	LinkedListType<PaperType> SearchPaper(string word)
 	{
-		return PaperList.FindByName(word);
+		return PaperList->FindByName(word);
 	}
 
 protected:
 	string m_sName;		///< 세션이름
-	LinkedListType <PaperType> PaperList;	///< 세션에 발표된 논문 리스트
+	LinkedListType <PaperType> * PaperList;	///< 세션에 발표된 논문 리스트
 };
 
 #endif // _SESSION_TYPE_H

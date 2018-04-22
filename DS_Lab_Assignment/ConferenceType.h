@@ -22,13 +22,32 @@ public:
 	*	디폴트 생성자
 	*/
 	ConferenceType()
-	{}
+	{
+		SessionList = NULL;
+	} 
 
 	/**
 	*	소멸자
 	*/
-	~ConferenceType() 
-	{}
+	~ConferenceType()                       
+	{
+		SessionList = NULL;
+	}
+
+	/**
+	*	소멸자
+	*/
+	LinkedListType<SessionType> * MakeSessionList()
+	{
+		SessionList = new LinkedListType<SessionType>;
+		return SessionList;
+	}
+
+	void DeleteSessionList()
+	{
+		delete SessionList;
+		SessionList = NULL;
+	}
 
 	/**
 	*	@brief	스스로의 추상화된 타입이름을 알려줌
@@ -113,7 +132,7 @@ public:
 	*	@post	.
 	*	@return	세션 리스트(LinkedList)
 	*/
-	LinkedListType <SessionType> GetSessionList()
+	LinkedListType <SessionType> * GetSessionList()
 	{
 		return SessionList;
 	}
@@ -212,8 +231,10 @@ public:
 	*	@post	세션 리스트 입력됨
 	*	@param	inSessionList	입력할 세션 리스트(LinkedList)
 	*/
-	void SetSessionList(LinkedListType <SessionType> inSessionList)
+	void SetSessionList(LinkedListType <SessionType> * inSessionList)
 	{
+		if(SessionList!=NULL)
+			delete SessionList;
 		SessionList = inSessionList;
 	}
 
@@ -231,7 +252,7 @@ public:
 	*	@param	inISBN	입력할 횟수
 	*	@param	inSessionList	입력할 세션리스트
 	*/
-	void SetRecord(string inName, string inDate, int inTimes, string inOrgan, string inSimple, string inPlace, string inDateTime, string inISBN, LinkedListType <SessionType> inSessionList)
+	void SetRecord(string inName, string inDate, int inTimes, string inOrgan, string inSimple, string inPlace, string inDateTime, string inISBN, LinkedListType <SessionType> * inSessionList)
 	{
 		SetName(inName);
 		SetDate(inDate);
@@ -305,7 +326,8 @@ public:
 		DisplayOrganOnScreen();
 		DisplayDateOnScreen();
 		DisplayTimesOnScreen();
-		cout << "\tSessions : " << SessionList.GetLength() << endl;
+		if (SessionList != NULL)
+			cout << "\tSessions : " << SessionList->GetLength() << endl;
 	};
 
 	/**
@@ -444,33 +466,35 @@ public:
 	*/
 	bool operator==(ConferenceType item);
 
-	/**
-	*	@brief	논문 리스트에서 키워드가 포함된 논문 찾아 리스트로 반환
-	*	@pre	논문 리스트 초기화
-	*	@post	.
-	*	@parm word	찾을 단어
-	@	@return	키워드가 포함된 논문들의 리스트
-	*/
-	LinkedListType<PaperType> SearchPaper(string word)
-	{
-		LinkedListType<PaperType> FoundPaperList;
-		if (SessionList.GetLength() == 0)
-			return FoundPaperList;
+	//ConferenceType& operator = (const ConferenceType& c);
 
-		DoublyIterator<SessionType> iter(SessionList);
-		SessionType tempSession;
-		
-		tempSession = iter.Next();
-		FoundPaperList = tempSession.SearchPaper(word);
+	///**
+	//*	@brief	논문 리스트에서 키워드가 포함된 논문 찾아 리스트로 반환
+	//*	@pre	논문 리스트 초기화
+	//*	@post	.
+	//*	@parm word	찾을 단어
+	//@	@return	키워드가 포함된 논문들의 리스트
+	//*/
+	//LinkedListType<PaperType> SearchPaper(string word)
+	//{
+	//	LinkedListType<PaperType> FoundPaperList;
+	//	if (SessionList->GetLength() == 0)
+	//		return FoundPaperList;
 
-		for (int i = 1; i < SessionList.GetLength(); i++)
-		{
-			tempSession = iter.Next();
-			FoundPaperList.Connect(&tempSession.SearchPaper(word));
-		}
+	//	DoublyIterator<SessionType> iter(SessionList);
+	//	SessionType tempSession;
+	//	
+	//	tempSession = iter.Next();
+	//	FoundPaperList = tempSession.SearchPaper(word);
 
-		return FoundPaperList;
-	}
+	//	for (int i = 1; i < SessionList.GetLength(); i++)
+	//	{
+	//		tempSession = iter.Next();
+	//		FoundPaperList.Connect(&tempSession.SearchPaper(word));
+	//	}
+
+	//	return FoundPaperList;
+	//}
 
 protected:
 	string m_hName;		///< 학술대회명
@@ -481,7 +505,7 @@ protected:
 	string m_hPlace;	///< 학술대회 개최장소
 	string m_hDateTime;		///< 학술대회 개최일시
 	string m_hISBN;		///< ISBN
-	LinkedListType <SessionType> SessionList;	///< 세션 리스트
+	LinkedListType <SessionType> * SessionList;	///< 세션 리스트
 };
 
 #endif	// _CONFERENCE_TYPE_H

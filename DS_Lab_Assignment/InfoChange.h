@@ -183,12 +183,12 @@ int InfoChange<T>::Change()
 
 	if(i_List->Get(item)) 
 	{ // 같은 이름의 item을 찾아
-		i_List->Delete(item);
 		item.DisplayRecordOnScreen(); // 화면에 출력
 		item.Modify(); // item 수정8
-		if (!i_List->Add(item))
+		if (!i_List->Replace(item))
 		{	// 대체 실패시
 			cout << "\t-----Error Massage-----\n\t수정이 잘못되었습니다. 이전 상태로 저장됩니다.\n\t-----Error Massage-----\n";
+
 			return 0;
 		}
 		else
@@ -201,7 +201,4 @@ int InfoChange<T>::Change()
 		cout << "\t-----Error Massage-----\n\t입력하신 이름을 가진 레코드가 없습니다.\n\t-----Error Massage-----\n";
 	}
 }
-
-
-
 #endif _INFO_CHANGE_H

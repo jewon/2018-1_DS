@@ -62,8 +62,12 @@ void ConferenceType::SetISBNFromKB()
 void ConferenceType::SetSessionListFromKB()
 {
 	cout << "\t세션 리스트를 수정합니다\n";
+	if (SessionList==NULL)
+		MakeSessionList();
+	LinkedListType<SessionType> temp = *SessionList;
 	InfoChange<SessionType> SessionChange;
-	SessionChange.Run(&SessionList);
+	SessionChange.Run(&temp);
+	SetSessionList(&temp);
 }
 
 // 레코드 전체 입력받음
@@ -193,3 +197,17 @@ bool ConferenceType::operator==(ConferenceType item)
 {
 	return (this->GetName() == item.GetName());
 }	//return 1 if this.id == data.id, 0 if not.
+
+/*
+ConferenceType & ConferenceType::operator=(const ConferenceType & c)
+{
+	m_hName = c.m_hName;		///< 학술대회명
+	m_hDate = c.m_hDate;		///< 시작년월일(YYYY.MM.DD)
+	m_hTimes = c.m_hTimes;		///< 개최횟수
+	m_hOrgan = c.m_hOrgan;	///< 개최기관명
+	m_hSimple = c.m_hSimple;	///< 학술대회 약자
+	m_hPlace = c.m_hPlace;	///< 학술대회 개최장소
+	m_hDateTime = c.m_hDateTime;		///< 학술대회 개최일시
+	m_hISBN = c.m_hISBN;		///< ISBNs
+	return *this;
+}*/

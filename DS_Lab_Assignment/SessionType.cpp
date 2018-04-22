@@ -10,9 +10,13 @@ void SessionType::SetNameFromKB()
 // 세션 내 논문 리스트에 논문 입력받아 추가
 void SessionType::SetPaperListFromKB()
 {
+	cout << "\t논문 리스트를 수정합니다\n";
+	if (PaperList==NULL)
+		MakePaperList();
+	LinkedListType<PaperType> temp = *PaperList;
 	InfoChange<PaperType> PaperChange;
-	PaperChange.Run(&PaperList);
-	PaperChange.~InfoChange();
+	PaperChange.Run(&temp);
+	SetPaperList(&temp);
 }
 
 // 세션 정보 전체  입력받음
@@ -81,3 +85,10 @@ bool SessionType::operator==(SessionType item)
 {
 	return (this->GetName() == item.GetName());
 }	//return 1 if this.id == data.id, 0 if not.
+/*
+SessionType & SessionType::operator=(const SessionType & c)
+{
+	m_sName = c.m_sName;
+	return *this;
+}
+*/

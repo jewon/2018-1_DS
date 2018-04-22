@@ -9,9 +9,6 @@
 */
 
 #include "Application.h"
-#include "Base.h"
-
-Base B;
 
 /**
 *	메인 함수

@@ -28,7 +28,6 @@ template <typename T>
 class LinkedListType
 {
 	// 정적 내부 클래스
-	static class Base B;
 	friend class DoublyIterator<T>;
 public:
 	/**
@@ -63,7 +62,7 @@ public:
 	*	@post	.
 	*	@return	리스트의 현재 레코드 수
 	*/
-	int GetLength() const;
+	int GetLength();
 
 	/**
 	*	@brief	리스트가 비어 있는지 검사한다
@@ -208,7 +207,7 @@ void LinkedListType<T>::MakeEmpty()
 
 // 리스트의 길이 반환
 template <typename T>
-int LinkedListType<T>::GetLength() const
+int LinkedListType<T>::GetLength()
 {
 	return m_nLength;
 }
