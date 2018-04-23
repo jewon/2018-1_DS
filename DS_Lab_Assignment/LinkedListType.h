@@ -27,8 +27,8 @@ struct NodeType
 template <typename T>
 class LinkedListType
 {
-	// 정적 내부 클래스
 	friend class DoublyIterator<T>;
+	friend class Admin;
 public:
 	/**
 	*	디폴트 생성자
@@ -155,6 +155,7 @@ private:
 	NodeType<T>* m_pLast;
 	int m_nLength;	///< 리스트의 길이
 	string TName;	///< 현재 리스트 내용의 추상 이름
+	T * GetData(T);
 };
 
 
@@ -163,8 +164,8 @@ template <typename T>
 LinkedListType<T>::LinkedListType()
 {
 	m_nLength = 0;
-	m_pList = nullptr;
-	m_pLast = nullptr;
+	m_pList = NULL;
+	m_pLast = NULL;
 
 	T temp;
 	TName = temp.WhatType();
@@ -175,7 +176,7 @@ template <typename T>
 LinkedListType<T>::~LinkedListType()
 {
 	//리스트내의 모든 node 제거
-	//  MakeEmpty(); // : 구조상 다른 소멸자 필요?
+	MakeEmpty(); // : 구조상 다른 소멸자 필요?
 }
 
 // 리스트 포함하는 정보 추상이름 알려줌
@@ -223,11 +224,11 @@ int LinkedListType<T>::Add(T item)
 		DoublyIterator<T> iter(*this);
 
 		node->data = item;
-		node->prev = nullptr;
-		node->next = nullptr;
+		node->prev = NULL;
+		node->next = NULL;
 
 		// 비어있는 경우
-		if (m_pList== nullptr) {
+		if (m_pList== NULL) {
 			m_pList = node;
 			m_pLast = m_pList;
 		}
@@ -278,11 +279,11 @@ int LinkedListType<T>::Delete(T data)
 		for (int i = 1; i < positionIndex; i++) {
 			pNode = pNode->next;
 		}
-		if (pNode->next != nullptr) {	// 끝이 아니면
+		if (pNode->next != NULL) {	// 끝이 아니면
 			pNode->next->prev = pNode->prev;
 		}
 		else m_pLast = pNode->prev;
-		if (pNode->prev != nullptr) {	// 처음이 아니면
+		if (pNode->prev != NULL) {	// 처음이 아니면
 			pNode->prev->next = pNode->next;
 		}
 		else m_pList= pNode->next;
@@ -345,7 +346,7 @@ int LinkedListType<T>::Get(T &item)
 template <typename T>
 bool LinkedListType<T>::IsFull() {
 	try {
-		NodeType<T>* temp = nullptr;	// if there is not memory left, temp would not be initialized as NULL and
+		NodeType<T>* temp = NULL;	// if there is not memory left, temp would not be initialized as NULL and
 		delete temp;					// deleting temp(pointer) could not be executed.
 		return false;
 	}
@@ -358,7 +359,7 @@ bool LinkedListType<T>::IsFull() {
 // 리스트가 비었는지 검사
 template <typename T>
 bool LinkedListType<T>::IsEmpty() {
-	if (m_pList== nullptr) {
+	if (m_pList== NULL) {
 		return true;
 	}
 	else return false;
@@ -391,9 +392,23 @@ void LinkedListType<T>::DisplayAll()
 template<typename T>
 void LinkedListType<T>::DisplayAllBrief()
 {
-	T data;
-	for (int i = 0; i < m_nLength; i++)
-		data.DisplayBriefOnScreen();
+	DoublyIterator<T> iter(*this);
+
+	if (!IsEmpty())
+	{
+		T item;
+		cout << "\n\t*****" << TName << " List*****\n";
+		for (int i = 0; i < this->GetLength(); i++)
+		{
+			item = iter.Next();
+			cout << "\n\t-----" << item.GetName() << "-----\n";
+			item.DisplayBriefOnScreen();
+		}
+		cout << "\n\t*****List End******\n\n";
+	}
+	else
+		cout << "\t-----Messege-----\n\t리스트가 비어 있습니다.\n\t-----Messege-----" << endl;
+	return;
 }
 
 // 현재 리스트에 파라미터 리스트를 연결함 (주의: 소팅은 하지 않는다, 출력용으로만 사용)
@@ -410,8 +425,8 @@ LinkedListType<T> LinkedListType<T>::Connect(LinkedListType<T> * ListB)
 		this->m_nLength += ListB->GetLength();
 
 		ListB->m_nLength = 0;
-		ListB->m_pList = nullptr;
-		ListB->m_pLast = nullptr;
+		ListB->m_pList = NULL;
+		ListB->m_pLast = NULL;
 	}
 
 	return *this;
@@ -444,6 +459,25 @@ inline LinkedListType<T>* LinkedListType<T>::GetThis()
 	return this;
 }
 
-
+template<typename T>
+T * LinkedListType<T>::GetData(T item)
+{
+	NodeType<T>* pNode;
+	DoublyIterator<T> iter(*this);
+	int count = 0;	// 몇 번째에 위치하고 있는지 리턴 (없으면 0)
+					// iterator를 사용하면서 curPointer를 재사용할 수 없으므로 return value의 의미를 변경
+	while (iter.NotNull()) {
+		count++;
+		if (item == iter.GetCurrentNode())
+			return &iter.m_pCurPointer->data;
+		else if (item < iter.GetCurrentNode()) {
+			break;
+		}
+		else {
+			iter.Next();
+		}
+	}
+	return NULL;
+}
 
 #endif	// _LINKED_LIST_H

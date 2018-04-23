@@ -2,19 +2,16 @@
 // 프로그램 실행
 void Application::Run()
 {
-	// 학술대회 리스트를 수정할 수 있도록 가져와 둠
-	InfoChange<ConferenceType> ChangeConference;
-
-	// 부가기능 수행을 위한 클래스 로딩
 
 	while (1)
 	{
+
 		// 명령 입력받음
 		m_Command = GetCommand();
 		switch (m_Command)
 		{
 		case 1: // 학술대회 내용 수정
-			ChangeConference.Run(&m_List);
+			RunAdmin();
 			break;
 		case 2: // 검색 기능
 			RunMoreFeatures();
@@ -55,3 +52,10 @@ void Application::RunMoreFeatures()
 
 	return;
 }
+
+void Application::RunAdmin()
+{
+	Admin A;
+	A.Run(&m_List);
+}
+

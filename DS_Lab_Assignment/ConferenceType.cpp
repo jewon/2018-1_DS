@@ -140,9 +140,6 @@ int ConferenceType::Modify()
 		case 6:
 			this->SetDateTimeFromKB();
 			break;
-		case 7:
-			this->SetSessionListFromKB();
-			break;
 		case 0:
 			return 1;
 			break;
@@ -164,7 +161,7 @@ void ConferenceType::DisplayMenu()
 	cout << "\t4 : 학술대회 약자\n";
 	cout << "\t5 : 개최장소\n";
 	cout << "\t6 : 개최일시\n";
-	cout << "\t7 : 세션 리스트 수정\n";
+	cout << "\t세션 리스트의 수정은 세션 수정 메뉴를 이용해주세요.\n";
 	cout << "\t0 : 나가기\n\n";
 }
 
@@ -197,6 +194,21 @@ bool ConferenceType::operator==(ConferenceType item)
 {
 	return (this->GetName() == item.GetName());
 }	//return 1 if this.id == data.id, 0 if not.
+
+ConferenceType & ConferenceType::operator=(const ConferenceType & c)
+{
+	m_hName = c.m_hName;		///< 학술대회명
+	m_hDate = c.m_hDate;		///< 시작년월일(YYYY.MM.DD)
+	m_hTimes = c.m_hTimes;		///< 개최횟수
+	m_hOrgan = c.m_hOrgan;	///< 개최기관명
+	m_hSimple = c.m_hSimple;	///< 학술대회 약자
+	m_hPlace = c.m_hPlace;	///< 학술대회 개최장소
+	m_hDateTime = c.m_hDateTime;		///< 학술대회 개최일시
+	m_hISBN = c.m_hISBN;		///< ISBN
+	SessionList = NULL;	///< 세션 리스트
+
+	return *this;
+}
 
 /*
 ConferenceType & ConferenceType::operator=(const ConferenceType & c)

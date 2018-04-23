@@ -38,13 +38,21 @@
   * `LinkedListType<> * Add()` : 리스트 새로 할당하고 할당한 리스트의 포인터를 반환해줌
   * `Delete(LinkedListType<> * )`: 파라미터 포인터가 가리키는 리스트를 할당 해제
 
+### 20180424
+* `Admin`클래수 추가, `InfoChange`클래스 축소
+  * `Admin`은 인터페이스 제공, 변경할 리스트 포인터(직접엑세스)를 `InfoChange`에 패스
+  * `InfoChange`는 받은 리스트에 대해 변경 작업 수행
+  * `Admin`이 리스트 포인터를 받을 수 있도록 `LinkedListType`에 백도어 만듦(`GetData`)
+  * `LinkedListType::GetData`는 Private member, `Admin`은 `LinkedListType`의 friend
+
 ## MidTermProject
 ### Refectoring
 * `Base`클래스에 모든 리스트들의 시작포인터, 길이를 저장할 수 있게 한다.
+  * 그런데 전역변수로 선언해야 하는 문제가 있음(그것마저 다른 클래스에서 참조하는 게 쉽지 않음)
   * 리스트 포인터 노드타입: 리스트 포인터와 다음 리스트포인터노드의 포인터(...)가 저장되어 있다.
   * 리스트 포인터 노드들의 첫 노드와 노드들의 갯수를 저장해둔다(SessionList, PaperList)
 * 상위 객체가 하위 객체 리스트를 포함하는 게 아닌 하위 객체 리스트의 포인터를 포함하도록 변경
-  * 리스트를 동적 할당 - Delete는 해당 객체가 소멸될 때 `MakeEmpty`
+  * 리스트를 동적 할당 : 상위 클래스의 생성, 소멸자에서 할당 해제
 
 ### TO FIX
 * `LinkedListType::MakeEmpty()` 하는 중 이미 delete한 노드 참조 에러 (null역참조)

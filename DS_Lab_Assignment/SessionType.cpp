@@ -34,9 +34,6 @@ int SessionType::Modify()
 		int c_Command = GetCommand();
 		switch (c_Command)
 		{
-		case 1:
-			this->SetPaperListFromKB();
-			break;
 		case 0:
 			return 1;
 			break;
@@ -52,7 +49,7 @@ int SessionType::Modify()
 void SessionType::DisplayMenu()
 {
 	cout << "\n\t" << m_sName << "의 수정할 항목 선택\n";
-	cout << "\t1 : 논문 리스트 수정\n";
+	cout << "\t세션은 수정할 수 있는 항목이 없습니다.\n\t이름을 수정하시려면 삭제 후 생성해주세요.\n";
 	cout << "\t0 : 나가기\n\n";
 }
 

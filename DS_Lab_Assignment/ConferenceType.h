@@ -26,6 +26,14 @@ public:
 		SessionList = NULL;
 	} 
 
+	ConferenceType(bool MakeList)
+	{
+		if (MakeList)
+			SessionList = MakeSessionList();
+		else
+			SessionList = NULL;
+	}
+
 	/**
 	*	소멸자
 	*/
@@ -39,7 +47,8 @@ public:
 	*/
 	LinkedListType<SessionType> * MakeSessionList()
 	{
-		SessionList = new LinkedListType<SessionType>;
+		if(SessionList == NULL)
+			SessionList = new LinkedListType<SessionType>;
 		return SessionList;
 	}
 
@@ -337,7 +346,7 @@ public:
 	*/
 	void DisplayBriefOnScreen()
 	{
-		cout << m_hSimple << "(" << m_hDate.substr(0, 4) << ")" << endl;
+		cout << "\t" << m_hSimple << "(" << m_hDate.substr(0, 4) << ")" << endl;
 	};
 
 	/**
@@ -465,6 +474,11 @@ public:
 	*	@brief	이름을 기준으로 두 아이템 비교하는 오퍼레이터
 	*/
 	bool operator==(ConferenceType item);
+
+	/**
+	*	@brief	이름을 기준으로 두 아이템 비교하는 오퍼레이터
+	*/
+	ConferenceType& operator=(const ConferenceType& c);
 
 	//ConferenceType& operator = (const ConferenceType& c);
 

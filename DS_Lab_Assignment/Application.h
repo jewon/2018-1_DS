@@ -8,8 +8,8 @@ using namespace std;
 
 #include "LinkedListType.h"
 #include "ConferenceType.h"
-#include "InfoChange.h"
 #include "MoreFeatures.h"
+#include "Admin.h"
 
 #define FILENAMESIZE 1024
 
@@ -57,6 +57,10 @@ public:
 	*	@return	.
 	*/
 	void RunMoreFeatures();
+
+
+	void RunAdmin();
+
 private:
 	ifstream m_InFile;		///< input file descriptor.
 	ofstream m_OutFile;		///< output file descriptor.

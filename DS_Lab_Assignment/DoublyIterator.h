@@ -77,7 +77,7 @@ private:
 // 현재 원소가 null인지 검사
 template <typename T>
 bool DoublyIterator<T>::NotNull() {
-	if (m_pCurPointer == nullptr) {
+	if (m_pCurPointer == NULL) {
 		return false;
 	}
 	else return true;
@@ -86,7 +86,7 @@ bool DoublyIterator<T>::NotNull() {
 // 다음 원소가 null인지 검사
 template <typename T>
 bool DoublyIterator<T>::NextNotNull() {
-	if (m_pCurPointer->next == nullptr) {
+	if (m_pCurPointer->next == NULL) {
 	
 		return false;
 	}
@@ -116,7 +116,7 @@ T DoublyIterator<T>::Next()
 // 현재 node를 return
 template <typename T>
 T DoublyIterator<T>::GetCurrentNode() {
-	if (m_pCurPointer!=nullptr) {
+	if (m_pCurPointer!=NULL) {
 		return m_pCurPointer->data;
 	}
 }

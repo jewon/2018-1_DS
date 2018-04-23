@@ -23,7 +23,7 @@ public :
 	}
 
 	/**
-	*	각 타입 리스트의 정보 변경을 위한 생성자
+	*	각 타입 리스트의 정보 변경을 위한 생성 자
 	*/
 	/*InfoChange(LinkedListType<T> &item)
 	{
@@ -128,7 +128,7 @@ int InfoChange<T>::GetCommand()
 	cout << "\t   1 : " << tName << " 리스트 전체 보기" << endl;
 	cout << "\t   2 : " << tName << " 추가" << endl;
 	cout << "\t   3 : " << tName << " 삭제" << endl;
-	cout << "\t   4 : " << tName << " 수정(하위리스트 포함)" << endl;
+	cout << "\t   4 : " << tName << " 수정" << endl;
 	cout << "\t   0 : " << "저장 하고 나가기" << endl;
 
 	cout << "\t   입력 ->";
