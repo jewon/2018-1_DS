@@ -48,11 +48,12 @@ int Admin::GetCommand()
 {
 	int command;
 	cout << endl << endl;
-	cout << "\t-------<메인 메뉴>-------" << endl;
+	cout << "\t-------<관리자 메뉴>-------" << endl;
 	cout << "\t---ID -- Command ----- " << endl;
 	cout << "\t   1 : 학술대회 내용 수정" << endl;
 	cout << "\t   2 : 세션 내용 수정" << endl;
-	cout << "\t   0 : 논문 내용 수정" << endl;
+	cout << "\t   3 : 논문 내용 수정" << endl;
+	cout << "\t   0 : 메인 메뉴로" << endl;
 
 	cout << endl << "\t Choose a Command--> ";
 	cin >> command;
@@ -76,7 +77,10 @@ LinkedListType<SessionType> * Admin::GetChangeSessionList()
 
 	ConferenceType * pItem = Root_List->GetData(item);
 	if (pItem != NULL)
-		return pItem->GetSessionList();
+		if (pItem->GetSessionList() != NULL)
+			return pItem->GetSessionList();
+		else
+			return pItem->MakeSessionList();
 	else
 		cout << "\t-----Error Massage-----\n\t입력하신 이름을 가진 컨퍼런스가 없습니다.\n\t-----Error Massage-----\n";
 	return NULL;
@@ -85,7 +89,7 @@ LinkedListType<SessionType> * Admin::GetChangeSessionList()
 LinkedListType<PaperType>* Admin::GetChangePaperList()
 {
 	LinkedListType<SessionType> * ChangeSessionList = GetChangeSessionList();
-	if (ChangeSessionList == NULL)
+	if (ChangeSessionList->IsEmpty())
 	{
 		cout << "\t-----Error Massage-----\n\t세션 리스트가 비어 있습니다. 먼저 세션을 추가해주세요.\n\t-----Error Massage-----\n";
 		return NULL;
@@ -93,13 +97,15 @@ LinkedListType<PaperType>* Admin::GetChangePaperList()
 	
 	ChangeSessionList->DisplayAllBrief();
 	SessionType item;
+	cout << "\t수정할 논문이 있는 세션 이름을 입력하세요" << endl;
 	item.SetNameFromKB();
 
-	if (ChangeSessionList->GetData(item)!=NULL)
-		if (item.GetPaperList() == NULL)
-			return item.MakePaperList();
+	SessionType * pItem = ChangeSessionList->GetData(item);
+	if (pItem!=NULL)
+		if (pItem->GetPaperList() != NULL)
+			return pItem->GetPaperList();
 		else
-			return item.GetPaperList();
+			return pItem->MakePaperList();
 	else
 		cout << "\t-----Error Massage-----\n\t입력하신 이름을 가진 세션이 없습니다.\n\t-----Error Massage-----\n";
 	return NULL;

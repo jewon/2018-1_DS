@@ -17,7 +17,6 @@ public:
 	*/
 	SessionType()
 	{
-		m_sName = "noName";
 		PaperList = NULL;
 	}
 
@@ -37,7 +36,8 @@ public:
 
 	void DeleteSessionList()
 	{
-		delete PaperList;
+		if(PaperList != NULL)
+			delete PaperList;
 		PaperList = NULL;
 	}
 
@@ -168,7 +168,7 @@ public:
 	*/
 	bool operator==(SessionType item);
 
-	//SessionType & SessionType::operator=(const SessionType & c);
+	SessionType & SessionType::operator=(const SessionType & c);
 
 	/**
 	*	@brief	이름 출력

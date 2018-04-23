@@ -82,10 +82,11 @@ bool SessionType::operator==(SessionType item)
 {
 	return (this->GetName() == item.GetName());
 }	//return 1 if this.id == data.id, 0 if not.
-/*
+
 SessionType & SessionType::operator=(const SessionType & c)
 {
 	m_sName = c.m_sName;
+	PaperList = NULL;
+
 	return *this;
 }
-*/

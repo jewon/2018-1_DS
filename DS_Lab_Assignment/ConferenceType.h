@@ -480,8 +480,6 @@ public:
 	*/
 	ConferenceType& operator=(const ConferenceType& c);
 
-	//ConferenceType& operator = (const ConferenceType& c);
-
 	///**
 	//*	@brief	논문 리스트에서 키워드가 포함된 논문 찾아 리스트로 반환
 	//*	@pre	논문 리스트 초기화
