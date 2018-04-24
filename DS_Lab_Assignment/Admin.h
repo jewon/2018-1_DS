@@ -62,6 +62,13 @@ public:
 	*/
 	LinkedListType<PaperType> * GetChangePaperList();
 
+	/**
+	*	@brief	현재 리스트에 포함된 모든 데이터를 구조화해 출력한다.
+	*	@pre	.
+	*	@post	출력됨
+	*/
+	void PrintALlStructure();
+
 protected:
 	int m_Command;		///< 사용자 명령
 	LinkedListType<ConferenceType> * Root_List;		///< 컨퍼런스 리스트 포인터

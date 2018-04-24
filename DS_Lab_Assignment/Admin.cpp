@@ -33,6 +33,9 @@ void Admin::Run(LinkedListType<ConferenceType> * inList)
 			if(PaperListToChange != NULL)
 				ChangePaper.Run(PaperListToChange);
 			break;
+		case 4: // 구조 출력
+			PrintALlStructure();
+			break;
 		case 0: // 프로그램 종료
 			return;
 			break;
@@ -55,6 +58,7 @@ int Admin::GetCommand()
 	cout << "\t   1 : 학술대회 내용 수정" << endl;
 	cout << "\t   2 : 세션 내용 수정" << endl;
 	cout << "\t   3 : 논문 내용 수정" << endl;
+	cout << "\t   4 : 데이터 전체 구조 보기" << endl;
 	cout << "\t   0 : 메인 메뉴로" << endl;
 
 	cout << endl << "\t Choose a Command--> ";
@@ -111,4 +115,10 @@ LinkedListType<PaperType>* Admin::GetChangePaperList()
 	else
 		cout << "\t-----Error Massage-----\n\t입력하신 이름을 가진 세션이 없습니다.\n\t-----Error Massage-----\n";
 	return NULL;
+}
+
+void Admin::PrintALlStructure()
+{
+	cout << "\nConferencList" << endl;
+	Root_List->DoDisplayAllStructure();
 }

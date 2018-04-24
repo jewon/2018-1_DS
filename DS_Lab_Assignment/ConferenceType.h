@@ -452,6 +452,20 @@ public:
 	void DisplayMenu();
 
 	/**
+	*	@brief	세션 및 내부 구조 출0력
+	*	@pre	.
+	*	@post	내부 구조 출력
+	*/
+	void DoDisplayStructure()
+	{
+		cout << "├  " << m_hName << endl;
+		if (SessionList != NULL)
+			SessionList->DoDisplayAllStructure();
+		else
+			cout << "  ├  (Empty List)" << endl;
+	}
+
+	/**
 	*	@brief	Infochange 클래스 정보 수정시 명령 입력 받음
 	*	@pre	.
 	*	@post	사용자로부터 명령 입력

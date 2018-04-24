@@ -134,21 +134,29 @@ public:
 	int Get(T &item);
 
 	/**
-	*	@brief	리스트의 이름을 기준으로 검색하여 특정 단어가 포함된 노드 출력
+	*	@brief	리스트 내의 모든 노드들의 이름을 트리모양으로 출력
 	*	@pre	리스트 초기화
-	*	@post	특정 단어 포함된 노드 출력
-	*	@param	word	찾을 단어
-	*	@return	출력된 노드의 갯수 반환 (없으면 0)
+	*	@post	리스트 내의 모든 노드들의 이름이 한 줄씩 트리모양으로 출력됨
+	*	@param	level	리스트의 단계(0단계 최상위~n단계)
 	*/
-	LinkedListType<T> FindByName(string word);
+	void DisplayAllStructure(int level);
+
+	/**
+	*	@brief	리스트 내의 모든 노드들의 이름을 트리모양으로 출력(하위리스트 포함)
+	*	@pre	(최상위) 리스트 초기화
+	*	@post	DisplayAllStructure를 활용해 모든 리스트 데이터 트리모양으로 출력
+	*/
+	void DoDisplayAllStructure();
 
 private:
 	NodeType<T>* m_pList;	///< 첫 노드 가리키는 포인터
 	NodeType<T>* m_pLast;
 	int m_nLength;	///< 리스트의 길이
 	string TName;	///< 현재 리스트 내용의 추상 이름
+	
+					
 	/**
-	*	@brief	T와 일치하는 데이터 찾아 리스트에 있는 데이터 주소 반환해줌(Admin만 사용)
+	*	@brief	일치하는 데이터 찾아 리스트에 있는 데이터 주소 반환해줌(Admin만 사용하는 Private함수)
 	*	@pre	리스트 초기화
 	*	@post	.
 	*	@param	item	찾을 item과 이름이 일치하는 item
@@ -240,7 +248,7 @@ int LinkedListType<T>::Add(T item)
 
 				if (node->data < pNode->data) { // 넣으려고 하는게 더 작음
 					node->next = pNode;
-					if (m_nLength == 1) {	// 맨 앞
+					if (pNode->prev == NULL) {	// 맨 앞
 						m_pList= node;
 					}
 					else {	// 중간
@@ -409,25 +417,52 @@ void LinkedListType<T>::DisplayAllBrief()
 	return;
 }
 
-// 리스트 내의 아이템 이름이 포함된 item을 찾아 리스트로 만들어 반환
+// 트리 모양으로 모든 노드 이름 출력
 template<typename T>
-LinkedListType<T> LinkedListType<T>::FindByName(string word)
+void LinkedListType<T>::DisplayAllStructure(int level)
 {
-	LinkedListType<T> FoundList;
-	string name;
-	T temp;
-	
-	DoublyIterator<T> iter(*this);
-
-	while (iter.NextNotNull())
+	if (!IsEmpty())
 	{
-		temp = iter.Next();
-		name = temp.GetName();
-		if (name.find(word) != string::npos)
-			FoundList.Add(temp);
+		DoublyIterator<T> iter(*this);
+		T item;
+		for (int i = 0; i < this->GetLength(); i++)
+		{
+			for (int i = 0; i < level; i++)
+				cout << "  ";
+			cout << "├  ";
+			item = iter.Next();
+			cout << item.GetName() << endl;
+		}
 	}
+	else
+	{
+		for (int i = 0; i < level; i++)
+			cout << "  ";
+		cout << "├  (Empty List)" << endl;
+	}
+	return;
+}
 
-	return FoundList;
+// 트리 모양으로 모든 노드 이름 출력
+template<typename T>
+void LinkedListType<T>::DoDisplayAllStructure()
+{
+	if (!IsEmpty())
+	{
+		DoublyIterator<T> iter(*this);
+		T item;
+		T * p_item;
+		for (int i = 0; i < this->GetLength(); i++)
+		{
+			item = iter.Next();
+			p_item = GetData(item);
+			p_item->DoDisplayStructure();
+		}
+	}
+	else
+		cout << endl;
+
+	return;
 }
 
 // Private멤버 함수: 리스트 내에 item과 일치하는 item 찾아 주소값 반환
@@ -450,5 +485,6 @@ T * LinkedListType<T>::GetData(T item)
 	}
 	return NULL;
 }
+
 
 #endif	// _LINKED_LIST_H

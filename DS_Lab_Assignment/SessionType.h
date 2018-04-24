@@ -219,15 +219,17 @@ public:
 	}
 
 	/**
-	*	@brief	논문 리스트에서 키워드가 포함된 논문 찾아 리스트로 반환
-	*	@pre	논문 리스트 초기화
-	*	@post	.
-	*	@param word	찾을 단어
-	@	@return	키워드가 포함된 논문들의 리스트
+	*	@brief	세션 및 내부 구조 출력
+	*	@pre	.
+	*	@post	내부 구조 출력
 	*/
-	LinkedListType<PaperType> SearchPaper(string word)
+	void DoDisplayStructure()
 	{
-		return PaperList->FindByName(word);
+		cout << "  ├  " << m_sName << endl;
+		if (PaperList != NULL)
+			PaperList->DisplayAllStructure(2);
+		else
+			cout << "    ├  (Empty List)" << endl;
 	}
 
 protected:
