@@ -8,6 +8,9 @@ using namespace std;
 #include"LinkedListType.h"
 #include"ConferenceType.h"
 
+/**
+*	사용자 기능 클래스
+*/
 class MoreFeatures
 {
 public:
@@ -32,13 +35,6 @@ public:
 	int MoreFeaturesGetcommand();
 
 	/**
-	*	@brief	논문 검색을 수행한다.
-	*	@pre	.
-	*	@post	논문 검색 결과가 콘솔에 출력된다.
-	*/
-	//void PaperSearch();
-
-	/**
 	*	@brief	학술대회 목록을 간략히 출력한다.
 	*	@pre	.
 	*	@post	학술대회 목록이 간단히 출력됨.
@@ -46,8 +42,8 @@ public:
 	void DisplayConferenceBrief();
 	
 protected:
-	int i_Command;
-	const LinkedListType<ConferenceType> & i_List;
+	int i_Command;	///< 사용자로부터 입력받은 명령번호
+	const LinkedListType<ConferenceType> & i_List;	///< 탐색을 실행할 대상 리스트
 };
 
 #endif _MORE_FEATURES_H

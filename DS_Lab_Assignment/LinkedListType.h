@@ -8,11 +8,14 @@ using namespace std;
 #include "DoublyIterator.h"
 
 /**
-*	학술대회 정보에 포함되는 리스트들을 정의
+*	template 참조 에러 방지
 */
 template <typename T>
 class DoublyIterator;
 
+/**
+*	LinkedListType에서 가리킬 노드 구조체 정의
+*/
 template <typename T>
 struct NodeType
 {
@@ -84,7 +87,7 @@ public:
 	*	@brief	새로운 데이터를 리스트에 추가
 	*	@pre	리스트 초기화
 	*	@post	새로운 레코드가 리스트에 추가됨
-	*	@param	data	추가할 레코드 데이터
+	*	@param	item	추가할 레코드 데이터
 	*	@return	추가 성공시 1, 실패시 0을 반환
 	*/
 	int Add(T item);
@@ -93,7 +96,7 @@ public:
 	*	@brief	파라미터의 학술대회명과 일치하는 리스트의 레코드를 삭제함
 	*	@pre	리스트 초기화
 	*	@post	파라미터의 학술대회명과 일치하는 리스트의 레코드가 삭제되고, 맨 마지막에 있는 레코드가 해당하는 자리로 옮겨짐
-	*	@param	data	삭제할 레코드의 학술대회명를 갖는 레코드, 학술대회명만 입력되어 있어도 상관 없음
+	*	@param	item	삭제할 레코드의 학술대회명를 갖는 레코드, 학술대회명만 입력되어 있어도 상관 없음
 	*	@return	삭제 성공시 1, 실패시 0을 반환
 	*/
 	int Delete(T item);
@@ -102,7 +105,7 @@ public:
 	*	@brief	파라미터의 학술대회명과 일치하는 리스트의 레코드를 파라미터로 대체함
 	*	@pre	리스트 초기화
 	*	@post	파라미터의 학술대회명과 일치하는 리스트의 레코드가 파라미터의 내용대로 바뀜
-	*	@param	data	바꿀 레코드
+	*	@param	item	바꿀 레코드
 	*	@return	대체 성공시 1, 실패시 0을 반환
 	*/
 	int Replace(T item);
@@ -122,19 +125,10 @@ public:
 	void DisplayAllBrief();
 
 	/**
-	*	@brief	현재 리스트와 리스트 B를 연결해 현재 리스트에 저장
-	*	@pre	리스트 초기화, A,B 리스트의 연속적 정렬
-	*	@parm	연결할 리스트
-	*	@return	연결된 현재 리스트
-	*	@post	리스트B가 현재 리스트의 뒤에 이어져 저장됨
-	*/
-	LinkedListType<T> Connect(LinkedListType<T>* ListB);
-
-	/**
 	*	@brief	파라미터의 학술대회명과 일치하는 리스트의 레코드를 읽어들임
 	*	@pre	리스트 초기화
 	*	@post	파라미터의 학술대회명과 일치하는 리스트의 레코드가 파라미터에 저장됨
-	*	@param	data	찾을 레코드의 학술대회를 가지는 레코드, 학술대회만 입력되어 있어도 상관 없음, 함수 실행시 레코드 내용 저장
+	*	@param	item	찾을 레코드의 학술대회를 가지는 레코드, 학술대회만 입력되어 있어도 상관 없음, 함수 실행시 레코드 내용 저장
 	*	@return	일치하는 레코드가 있으면 해당 레코드 위치, 아닐경우 -1 반환
 	*/
 	int Get(T &item);
@@ -148,14 +142,19 @@ public:
 	*/
 	LinkedListType<T> FindByName(string word);
 
-	LinkedListType<T> * GetThis();
-
 private:
 	NodeType<T>* m_pList;	///< 첫 노드 가리키는 포인터
 	NodeType<T>* m_pLast;
 	int m_nLength;	///< 리스트의 길이
 	string TName;	///< 현재 리스트 내용의 추상 이름
-	T * GetData(T);
+	/**
+	*	@brief	T와 일치하는 데이터 찾아 리스트에 있는 데이터 주소 반환해줌(Admin만 사용)
+	*	@pre	리스트 초기화
+	*	@post	.
+	*	@param	item	찾을 item과 이름이 일치하는 item
+	*	@return	일치하는 item(Node->data)의 주소값
+	*/
+	T * GetData(T item);
 };
 
 
@@ -186,7 +185,7 @@ string LinkedListType<T>::GetTName()
 	return TName;
 }
 
-// Initialize list to empty state.
+// 리스트 내의 모든 노드 해제
 template <typename T>
 void LinkedListType<T>::MakeEmpty()
 // Post: List is empty; all items have been deallocated.
@@ -215,7 +214,7 @@ int LinkedListType<T>::GetLength()
 
 
 
-// Add item into this list.
+// 리스트에 새로운 item 추가
 template <typename T>
 int LinkedListType<T>::Add(T item)
 {
@@ -311,11 +310,10 @@ int LinkedListType<T>::Replace(T data) {
 }
 
 
-// Retrieve list element whose key matches item's key (if present).
+// item과 이름이 일치하는 데이터 찾아 item에 복사해줌
 template <typename T>
 int LinkedListType<T>::Get(T &item)
 {
-	NodeType<T>* pNode;
 	DoublyIterator<T> iter(*this);
 	int count = 0;	// 몇 번째에 위치하고 있는지 리턴 (없으면 0)
 					// iterator를 사용하면서 curPointer를 재사용할 수 없으므로 return value의 의미를 변경
@@ -346,8 +344,8 @@ int LinkedListType<T>::Get(T &item)
 template <typename T>
 bool LinkedListType<T>::IsFull() {
 	try {
-		NodeType<T>* temp = NULL;	// if there is not memory left, temp would not be initialized as NULL and
-		delete temp;					// deleting temp(pointer) could not be executed.
+		NodeType<T>* temp = NULL;
+		delete temp;
 		return false;
 	}
 	catch (bad_alloc& e_ba) {
@@ -411,27 +409,6 @@ void LinkedListType<T>::DisplayAllBrief()
 	return;
 }
 
-// 현재 리스트에 파라미터 리스트를 연결함 (주의: 소팅은 하지 않는다, 출력용으로만 사용)
-template<typename T>
-LinkedListType<T> LinkedListType<T>::Connect(LinkedListType<T> * ListB)
-{
-	DoublyIterator<T> iter(*this);
-	DoublyIterator<T> iterB(*ListB);
-
-	if (!this->IsEmpty() && !ListB->IsEmpty())
-	{
-		this->m_pLast->next = ListB->m_pList;
-		ListB->m_pList->prev = this->m_pLast;
-		this->m_nLength += ListB->GetLength();
-
-		ListB->m_nLength = 0;
-		ListB->m_pList = NULL;
-		ListB->m_pLast = NULL;
-	}
-
-	return *this;
-}
-
 // 리스트 내의 아이템 이름이 포함된 item을 찾아 리스트로 만들어 반환
 template<typename T>
 LinkedListType<T> LinkedListType<T>::FindByName(string word)
@@ -453,12 +430,7 @@ LinkedListType<T> LinkedListType<T>::FindByName(string word)
 	return FoundList;
 }
 
-template<typename T>
-inline LinkedListType<T>* LinkedListType<T>::GetThis()
-{
-	return this;
-}
-
+// Private멤버 함수: 리스트 내에 item과 일치하는 item 찾아 주소값 반환
 template<typename T>
 T * LinkedListType<T>::GetData(T item)
 {

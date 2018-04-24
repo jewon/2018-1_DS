@@ -84,10 +84,10 @@ public:
 	}
 
 	/**
-	*	@brief	개최년월일 입력
+	*	@brief	논문 저자 입력
 	*	@pre	.
-	*	@post	개최년월일 입력됨
-	*	@param	inDate	입력할 개최년월일
+	*	@post	논문 저자 입력됨
+	*	@param	inAuthor	입력할 저자
 	*/
 	void SetAuthor(string inAuthor)
 	{
@@ -111,7 +111,7 @@ public:
 	*	@post	논문 레코드가 입력됨
 	*	@param	inName	입력할 이름
 	*	@param	inAuthor	입력할 저자
-	*	@parm	inPages		입력할 페이지 수
+	*	@param	inPages		입력할 페이지 수
 	*/
 	void SetRecord(string inName, string inAuthor, int inPages)
 	{
@@ -162,6 +162,11 @@ public:
 		DisplayPagesOnScreen();
 	};
 
+	/**
+	*	@brief	데이터를 1줄 이내로 간략히 출력
+	*	@pre	.
+	*	@post	데이터 출력됨
+	*/
 	void DisplayBriefOnScreen()
 	{
 		cout << "\t" << m_pName << "(" << m_pAuthor << ", " << m_pPages << "pages)\n";

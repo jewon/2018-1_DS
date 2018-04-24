@@ -113,7 +113,6 @@
   <ItemGroup>
     <ClInclude Include="Admin.h" />
     <ClInclude Include="Application.h" />
-    <ClInclude Include="Base.h" />
     <ClInclude Include="ConferenceType.h" />
     <ClInclude Include="DoublyIterator.h" />
     <ClInclude Include="InfoChange.h" />

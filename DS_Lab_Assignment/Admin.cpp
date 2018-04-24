@@ -10,6 +10,7 @@ void Admin::Run(LinkedListType<ConferenceType> * inList)
 	InfoChange<SessionType> ChangeSession;
 	InfoChange<PaperType> ChangePaper;
 
+	// 수정할 리스트 포인터를 저장할 변수
 	LinkedListType<SessionType> * SessionListToChange = NULL;
 	LinkedListType<PaperType> * PaperListToChange = NULL;
 

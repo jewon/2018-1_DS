@@ -65,8 +65,6 @@ public:
 	void RunAdmin();
 
 private:
-	ifstream m_InFile;		///< input file descriptor.
-	ofstream m_OutFile;		///< output file descriptor.
 	LinkedListType<ConferenceType> m_List;		///< item list.
 	int m_Command;			///< current command number.
 };

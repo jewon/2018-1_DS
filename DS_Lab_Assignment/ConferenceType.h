@@ -26,14 +26,6 @@ public:
 		SessionList = NULL;
 	} 
 
-	ConferenceType(bool MakeList)
-	{
-		if (MakeList)
-			SessionList = MakeSessionList();
-		else
-			SessionList = NULL;
-	}
-
 	/**
 	*	소멸자
 	*/
@@ -43,7 +35,9 @@ public:
 	}
 
 	/**
-	*	소멸자
+	*	@brief	포인터 멤버변수에 새로운 세션리스트 할당
+	*	@pre	ConferencTyepe 초기화
+	*	@post	SessionList에 새 세션 리스트 할당
 	*/
 	LinkedListType<SessionType> * MakeSessionList()
 	{
@@ -52,6 +46,11 @@ public:
 		return SessionList;
 	}
 
+	/**
+	*	@brief	포인터 멤버변수에 할당된 세션 리스트 해제
+	*	@pre	SessionList가 할당됨
+	*	@post	SessionList가 해제됨
+	*/
 	void DeleteSessionList()
 	{
 		delete SessionList;
@@ -216,7 +215,7 @@ public:
 	*	@brief	학술대회 개최일시 입력
 	*	@pre	.
 	*	@post	학술대회 개최일시 입력됨
-	*	@param	inDate	입력할 개최일시
+	*	@param	inDateTime	입력할 개최일시
 	*/
 	void SetDateTime(string inDateTime)
 	{
@@ -480,34 +479,6 @@ public:
 	*/
 	ConferenceType& operator=(const ConferenceType& c);
 
-	///** 변경 필요
-	//*	@brief	논문 리스트에서 키워드가 포함된 논문 찾아 리스트로 반환
-	//*	@pre	논문 리스트 초기화
-	//*	@post	.
-	//*	@parm word	찾을 단어
-	//@	@return	키워드가 포함된 논문들의 리스트
-	//*/
-	//LinkedListType<PaperType> SearchPaper(string word)
-	//{
-	//	LinkedListType<PaperType> FoundPaperList;
-	//	if (SessionList->GetLength() == 0)
-	//		return FoundPaperList;
-
-	//	DoublyIterator<SessionType> iter(SessionList);
-	//	SessionType tempSession;
-	//	
-	//	tempSession = iter.Next();
-	//	FoundPaperList = tempSession.SearchPaper(word);
-
-	//	for (int i = 1; i < SessionList.GetLength(); i++)
-	//	{
-	//		tempSession = iter.Next();
-	//		FoundPaperList.Connect(&tempSession.SearchPaper(word));
-	//	}
-
-	//	return FoundPaperList;
-	//}
-
 protected:
 	string m_hName;		///< 학술대회명
 	string m_hDate;		///< 시작년월일(YYYY.MM.DD)
@@ -517,7 +488,7 @@ protected:
 	string m_hPlace;	///< 학술대회 개최장소
 	string m_hDateTime;		///< 학술대회 개최일시
 	string m_hISBN;		///< ISBN
-	LinkedListType <SessionType> * SessionList;	///< 세션 리스트
+	LinkedListType <SessionType> * SessionList;	///< 세션 리스트 포인터
 };
 
 #endif	// _CONFERENCE_TYPE_H

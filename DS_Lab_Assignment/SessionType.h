@@ -9,6 +9,9 @@ using namespace std;
 #include"InfoChange.h"
 #include"PaperType.h"
 
+/**
+*	세션타입 클래스
+*/
 class SessionType
 {
 public:
@@ -29,9 +32,9 @@ public:
 	}
 
 	/**
-	*	@brief	새로운 세션리스트 할당
-	*	@pre	.
-	*	@post	.
+	*	@brief	포인터 멤버변수에 새로운 논문리스트 할당
+	*	@pre	ConferencTyepe 초기화
+	*	@post	PaperList에 새 세션 리스트 할당
 	*/
 	LinkedListType<PaperType> * MakePaperList()
 	{
@@ -40,11 +43,11 @@ public:
 	}
 
 	/**
-	*	@brief	멤버 변수에 할당된 세션리스트 해제
-	*	@pre	.
-	*	@post	.
+	*	@brief	포인터 멤버변수에 할당된 논문 리스트 해제
+	*	@pre	PaperList가 할당됨
+	*	@post	PaperList가 해제됨
 	*/
-	void DeleteSessionList()
+	void DeletePaperList()
 	{
 		if(PaperList != NULL)
 			delete PaperList;
@@ -219,7 +222,7 @@ public:
 	*	@brief	논문 리스트에서 키워드가 포함된 논문 찾아 리스트로 반환
 	*	@pre	논문 리스트 초기화
 	*	@post	.
-	*	@parm word	찾을 단어
+	*	@param word	찾을 단어
 	@	@return	키워드가 포함된 논문들의 리스트
 	*/
 	LinkedListType<PaperType> SearchPaper(string word)

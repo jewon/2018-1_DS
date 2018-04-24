@@ -8,10 +8,7 @@ void MoreFeatures::Run()
 		i_Command = MoreFeaturesGetcommand();
 		switch (i_Command)
 		{
-		//case 1: // 논문 검색
-		//	PaperSearch();
-		//	break;
-		case 2: // 학술대회 한눈에보기
+		case 1: // 학술대회 한눈에보기
 			DisplayConferenceBrief();
 			break;
 		case 0: // 프로그램 종료
@@ -30,8 +27,7 @@ int MoreFeatures::MoreFeaturesGetcommand()
 	cout << endl << endl;
 	cout << "\t-------<탐색 메뉴>-------" << endl;
 	cout << "\t---ID -- Command ----- " << endl;
-	cout << "\t   1 : 전체 학술대회에서 논문 검색" << endl;
-	cout << "\t   2 : 전체 학술대회 한눈에보기" << endl;
+	cout << "\t   1 : 전체 학술대회 한눈에보기" << endl;
 	cout << "\t   0 : 메인 메뉴로 돌아가기" << endl;
 
 	cout << endl << "\t Choose a Command--> ";
@@ -40,39 +36,6 @@ int MoreFeatures::MoreFeaturesGetcommand()
 
 	return command;
 }
-//
-//void MoreFeatures::PaperSearch()
-//{
-//	string word;
-//	cout << "\t찾고자 하는 키워드를 입력하세요\n\t";
-//	cin >> word;
-//
-//	LinkedListType<PaperType> FoundPaperList;
-//
-//	if (i_List.GetLength() == 0)
-//	{
-//		cout << "\t학술대회 정보가 아무것도 입력되지 않았습니다.\n";
-//		return;
-//	}
-//
-//	ConferenceType dummyConf;
-//	DoublyIterator<ConferenceType> iter(i_List);
-//
-//	if (iter.NotNull())
-//	{
-//		dummyConf = iter.Next();
-//		FoundPaperList = dummyConf.SearchPaper(word);
-//	}
-//
-//	while (iter.NotNull())
-//	{
-//		dummyConf = iter.Next();
-//		FoundPaperList.Connect(&dummyConf.SearchPaper(word));
-//	}
-//
-//	FoundPaperList.DisplayAll();
-//	return;
-//}
 
 void MoreFeatures::DisplayConferenceBrief()
 {

@@ -23,15 +23,6 @@ public :
 	}
 
 	/**
-	*	각 타입 리스트의 정보 변경을 위한 생성 자
-	*/
-	/*InfoChange(LinkedListType<T> &item)
-	{
-		i_List = item;
-		i_Command = 0;
-	}*/
-
-	/**
 	*	소멸자
 	*/
 	~InfoChange() 
@@ -196,7 +187,7 @@ int InfoChange<T>::Change()
 	if(i_List->Get(item)) 
 	{ // 같은 이름의 item을 찾아
 		item.DisplayRecordOnScreen(); // 화면에 출력
-		item.Modify(); // item 수정8
+		item.Modify(); // item 수정
 		if (!i_List->Replace(item))
 		{	// 대체 실패시
 			cout << "\t-----Error Massage-----\n\t수정이 잘못되었습니다. 이전 상태로 저장됩니다.\n\t-----Error Massage-----\n";
