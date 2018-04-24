@@ -159,6 +159,12 @@ int InfoChange<T>::Add()
 template<typename T>
 int InfoChange<T>::Delete()
 {
+	if (i_List->IsEmpty)
+	{
+		cout << "\t-----Error Massage-----\n\t리스트가 비어 있습니다. 먼저 추가해주세요.\n\t-----Error Massage-----\n";
+		return 0;
+	}
+
 	T item;
 	item.SetNameFromKB();
 
@@ -172,10 +178,16 @@ int InfoChange<T>::Delete()
 	return 1;
 }
 
-// 노드 수정
+// 노드 수정 (하위 리스트 제외)
 template<typename T>
 int InfoChange<T>::Change()
 {
+	if (i_List->IsEmpty)
+	{
+		cout << "\t-----Error Massage-----\n\t리스트가 비어 있습니다. 먼저 추가해주세요.\n\t-----Error Massage-----\n";
+		return 0;
+	}
+
 	i_List->DisplayAll();
 	T item;
 	cout << "\t수정할 레코드 이름을 입력하세요" << endl;
@@ -188,7 +200,6 @@ int InfoChange<T>::Change()
 		if (!i_List->Replace(item))
 		{	// 대체 실패시
 			cout << "\t-----Error Massage-----\n\t수정이 잘못되었습니다. 이전 상태로 저장됩니다.\n\t-----Error Massage-----\n";
-
 			return 0;
 		}
 		else

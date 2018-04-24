@@ -476,11 +476,11 @@ public:
 	bool operator==(ConferenceType item);
 
 	/**
-	*	@brief	이름을 기준으로 두 아이템 비교하는 오퍼레이터
+	*	@brief	대입연산자 오버로딩(SessionList포인터를 복사하지않고 NULL로 줌)
 	*/
 	ConferenceType& operator=(const ConferenceType& c);
 
-	///**
+	///** 변경 필요
 	//*	@brief	논문 리스트에서 키워드가 포함된 논문 찾아 리스트로 반환
 	//*	@pre	논문 리스트 초기화
 	//*	@post	.

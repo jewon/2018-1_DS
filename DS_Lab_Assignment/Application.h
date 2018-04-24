@@ -26,8 +26,6 @@ public:
 	Application()
 	{
 		m_Command = 0;
-		f_Command = 0;
-		
 	}
 
 	/**
@@ -58,7 +56,12 @@ public:
 	*/
 	void RunMoreFeatures();
 
-
+	/**
+	*	@brief	관리자 기능을 실행한다.
+	*	@pre	.
+	*	@post	.
+	*	@return	.
+	*/
 	void RunAdmin();
 
 private:
@@ -66,7 +69,6 @@ private:
 	ofstream m_OutFile;		///< output file descriptor.
 	LinkedListType<ConferenceType> m_List;		///< item list.
 	int m_Command;			///< current command number.
-	int f_Command;
 };
 
 #endif	// _APPLICATION_H

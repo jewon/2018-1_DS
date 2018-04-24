@@ -28,7 +28,7 @@ template <typename T>
 class LinkedListType
 {
 	friend class DoublyIterator<T>;
-	friend class Admin;
+	friend class Admin; // Admin이 GetData() 사용할 수 있도록 함
 public:
 	/**
 	*	디폴트 생성자
@@ -462,7 +462,6 @@ inline LinkedListType<T>* LinkedListType<T>::GetThis()
 template<typename T>
 T * LinkedListType<T>::GetData(T item)
 {
-	NodeType<T>* pNode;
 	DoublyIterator<T> iter(*this);
 	int count = 0;	// 몇 번째에 위치하고 있는지 리턴 (없으면 0)
 					// iterator를 사용하면서 curPointer를 재사용할 수 없으므로 return value의 의미를 변경

@@ -28,12 +28,22 @@ public:
 		PaperList = NULL;
 	}
 
+	/**
+	*	@brief	새로운 세션리스트 할당
+	*	@pre	.
+	*	@post	.
+	*/
 	LinkedListType<PaperType> * MakePaperList()
 	{
 		PaperList = new LinkedListType<PaperType>;
 		return PaperList;
 	}
 
+	/**
+	*	@brief	멤버 변수에 할당된 세션리스트 해제
+	*	@pre	.
+	*	@post	.
+	*/
 	void DeleteSessionList()
 	{
 		if(PaperList != NULL)
@@ -168,6 +178,9 @@ public:
 	*/
 	bool operator==(SessionType item);
 
+	/**
+	*	@brief	대입 연산자 오버로딩(PaperList포인터를 대입하지않고 NULL로 줌)
+	*/
 	SessionType & SessionType::operator=(const SessionType & c);
 
 	/**

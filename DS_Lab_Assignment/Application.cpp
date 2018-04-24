@@ -53,9 +53,12 @@ void Application::RunMoreFeatures()
 	return;
 }
 
+// 관리자 메뉴 수행
 void Application::RunAdmin()
 {
 	Admin A;
 	A.Run(&m_List);
+
+	return;
 }
 

@@ -1,10 +1,11 @@
 #include "Admin.h"
 
+// 부가 기능 실행
 void Admin::Run(LinkedListType<ConferenceType> * inList)
 {
 	Root_List = inList; // 루트리스트 가져옴
 
-	// 학술대회 리스트를 수정할 수 있도록 가져와 둠
+	// 리스트를 수정할 수 있도록 클래스 만들어 둠
 	InfoChange<ConferenceType> ChangeConference;
 	InfoChange<SessionType> ChangeSession;
 	InfoChange<PaperType> ChangePaper;
