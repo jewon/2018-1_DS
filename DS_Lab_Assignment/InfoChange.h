@@ -159,7 +159,7 @@ int InfoChange<T>::Add()
 template<typename T>
 int InfoChange<T>::Delete()
 {
-	if (i_List->IsEmpty)
+	if (i_List->IsEmpty())
 	{
 		cout << "\t-----Error Massage-----\n\t리스트가 비어 있습니다. 먼저 추가해주세요.\n\t-----Error Massage-----\n";
 		return 0;
@@ -182,7 +182,7 @@ int InfoChange<T>::Delete()
 template<typename T>
 int InfoChange<T>::Change()
 {
-	if (i_List->IsEmpty)
+	if (i_List->IsEmpty())
 	{
 		cout << "\t-----Error Massage-----\n\t리스트가 비어 있습니다. 먼저 추가해주세요.\n\t-----Error Massage-----\n";
 		return 0;
