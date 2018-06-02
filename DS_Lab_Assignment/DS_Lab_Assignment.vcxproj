@@ -113,6 +113,8 @@
   <ItemGroup>
     <ClInclude Include="Admin.h" />
     <ClInclude Include="Application.h" />
+    <ClInclude Include="AVLTree.h" />
+    <ClInclude Include="BSTree_AVL.h" />
     <ClInclude Include="ConferenceType.h" />
     <ClInclude Include="DoublyIterator.h" />
     <ClInclude Include="InfoChange.h" />
@@ -124,6 +126,7 @@
   <ItemGroup>
     <ClCompile Include="Admin.cpp" />
     <ClCompile Include="Application.cpp" />
+    <ClCompile Include="AVLtree.cpp" />
     <ClCompile Include="ConferenceType.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="MoreFeatures.cpp" />

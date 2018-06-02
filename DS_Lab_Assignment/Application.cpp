@@ -15,7 +15,7 @@ void Application::Run()
 			break;
 		case 2: // 검색 기능
 			RunMoreFeatures();
-			break;
+			break;  
 		case 0: // 프로그램 종료
 			return;
 			break;
