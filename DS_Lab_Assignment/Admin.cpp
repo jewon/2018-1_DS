@@ -11,8 +11,8 @@ void Admin::Run(BinarySearchTree<ConferenceType> * inList)
 	InfoChange<AuthorType> ChangePaper;
 
 	// 수정할 리스트 포인터를 저장할 변수
-	BinarySearchTree<PaperType> * SessionListToChange = NULL;
-	BinarySearchTree<AuthorType> * PaperListToChange = NULL;
+	BinarySearchTree<PaperType> * PaperListToChange = NULL;
+	BinarySearchTree<AuthorType> * AuthorListToChange = NULL;
 
 	while (1)
 	{
@@ -23,15 +23,15 @@ void Admin::Run(BinarySearchTree<ConferenceType> * inList)
 		case 1: // 학술대회 내용 수정
 			ChangeConference.Run(Root_List);
 			break; 
-		case 2: // 세션 내용 수정
-			SessionListToChange = GetChangeSessionList();
-			if(SessionListToChange != NULL)
-				ChangeSession.Run(SessionListToChange);
-			break;
-		case 3: // 논문 내용 수정
+		case 2: // Paper 내용 수정
 			PaperListToChange = GetChangePaperList();
 			if(PaperListToChange != NULL)
-				ChangePaper.Run(PaperListToChange);
+				ChangeSession.Run(PaperListToChange);
+			break;
+		case 3: // Author 내용 수정
+			AuthorListToChange = GetChangeAuthorList();
+			if(AuthorListToChange != NULL)
+				ChangePaper.Run(AuthorListToChange);
 			break;
 		//case 4: // 구조 출력
 		//	PrintALlStructure();
@@ -56,8 +56,8 @@ int Admin::GetCommand()
 	cout << "\t-------<관리자 메뉴>-------" << endl;
 	cout << "\t---ID -- Command ----- " << endl;
 	cout << "\t   1 : 학술대회 내용 수정" << endl;
-	cout << "\t   2 : 세션 내용 수정" << endl;
-	cout << "\t   3 : 논문 내용 수정" << endl;
+	cout << "\t   2 : Paper 내용 수정" << endl;
+	cout << "\t   3 : Author 내용 수정" << endl;
 	//cout << "\t   4 : 데이터 전체 구조 보기" << endl;
 	cout << "\t   0 : 메인 메뉴로" << endl;
 
@@ -68,11 +68,11 @@ int Admin::GetCommand()
 	return command;
 }
 
-BinarySearchTree<PaperType> * Admin::GetChangeSessionList()
+BinarySearchTree<PaperType> * Admin::GetChangePaperList()
 {
 	Root_List->DisplayAllBrief();
 	ConferenceType item;
-	cout << "\t수정할 세션이 있는 컨퍼런스 이름을 입력하세요" << endl;
+	cout << "\t수정할 Paper이 있는 컨퍼런스 이름을 입력하세요" << endl;
 	item.SetNameFromKB();
 
 	if (Root_List == NULL)
@@ -83,37 +83,37 @@ BinarySearchTree<PaperType> * Admin::GetChangeSessionList()
 
 	ConferenceType * pItem = Root_List->GetData(item);
 	if (pItem != NULL)
-		if (pItem->GetSessionList() != NULL)
-			return pItem->GetSessionList();
-		else
-			return pItem->MakeSessionList();
-	else
-		cout << "\t-----Error Massage-----\n\t입력하신 이름을 가진 컨퍼런스가 없습니다.\n\t-----Error Massage-----\n";
-	return NULL;
-}
-
-BinarySearchTree<AuthorType>* Admin::GetChangePaperList()
-{
-	BinarySearchTree<PaperType> * ChangeSessionList = GetChangeSessionList();
-	if (ChangeSessionList->IsEmpty())
-	{
-		cout << "\t-----Error Massage-----\n\t세션 리스트가 비어 있습니다. 먼저 세션을 추가해주세요.\n\t-----Error Massage-----\n";
-		return NULL;
-	}
-	
-	ChangeSessionList->DisplayAllBrief();
-	PaperType item;
-	cout << "\t수정할 논문이 있는 세션 이름을 입력하세요" << endl;
-	item.SetNameFromKB();
-
-	PaperType * pItem = ChangeSessionList->GetData(item);
-	if (pItem!=NULL)
 		if (pItem->GetPaperList() != NULL)
 			return pItem->GetPaperList();
 		else
 			return pItem->MakePaperList();
 	else
-		cout << "\t-----Error Massage-----\n\t입력하신 이름을 가진 세션이 없습니다.\n\t-----Error Massage-----\n";
+		cout << "\t-----Error Massage-----\n\t입력하신 이름을 가진 컨퍼런스가 없습니다.\n\t-----Error Massage-----\n";
+	return NULL;
+}
+
+BinarySearchTree<AuthorType>* Admin::GetChangeAuthorList()
+{
+	BinarySearchTree<PaperType> * ChangePaperList = GetChangePaperList();
+	if (ChangePaperList->IsEmpty())
+	{
+		cout << "\t-----Error Massage-----\n\tPaper 리스트가 비어 있습니다. 먼저 Paper을 추가해주세요.\n\t-----Error Massage-----\n";
+		return NULL;
+	}
+	
+	ChangePaperList->DisplayAllBrief();
+	PaperType item;
+	cout << "\t수정할 Author이 있는 Paper 이름을 입력하세요" << endl;
+	item.SetNameFromKB();
+
+	PaperType * pItem = ChangePaperList->GetData(item);
+	if (pItem!=NULL)
+		if (pItem->GetAuthorList() != NULL)
+			return pItem->GetAuthorList();
+		else
+			return pItem->MakeAuthorList();
+	else
+		cout << "\t-----Error Massage-----\n\t입력하신 이름을 가진 Paper이 없습니다.\n\t-----Error Massage-----\n";
 	return NULL;
 }
 

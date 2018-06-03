@@ -17,8 +17,6 @@ public:
 	AuthorType()
 	{
 		m_pName = "noName";
-		m_pAuthor = "noAuthor";
-		m_pPages = 0;
 	}
 
 
@@ -36,7 +34,7 @@ public:
 	*/
 	string WhatType()
 	{
-		return "논문";
+		return "Author";
 	}
 
 	/**
@@ -51,10 +49,10 @@ public:
 	}
 
 	/**
-	*	@brief	논문명 반환
-	*	@pre	논문명 초기화
+	*	@brief	Author명 반환
+	*	@pre	Author명 초기화
 	*	@post	.
-	*	@return	논문명
+	*	@return	Author명
 	*/
 	string GetName()
 	{
@@ -62,21 +60,10 @@ public:
 	}
 
 	/**
-	*	@brief	저자명 반환
-	*	@pre	저자명 초기화
-	*	@post	.
-	*	@return	저자명
-	*/
-	string GetAuthor()
-	{
-		return m_pAuthor;
-	}
-
-	/**
-	*	@brief	논문명 입력
+	*	@brief	Author명 입력
 	*	@pre	.
-	*	@post	논문명 입력됨
-	*	@param	inName	입력할 논문명
+	*	@post	Author명 입력됨
+	*	@param	inName	입력할 Author명
 	*/
 	void SetName(string inName)
 	{
@@ -84,31 +71,9 @@ public:
 	}
 
 	/**
-	*	@brief	논문 저자 입력
+	*	@brief	Author 레코드 입력
 	*	@pre	.
-	*	@post	논문 저자 입력됨
-	*	@param	inAuthor	입력할 저자
-	*/
-	void SetAuthor(string inAuthor)
-	{
-		m_pAuthor = inAuthor;
-	}
-
-	/**
-	*	@brief	페이지 수 입력
-	*	@pre	.
-	*	@post	페이지 수 입력됨
-	*	@param	inPages	입력할 페이지 수
-	*/
-	void SetPages(int inPages)
-	{
-		m_pPages = inPages;
-	}
-
-	/**
-	*	@brief	논문 레코드 입력
-	*	@pre	.
-	*	@post	논문 레코드가 입력됨
+	*	@post	Author 레코드가 입력됨
 	*	@param	inName	입력할 이름
 	*	@param	inAuthor	입력할 저자
 	*	@param	inPages		입력할 페이지 수
@@ -116,8 +81,6 @@ public:
 	void SetRecord(string inName, string inAuthor, int inPages)
 	{
 		SetName(inName);
-		SetAuthor(inAuthor);
-		SetPages(inPages);
 	}
 
 	/**
@@ -131,26 +94,6 @@ public:
 	};
 
 	/**
-	*	@brief	저자명 출력
-	*	@pre	저자명 존재
-	*	@post	저자명 출력
-	*/
-	void DisplayAuthorOnScreen()
-	{
-		cout << "\tAuthor : " << m_pAuthor << endl;
-	};
-
-	/**
-	*	@brief	페이지 수 출력
-	*	@pre	페이지 수 존재
-	*	@post	페이지 수 출력
-	*/
-	void DisplayPagesOnScreen()
-	{
-		cout << "\tTimes : " << m_pPages << endl;
-	};
-
-	/**
 	*	@brief	레코드 출력
 	*	@pre	레코드 전체 입력됨
 	*	@post	레코드 전체 출력
@@ -158,8 +101,6 @@ public:
 	void DisplayRecordOnScreen()
 	{
 		DisplayNameOnScreen();
-		DisplayAuthorOnScreen();
-		DisplayPagesOnScreen();
 	};
 
 	/**
@@ -169,7 +110,7 @@ public:
 	*/
 	void DisplayBriefOnScreen()
 	{
-		cout << "\t" << m_pName << "(" << m_pAuthor << ", " << m_pPages << "pages)\n";
+		cout << "\t" << m_pName << endl;
 	}
 
 	/**
@@ -178,20 +119,6 @@ public:
 	*	@post	이름이 입력됨
 	*/
 	void SetNameFromKB();
-
-	/**
-	*	@brief	사용자로부터 저자명 입력받음
-	*	@pre	.
-	*	@post	저자명이 입력됨
-	*/
-	void SetAuthorFromKB();
-
-	/**
-	*	@brief	사용자로부터 페이지 수 입력받음
-	*	@pre	.
-	*	@post	페이지 수 입력됨
-	*/
-	void SetPagesFromKB();
 
 	/**
 	*	@brief	사용자로부터 레코드 전체 입력받음
@@ -240,8 +167,6 @@ public:
 
 
 protected:
-	string m_pName;		///< 논문제목
-	string m_pAuthor;	///< 논문저자
-	int m_pPages;		///< 페이지수
+	string m_pName;		///< Author제목
 };
 #endif // _PAPER_TYPE_H

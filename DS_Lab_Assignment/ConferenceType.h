@@ -23,7 +23,7 @@ public:
 	*/
 	ConferenceType()
 	{
-		SessionList = NULL;
+		PaperList = NULL;
 	} 
 
 	/**
@@ -31,30 +31,30 @@ public:
 	*/
 	~ConferenceType()                       
 	{
-		SessionList = NULL;
+		PaperList = NULL;
 	}
 
 	/**
-	*	@brief	포인터 멤버변수에 새로운 세션리스트 할당
+	*	@brief	포인터 멤버변수에 새로운 Paper리스트 할당
 	*	@pre	ConferencTyepe 초기화
-	*	@post	SessionList에 새 세션 리스트 할당
+	*	@post	PaperList에 새 Paper 리스트 할당
 	*/
-	BinarySearchTree<PaperType> * MakeSessionList()
+	BinarySearchTree<PaperType> * MakePaperList()
 	{
-		if(SessionList == NULL)
-			SessionList = new BinarySearchTree<PaperType>;
-		return SessionList;
+		if(PaperList == NULL)
+			PaperList = new BinarySearchTree<PaperType>;
+		return PaperList;
 	}
 
 	/**
-	*	@brief	포인터 멤버변수에 할당된 세션 리스트 해제
-	*	@pre	SessionList가 할당됨
-	*	@post	SessionList가 해제됨
+	*	@brief	포인터 멤버변수에 할당된 Paper 리스트 해제
+	*	@pre	PaperList가 할당됨
+	*	@post	PaperList가 해제됨
 	*/
-	void DeleteSessionList()
+	void DeletePaperList()
 	{
-		delete SessionList;
-		SessionList = NULL;
+		delete PaperList;
+		PaperList = NULL;
 	}
 
 	/**
@@ -76,7 +76,7 @@ public:
 	*/
 	string WhatInclude()
 	{
-		return "학술대회명\t시작년월일\t개최횟수\t개최기관명\t학술대회약자\t개최장소\t개최일시\tISBN\t세션리스트";
+		return "학술대회명\t시작년월일\tPaper리스트";
 	}
 
 	/**
@@ -91,58 +91,14 @@ public:
 	}
 
 	/**
-	*	@brief	개최기관명 반환
-	*	@pre	개최기관명 초기화
+	*	@brief	Paper 리스트 반환
+	*	@pre	Paper 리스트 초기화
 	*	@post	.
-	*	@return	개최기관명
+	*	@return	Paper 리스트(LinkedList)
 	*/
-	string GetOrgan()
+	BinarySearchTree <PaperType> * GetPaperList()
 	{
-		return m_hOrgan;
-	}
-
-	/**
-	*	@brief	개최장소 반환
-	*	@pre	개최장소 초기화
-	*	@post	.
-	*	@return	개최장소
-	*/
-	string GetPlace()
-	{
-		return m_hPlace;
-	}
-
-	/**
-	*	@brief	개최일시 반환
-	*	@pre	개최일시 초기화
-	*	@post	.
-	*	@return	개최일시
-	*/
-	string GetDateTime()
-	{
-		return m_hDateTime;
-	}
-
-	/**
-	*	@brief	ISBN 반환
-	*	@pre	ISBN 초기화
-	*	@post	.
-	*	@return	ISBN
-	*/
-	string GetISBN()
-	{
-		return m_hISBN;
-	}
-
-	/**
-	*	@brief	세션 리스트 반환
-	*	@pre	세션 리스트 초기화
-	*	@post	.
-	*	@return	세션 리스트(LinkedList)
-	*/
-	BinarySearchTree <PaperType> * GetSessionList()
-	{
-		return SessionList;
+		return PaperList;
 	}
 
 	/**
@@ -168,82 +124,16 @@ public:
 	}
 
 	/**
-	*	@brief	개최횟수 입력
+	*	@brief	Paper 리스트 입력
 	*	@pre	.
-	*	@post	개최횟수 입력됨
-	*	@param	inTimes	입력할 개최횟수
+	*	@post	Paper 리스트 입력됨
+	*	@param	inPaperList	입력할 Paper 리스트(LinkedList)
 	*/
-	void SetTimes(int inTimes)
+	void SetPaperList(BinarySearchTree <PaperType> * inPaperList)
 	{
-		m_hTimes = inTimes;
-	}
-
-	/**
-	*	@brief	개최기관명 입력
-	*	@pre	.
-	*	@post	개최기관명 입력됨
-	*	@param	inOrgan	입력할 개최기관명
-	*/
-	void SetOrgan(string inOrgan)
-	{
-		m_hOrgan = inOrgan;
-	}
-
-	/**
-	*	@brief	학술대회 약자 입력
-	*	@pre	.
-	*	@post	학술대회 약자 입력됨
-	*	@param	inSimple	입력할 학술대회 약자
-	*/
-	void SetSimple(string inSimple)
-	{
-		m_hSimple = inSimple;
-	}
-
-	/**
-	*	@brief	학술대회 장소 입력
-	*	@pre	.
-	*	@post	학술대회 장소 입력됨
-	*	@param	inPlace	입력할 학술대회 장소
-	*/
-	void SetPlace(string inPlace)
-	{
-		m_hPlace = inPlace;
-	}
-
-	/**
-	*	@brief	학술대회 개최일시 입력
-	*	@pre	.
-	*	@post	학술대회 개최일시 입력됨
-	*	@param	inDateTime	입력할 개최일시
-	*/
-	void SetDateTime(string inDateTime)
-	{
-		m_hDateTime = inDateTime;
-	}
-
-	/**
-	*	@brief	학술대회 ISBN 입력
-	*	@pre	.
-	*	@post	학술대회 ISBN 입력됨
-	*	@param	inISBN	입력할 ISBN
-	*/
-	void SetISBN(string inISBN)
-	{
-		m_hSimple = inISBN;
-	}
-
-	/**
-	*	@brief	세션 리스트 입력
-	*	@pre	.
-	*	@post	세션 리스트 입력됨
-	*	@param	inSessionList	입력할 세션 리스트(LinkedList)
-	*/
-	void SetSessionList(BinarySearchTree <PaperType> * inSessionList)
-	{
-		if(SessionList!=NULL)
-			delete SessionList;
-		SessionList = inSessionList;
+		if(PaperList!=NULL)
+			delete PaperList;
+		PaperList = inPaperList;
 	}
 
 	/**
@@ -258,19 +148,13 @@ public:
 	*	@param	inPlace	입력할 장소
 	*	@param	inDateTime	입력할 일시
 	*	@param	inISBN	입력할 횟수
-	*	@param	inSessionList	입력할 세션리스트
+	*	@param	inPaperList	입력할 Paper리스트
 	*/
-	void SetRecord(string inName, string inDate, int inTimes, string inOrgan, string inSimple, string inPlace, string inDateTime, string inISBN, BinarySearchTree <PaperType> * inSessionList)
+	void SetRecord(string inName, string inDate, int inTimes, string inOrgan, string inSimple, string inPlace, string inDateTime, string inISBN, BinarySearchTree <PaperType> * inPaperList)
 	{
 		SetName(inName);
 		SetDate(inDate);
-		SetTimes(inTimes);
-		SetOrgan(inOrgan);
-		SetSimple(inSimple);
-		SetPlace(inPlace);
-		SetDateTime(inDateTime);
-		SetISBN(inISBN);
-		SetSessionList(inSessionList);
+		SetPaperList(inPaperList);
 	}
 
 	/**
@@ -294,36 +178,6 @@ public:
 	};
 
 	/**
-	*	@brief	개최기관 출력
-	*	@pre	개최기관 존재
-	*	@post	개최기관 출력
-	*/
-	void DisplayOrganOnScreen()
-	{
-		cout << "\tOrganization : " << m_hOrgan << endl;
-	};
-
-	/**
-	*	@brief	시행횟수 출력
-	*	@pre	시행횟수 존재
-	*	@post	시행횟수 출력
-	*/
-	void DisplayTimesOnScreen()
-	{
-		cout << "\tTimes : " << m_hTimes << endl;
-	};
-
-	/**
-	*	@brief	학술대회 약자 출력
-	*	@pre	학술대회 약자 존재
-	*	@post	학술대회 약자 출력
-	*/
-	void DisplaySimpleOnScreen()
-	{
-		cout << m_hSimple << endl;
-	};
-
-	/**
 	*	@brief	레코드 출력
 	*	@pre	레코드 전체 입력됨
 	*	@post	레코드 전체 출력
@@ -331,11 +185,9 @@ public:
 	void DisplayRecordOnScreen()
 	{
 		DisplayNameOnScreen();
-		DisplayOrganOnScreen();
 		DisplayDateOnScreen();
-		DisplayTimesOnScreen();
-		if (SessionList != NULL)
-			cout << "\tSessions : " << SessionList->GetLength() << endl;
+		if (PaperList != NULL)
+			cout << "\tSessions : " << PaperList->GetLength() << endl;
 	};
 
 	/**
@@ -345,7 +197,7 @@ public:
 	*/
 	void DisplayBriefOnScreen()
 	{
-		cout << "\t" << m_hSimple << "(" << m_hDate.substr(0, 4) << ")" << endl;
+		cout << m_hName << "(" << m_hDate.substr(0, 4) << ")" << endl;
 	};
 
 	/**
@@ -356,13 +208,6 @@ public:
 	void SetNameFromKB();
 
 	/**
-	*	@brief	사용자로부터 학술대회명 입력받음
-	*	@pre	.
-	*	@post	학술대회명이 입력됨
-	*/
-	void SetOrganFromKB();
-
-	/**
 	*	@brief	사용자로부터 개최년월일 입력받음
 	*	@pre	.
 	*	@post	개최년월일 입력됨
@@ -370,46 +215,11 @@ public:
 	void SetDateFromKB();
 
 	/**
-	*	@brief	사용자로부터 개최횟수 입력받음
+	*	@brief	사용자로부터 Paper 리스트 입력받음
 	*	@pre	.
-	*	@post	개최횟수 입력됨
+	*	@post	BinarySearchTree의 Paper 리스트 입력 함수 실행
 	*/
-	void SetTimesFromKB();
-
-	/**
-	*	@brief	사용자로부터 학술대회 약자 입력받음
-	*	@pre	.
-	*	@post	학술대회 약자 입력됨
-	*/
-	void SetSimpleFromKB();
-
-	/**
-	*	@brief	사용자로부터 학술대회 장소 입력받음
-	*	@pre	.
-	*	@post	학술대회 장소 입력됨
-	*/
-	void SetPlaceFromKB();
-
-	/**
-	*	@brief	사용자로부터 학술대회 일시 입력받음
-	*	@pre	.
-	*	@post	학술대회 일시 입력됨
-	*/
-	void SetDateTimeFromKB();
-
-	/**
-	*	@brief	사용자로부터 학술대회 ISBN 입력받음
-	*	@pre	.
-	*	@post	학술대회 ISBN 입력됨
-	*/
-	void SetISBNFromKB();
-
-	/**
-	*	@brief	사용자로부터 세션 리스트 입력받음
-	*	@pre	.
-	*	@post	BinarySearchTree의 세션 리스트 입력 함수 실행
-	*/
-	void SetSessionListFromKB();
+	void SetPaperListFromKB();
 
 	/**
 	*	@brief	사용자로부터 레코드 전체 입력받음
@@ -452,15 +262,15 @@ public:
 	void DisplayMenu();
 
 	/**
-	*	@brief	세션 및 내부 구조 출0력
+	*	@brief	Paper 및 내부 구조 출0력
 	*	@pre	.
 	*	@post	내부 구조 출력
 	*/
 	//void DoDisplayStructure()
 	//{
 	//	cout << "├  " << m_hName << endl;
-	//	if (SessionList != NULL)
-	//		SessionList->DoDisplayAllStructure();
+	//	if (PaperList != NULL)
+	//		PaperList->DoDisplayAllStructure();
 	//	else
 	//		cout << "  ├  (Empty List)" << endl;
 	//}
@@ -489,20 +299,14 @@ public:
 	bool operator==(ConferenceType item);
 
 	/**
-	*	@brief	대입연산자 오버로딩(SessionList포인터를 복사하지않고 NULL로 줌)
+	*	@brief	대입연산자 오버로딩(PaperList포인터를 복사하지않고 NULL로 줌)
 	*/
 	ConferenceType& operator=(const ConferenceType& c);
 
 protected:
 	string m_hName;		///< 학술대회명
 	string m_hDate;		///< 시작년월일(YYYY.MM.DD)
-	int m_hTimes;		///< 개최횟수
-	string m_hOrgan;	///< 개최기관명
-	string m_hSimple;	///< 학술대회 약자
-	string m_hPlace;	///< 학술대회 개최장소
-	string m_hDateTime;		///< 학술대회 개최일시
-	string m_hISBN;		///< ISBN
-	BinarySearchTree <PaperType> * SessionList;	///< 세션 리스트 포인터
+	BinarySearchTree <PaperType> * PaperList;	///< Paper 리스트 포인터
 };
 
 #endif	// _CONFERENCE_TYPE_H

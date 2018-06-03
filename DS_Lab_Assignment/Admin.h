@@ -47,20 +47,20 @@ public:
 	int GetCommand();
 
 	/**
-	*	@brief	세션리스트의 변경을 수행한다
+	*	@brief	Paper리스트의 변경을 수행한다
 	*	@pre	.
 	*	@post	.
 	*	@return	.
 	*/
-	BinarySearchTree<PaperType> * GetChangeSessionList();
+	BinarySearchTree<PaperType> * GetChangePaperList();
 
 	/**
-	*	@brief	논문리스트의 변경을 수행한다.
+	*	@brief	Author리스트의 변경을 수행한다.
 	*	@pre	.
 	*	@post	.
 	*	@return	.
 	*/
-	BinarySearchTree<AuthorType> * GetChangePaperList();
+	BinarySearchTree<AuthorType> * GetChangeAuthorList();
 
 
 
