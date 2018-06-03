@@ -117,8 +117,8 @@
     <ClInclude Include="ConferenceType.h" />
     <ClInclude Include="InfoChange.h" />
     <ClInclude Include="MoreFeatures.h" />
+    <ClInclude Include="AuthorType.h" />
     <ClInclude Include="PaperType.h" />
-    <ClInclude Include="SessionType.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Admin.cpp" />
@@ -126,8 +126,8 @@
     <ClCompile Include="ConferenceType.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="MoreFeatures.cpp" />
+    <ClCompile Include="AuthorType.cpp" />
     <ClCompile Include="PaperType.cpp" />
-    <ClCompile Include="SessionType.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

@@ -52,7 +52,7 @@ public:
 	*	@post	.
 	*	@return	.
 	*/
-	BinarySearchTree<SessionType> * GetChangeSessionList();
+	BinarySearchTree<PaperType> * GetChangeSessionList();
 
 	/**
 	*	@brief	논문리스트의 변경을 수행한다.
@@ -60,7 +60,9 @@ public:
 	*	@post	.
 	*	@return	.
 	*/
-	BinarySearchTree<PaperType> * GetChangePaperList();
+	BinarySearchTree<AuthorType> * GetChangePaperList();
+
+
 
 	/**
 	*	@brief	현재 리스트에 포함된 모든 데이터를 구조화해 출력한다.

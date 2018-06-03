@@ -7,12 +7,12 @@ void Admin::Run(BinarySearchTree<ConferenceType> * inList)
 
 	// 리스트를 수정할 수 있도록 클래스 만들어 둠
 	InfoChange<ConferenceType> ChangeConference;
-	InfoChange<SessionType> ChangeSession;
-	InfoChange<PaperType> ChangePaper;
+	InfoChange<PaperType> ChangeSession;
+	InfoChange<AuthorType> ChangePaper;
 
 	// 수정할 리스트 포인터를 저장할 변수
-	BinarySearchTree<SessionType> * SessionListToChange = NULL;
-	BinarySearchTree<PaperType> * PaperListToChange = NULL;
+	BinarySearchTree<PaperType> * SessionListToChange = NULL;
+	BinarySearchTree<AuthorType> * PaperListToChange = NULL;
 
 	while (1)
 	{
@@ -68,7 +68,7 @@ int Admin::GetCommand()
 	return command;
 }
 
-BinarySearchTree<SessionType> * Admin::GetChangeSessionList()
+BinarySearchTree<PaperType> * Admin::GetChangeSessionList()
 {
 	Root_List->DisplayAllBrief();
 	ConferenceType item;
@@ -92,9 +92,9 @@ BinarySearchTree<SessionType> * Admin::GetChangeSessionList()
 	return NULL;
 }
 
-BinarySearchTree<PaperType>* Admin::GetChangePaperList()
+BinarySearchTree<AuthorType>* Admin::GetChangePaperList()
 {
-	BinarySearchTree<SessionType> * ChangeSessionList = GetChangeSessionList();
+	BinarySearchTree<PaperType> * ChangeSessionList = GetChangeSessionList();
 	if (ChangeSessionList->IsEmpty())
 	{
 		cout << "\t-----Error Massage-----\n\t세션 리스트가 비어 있습니다. 먼저 세션을 추가해주세요.\n\t-----Error Massage-----\n";
@@ -102,11 +102,11 @@ BinarySearchTree<PaperType>* Admin::GetChangePaperList()
 	}
 	
 	ChangeSessionList->DisplayAllBrief();
-	SessionType item;
+	PaperType item;
 	cout << "\t수정할 논문이 있는 세션 이름을 입력하세요" << endl;
 	item.SetNameFromKB();
 
-	SessionType * pItem = ChangeSessionList->GetData(item);
+	PaperType * pItem = ChangeSessionList->GetData(item);
 	if (pItem!=NULL)
 		if (pItem->GetPaperList() != NULL)
 			return pItem->GetPaperList();

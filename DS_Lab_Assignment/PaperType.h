@@ -1,12 +1,16 @@
-#ifndef _PAPER_TYPE_H
-#define _PAPER_TYPE_H
+#ifndef _SESSION_TYPE_H
+#define _SESSION_TYPE_H
 
-#include<iostream>
-#include<string>
+#include <iostream>
+#include <string>
 using namespace std;
 
+#include"AVL.h"
+#include"InfoChange.h"
+#include"AuthorType.h"
+
 /**
-*	페이퍼타입
+*	세션타입 클래스
 */
 class PaperType
 {
@@ -16,17 +20,39 @@ public:
 	*/
 	PaperType()
 	{
-		m_pName = "noName";
-		m_pAuthor = "noAuthor";
-		m_pPages = 0;
+		PaperList = NULL;
 	}
 
-
 	/**
-	*	디폴트 소멸자
+	*	소멸자
 	*/
 	~PaperType() 
-	{}
+	{
+		PaperList = NULL;
+	}
+
+	/**
+	*	@brief	포인터 멤버변수에 새로운 논문리스트 할당
+	*	@pre	ConferencTyepe 초기화
+	*	@post	PaperList에 새 세션 리스트 할당
+	*/
+	BinarySearchTree<AuthorType> * MakePaperList()
+	{
+		PaperList = new BinarySearchTree<AuthorType>;
+		return PaperList;
+	}
+
+	/**
+	*	@brief	포인터 멤버변수에 할당된 논문 리스트 해제
+	*	@pre	PaperList가 할당됨
+	*	@post	PaperList가 해제됨
+	*/
+	void DeletePaperList()
+	{
+		if(PaperList != NULL)
+			delete PaperList;
+		PaperList = NULL;
+	}
 
 	/**
 	*	@brief	스스로의 추상화된 타입이름을 알려줌
@@ -36,7 +62,7 @@ public:
 	*/
 	string WhatType()
 	{
-		return "논문";
+		return "세션";
 	}
 
 	/**
@@ -47,156 +73,73 @@ public:
 	*/
 	string WhatInclude()
 	{
-		return "이름\t저자\t페이지";
+		return "이름\t논문리스트";
 	}
 
 	/**
-	*	@brief	논문명 반환
-	*	@pre	논문명 초기화
+	*	@brief	세션명 반환
+	*	@pre	세션명 초기화
 	*	@post	.
-	*	@return	논문명
+	*	@return	세션명
 	*/
 	string GetName()
 	{
-		return m_pName;
+		return m_sName;
 	}
 
 	/**
-	*	@brief	저자명 반환
-	*	@pre	저자명 초기화
+	*	@brief	논문 리스트 반환
+	*	@pre	논문 리스트 초기화
 	*	@post	.
-	*	@return	저자명
+	*	@return	논문 리스트
 	*/
-	string GetAuthor()
+	BinarySearchTree <AuthorType> * GetPaperList()
 	{
-		return m_pAuthor;
+		return PaperList;
 	}
-
+	
 	/**
-	*	@brief	논문명 입력
+	*	@brief	세션명 입력
 	*	@pre	.
-	*	@post	논문명 입력됨
-	*	@param	inName	입력할 논문명
+	*	@post	세션명 입력됨
+	*	@param	inName	입력할 세션명
 	*/
 	void SetName(string inName)
 	{
-		m_pName = inName;
+		m_sName = inName;
 	}
 
 	/**
-	*	@brief	논문 저자 입력
+	*	@brief	논문리스트 입력
 	*	@pre	.
-	*	@post	논문 저자 입력됨
-	*	@param	inAuthor	입력할 저자
+	*	@post	논문리스트 입력됨
+	*	@param	inPaperList	입력할 논문리스트
 	*/
-	void SetAuthor(string inAuthor)
+	void SetPaperList(BinarySearchTree <AuthorType> * inPaperList)
 	{
-		m_pAuthor = inAuthor;
+		if(PaperList != NULL)
+			delete PaperList;
+		PaperList = inPaperList;
 	}
 
 	/**
-	*	@brief	페이지 수 입력
+	*	@brief	사용자로부터 세션이름 입력받음
 	*	@pre	.
-	*	@post	페이지 수 입력됨
-	*	@param	inPages	입력할 페이지 수
-	*/
-	void SetPages(int inPages)
-	{
-		m_pPages = inPages;
-	}
-
-	/**
-	*	@brief	논문 레코드 입력
-	*	@pre	.
-	*	@post	논문 레코드가 입력됨
-	*	@param	inName	입력할 이름
-	*	@param	inAuthor	입력할 저자
-	*	@param	inPages		입력할 페이지 수
-	*/
-	void SetRecord(string inName, string inAuthor, int inPages)
-	{
-		SetName(inName);
-		SetAuthor(inAuthor);
-		SetPages(inPages);
-	}
-
-	/**
-	*	@brief	이름 출력
-	*	@pre	이름 존재
-	*	@post	이름 출력
-	*/
-	void DisplayNameOnScreen()
-	{
-		cout << "\tName : " << m_pName << endl;
-	};
-
-	/**
-	*	@brief	저자명 출력
-	*	@pre	저자명 존재
-	*	@post	저자명 출력
-	*/
-	void DisplayAuthorOnScreen()
-	{
-		cout << "\tAuthor : " << m_pAuthor << endl;
-	};
-
-	/**
-	*	@brief	페이지 수 출력
-	*	@pre	페이지 수 존재
-	*	@post	페이지 수 출력
-	*/
-	void DisplayPagesOnScreen()
-	{
-		cout << "\tTimes : " << m_pPages << endl;
-	};
-
-	/**
-	*	@brief	레코드 출력
-	*	@pre	레코드 전체 입력됨
-	*	@post	레코드 전체 출력
-	*/
-	void DisplayRecordOnScreen()
-	{
-		DisplayNameOnScreen();
-		DisplayAuthorOnScreen();
-		DisplayPagesOnScreen();
-	};
-
-	/**
-	*	@brief	데이터를 1줄 이내로 간략히 출력
-	*	@pre	.
-	*	@post	데이터 출력됨
-	*/
-	void DisplayBriefOnScreen()
-	{
-		cout << "\t" << m_pName << "(" << m_pAuthor << ", " << m_pPages << "pages)\n";
-	}
-
-	/**
-	*	@brief	사용자로부터 이름 입력받음
-	*	@pre	.
-	*	@post	이름이 입력됨
+	*	@post	세션이름이 입력됨
 	*/
 	void SetNameFromKB();
 
 	/**
-	*	@brief	사용자로부터 저자명 입력받음
+	*	@brief	사용자로부터 논문 리스트 입력받을 동작 실행
 	*	@pre	.
-	*	@post	저자명이 입력됨
+	*	@post	논문 리스트 입력 함수 실행
 	*/
-	void SetAuthorFromKB();
-
-	/**
-	*	@brief	사용자로부터 페이지 수 입력받음
-	*	@pre	.
-	*	@post	페이지 수 입력됨
-	*/
-	void SetPagesFromKB();
+	void SetPaperListFromKB();
 
 	/**
 	*	@brief	사용자로부터 레코드 전체 입력받음
 	*	@pre	.
-	*	@post	레코드가 입력됨
+	*	@post	레코드 전체 입력
 	*/
 	void SetRecordFromKB();
 
@@ -238,10 +181,60 @@ public:
 	*/
 	bool operator==(PaperType item);
 
+	/**
+	*	@brief	대입 연산자 오버로딩(PaperList포인터를 대입하지않고 NULL로 줌)
+	*/
+	PaperType & PaperType::operator=(const PaperType & c);
+
+	/**
+	*	@brief	이름 출력
+	*	@pre	이름 존재
+	*	@post	이름 출력
+	*/
+	void DisplayNameOnScreen()
+	{
+		cout << "\tName : " << m_sName << endl;
+	};
+
+	/**
+	*	@brief	레코드 전체 출력
+	*	@pre	.
+	*	@post	레코드 전체 출력
+	*/
+	void DisplayRecordOnScreen()
+	{
+		DisplayNameOnScreen();
+		if (PaperList != NULL)
+			cout << "\tPapers : " << PaperList->GetLength() << endl;
+	}
+
+	/**
+	*	@brief	레코드 전체 간략히 출력
+	*	@pre	.
+	*	@post	레코드 전체 간략히 출력
+	*/
+	void DisplayBriefOnScreen()
+	{
+		DisplayNameOnScreen();
+	}
+
+	/**
+	*	@brief	세션 및 내부 구조 출력
+	*	@pre	.
+	*	@post	내부 구조 출력
+	*/
+	//void DoDisplayStructure()
+	//{
+	//	cout << "  ├  " << m_sName << endl;
+	//	if (PaperList != NULL)
+	//		PaperList->DisplayAllStructure(2);
+	//	else
+	//		cout << "    ├  (Empty List)" << endl;
+	//}
 
 protected:
-	string m_pName;		///< 논문제목
-	string m_pAuthor;	///< 논문저자
-	int m_pPages;		///< 페이지수
+	string m_sName;		///< 세션이름
+	BinarySearchTree <AuthorType> * PaperList;	///< 세션에 발표된 논문 리스트
 };
-#endif // _PAPER_TYPE_H
+
+#endif // _SESSION_TYPE_H

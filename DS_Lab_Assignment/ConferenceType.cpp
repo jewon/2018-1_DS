@@ -64,8 +64,8 @@ void ConferenceType::SetSessionListFromKB()
 	cout << "\t세션 리스트를 수정합니다\n";
 	if (SessionList==NULL)
 		MakeSessionList();
-	BinarySearchTree<SessionType> temp = *SessionList;
-	InfoChange<SessionType> SessionChange;
+	BinarySearchTree<PaperType> temp = *SessionList;
+	InfoChange<PaperType> SessionChange;
 	SessionChange.Run(&temp);
 	SetSessionList(&temp);
 }
