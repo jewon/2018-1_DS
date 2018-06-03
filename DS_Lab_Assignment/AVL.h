@@ -349,7 +349,8 @@ int BinarySearchTree<ItemType>::Add(ItemType item)
 template<class ItemType>
 int BinarySearchTree<ItemType>::Delete(ItemType item)
 {
-	DeleteItem(root, item);					// 존재하는 node 삭제하는 함수를 호출
+	if (DeleteItem(root, item) != 1)
+		return 0;					// 존재하는 node 삭제하는 함수를 호출
 	return 1;
 }
 
@@ -535,14 +536,19 @@ void DeleteNode(Node<ItemType> *&root)
 
 // 내가 지우려고 하는 노드를 찾는 recursive 함수
 template<class ItemType>
-void DeleteItem(Node<ItemType> *&root, ItemType item)
+int DeleteItem(Node<ItemType> *&root, ItemType item)
 {
-	if (item < root->data)				// root노드값보다 item노드가 작을 때
+	if (root == NULL)
+		return 0;
+	else if (item < root->data)				// root노드값보다 item노드가 작을 때
 		DeleteItem(root->left, item);		// 왼쪽노드로 가서 delete함수 호출
 	else if (item > root->data)			// root노드값보다 item노드가 클 때
 		DeleteItem(root->right, item);		// 오른쪽노드로 가서 delete함수 호출
 	else
+	{
 		DeleteNode(root);				// 찾고자 하는 값이 일치하는 경우 deletenode 함수 호출
+		return 1;
+	}
 }
 
 // Tree에서 node를 검색하는 함수
@@ -580,9 +586,9 @@ void PrintInOrderTraversalBrief(Node<ItemType>* root)
 {
 	if (root != NULL)								// root가 존재하는 경우
 	{
-		PrintInOrderTraversal(root->left);		// root의 왼쪽으로 가서 다시 InOrder 함수 호출
+		PrintInOrderTraversalBrief(root->left);		// root의 왼쪽으로 가서 다시 InOrder 함수 호출
 		root->data.DisplayBriefOnScreen();		// root 출력
-		PrintInOrderTraversal(root->right);	// root의 오른쪽으로 가서 다시 InOrder 함수 호출
+		PrintInOrderTraversalBrief(root->right);	// root의 오른쪽으로 가서 다시 InOrder 함수 호출
 	}
 }
 

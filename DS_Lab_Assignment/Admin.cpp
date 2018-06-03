@@ -74,16 +74,16 @@ int Admin::GetCommand()
 
 BinarySearchTree<PaperType> * Admin::GetChangePaperList()
 {
-	Root_List->DisplayAllBrief();
-	ConferenceType item;
-	cout << "\t수정할 Paper이 있는 컨퍼런스 이름을 입력하세요" << endl;
-	item.SetNameFromKB();
-
 	if (Root_List == NULL)
 	{
 		cout << "\t-----Error Massage-----\n\t컨퍼런스 리스트가 비어 있습니다. 먼저 컨퍼런스를 추가해주세요.\n\t-----Error Massage-----\n";
 		return NULL;
 	}
+
+	Root_List->DisplayAllBrief();
+	ConferenceType item;
+	cout << "\t수정할 Paper이 있는 컨퍼런스 이름을 입력하세요" << endl;
+	item.SetNameFromKB();
 
 	ConferenceType * pItem = Root_List->GetData(item);
 	if (pItem != NULL)
@@ -133,7 +133,7 @@ void Admin::FileIn()
 	}
 
 	char temp[100];
-	BinarySearchTree<ConferenceType> * cl = new BinarySearchTree<ConferenceType>;
+	BinarySearchTree<ConferenceType> * cl = Root_List;
 	ConferenceType c;
 	PaperType p;
 	AuthorType a;
@@ -196,7 +196,6 @@ void Admin::FileIn()
 		}
 		fs >> temp;
 	}
-	Root_List = cl;
 }
 
 int Admin::ReadDataFromFile(ifstream & fin)
