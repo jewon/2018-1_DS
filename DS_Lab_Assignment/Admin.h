@@ -67,7 +67,7 @@ public:
 	*	@pre	.
 	*	@post	출력됨
 	*/
-	void PrintALlStructure();
+//	void PrintALlStructure();
 
 protected:
 	int m_Command;		///< 사용자 명령

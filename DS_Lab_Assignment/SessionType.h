@@ -223,14 +223,14 @@ public:
 	*	@pre	.
 	*	@post	내부 구조 출력
 	*/
-	void DoDisplayStructure()
-	{
-		cout << "  ├  " << m_sName << endl;
-		if (PaperList != NULL)
-			PaperList->DisplayAllStructure(2);
-		else
-			cout << "    ├  (Empty List)" << endl;
-	}
+	//void DoDisplayStructure()
+	//{
+	//	cout << "  ├  " << m_sName << endl;
+	//	if (PaperList != NULL)
+	//		PaperList->DisplayAllStructure(2);
+	//	else
+	//		cout << "    ├  (Empty List)" << endl;
+	//}
 
 protected:
 	string m_sName;		///< 세션이름

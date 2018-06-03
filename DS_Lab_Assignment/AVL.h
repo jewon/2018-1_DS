@@ -21,7 +21,15 @@ public:
 	// 생성자
 	BinarySearchTree();
 	// 소멸자
-	~BinarySearchTree() { }
+	~BinarySearchTree();
+
+	/**
+	*	@brief	리스트에 포함된 정보 추상 이름을 알려준다
+	*	@pre	.
+	*	@post	.
+	*	@return	TName
+	*/
+	string GetTName();
 
 	/**
 	*	@brief	Tree가 Empty인지 확인
@@ -103,15 +111,49 @@ public:
 	*	@brief	Tree에 새 node를 추가한다
 	*	@pre	ItemType의 객체를 생성
 	*	@post	Tree에 새 node가 추가됨
+	*	@return	추가 성공시 1, 실패시 0을 반환
 	*/
-	void Add(ItemType item);
+	int Add(ItemType item);
 
 	/**
 	*	@brief	Tree에서 지우고자 하는 node를 찾고 지움
 	*	@pre	ItemType의 객체를 생성
 	*	@post	Tree에서 입력한 node가 삭제됨
+	*	@return	삭제 성공시 1, 실패시 0을 반환
 	*/
-	void DeleteItem(ItemType item);
+	int Delete(ItemType item);
+
+	/**
+	*	@brief	파라미터의 이름과 일치하는 리스트의 레코드를 파라미터로 대체함
+	*	@pre	리스트 초기화
+	*	@post	파라미터의 학술대회명과 일치하는 리스트의 레코드가 파라미터의 내용대로 바뀜
+	*	@param	item	바꿀 레코드
+	*	@return	대체 성공시 1, 실패시 0을 반환
+	*/
+	int Replace(ItemType item);
+
+	/**
+	*	@brief	파라미터의 이름과 일치하는 리스트의 레코드를 읽어들임
+	*	@pre	리스트 초기화
+	*	@post	파라미터의 학술대회명과 일치하는 리스트의 레코드가 파라미터에 저장됨
+	*	@param	item	찾을 레코드의 학술대회를 가지는 레코드, 학술대회만 입력되어 있어도 상관 없음, 함수 실행시 레코드 내용 저장
+	*	@return	일치하는 레코드가 있으면 1, 아닐경우 0 반환
+	*/
+	int Get(ItemType &item);
+
+	/**
+	*	@brief	리스트 내 모든 레코드 출력 (T에 따라 출력 내용 다름)
+	*	@pre	리스트 초기화
+	*	@post	리스트 내 모든 정보 (ItemType에 따라) 출력
+	*/
+	void DisplayAll();
+
+	/**
+	*	@brief	리스트 내 모든 레코드 간략히 출력 (T에 따라 출력 내용 다름)
+	*	@pre	리스트 초기화
+	*	@post	리스트 내 모든 정보 (ItemType에 따라 간략히) 출력
+	*/
+	void DisplayAllBrief();
 
 	/**
 	*	@brief	입력한 값의 node를 Tree에서 검색함
@@ -127,8 +169,24 @@ public:
 	*/
 	void PrintTree(ostream &out) const;
 
+	///**
+	//*	@brief	리스트 내의 모든 노드들의 이름을 트리모양으로 출력
+	//*	@pre	리스트 초기화
+	//*	@post	리스트 내의 모든 노드들의 이름이 한 줄씩 트리모양으로 출력됨
+	//*	@param	level	리스트의 단계(0단계 최상위~n단계)
+	//*/
+	//void DisplayAllStructure(int level);
+
+	///**
+	//*	@brief	리스트 내의 모든 노드들의 이름을 트리모양으로 출력(하위리스트 포함)
+	//*	@pre	(최상위) 리스트 초기화
+	//*	@post	DisplayAllStructure를 활용해 모든 리스트 데이터 트리모양으로 출력
+	//*/
+	//void DoDisplayAllStructure();
+
 private:
 	Node<ItemType>* root;		///< Node 타입의 root
+	string TName;	///< 트리 노드 데이터 타입이름
 };
 
 // 생성자
@@ -136,6 +194,21 @@ template<class ItemType>
 BinarySearchTree<ItemType>::BinarySearchTree()
 {
 	root = NULL;
+
+	ItemType temp;
+	TName = temp.WhatType();
+}
+
+template<class ItemType>
+BinarySearchTree<ItemType>::~BinarySearchTree()
+{
+	MakeEmpty();
+}
+
+template<class ItemType>
+inline string BinarySearchTree<ItemType>::GetTName()
+{
+	return TName;
 }
 
 // Tree가 비어있는지 확인
@@ -189,7 +262,7 @@ int BinarySearchTree<ItemType>::GetHeight(Node<ItemType> * p)
 }
 
 template<class ItemType>
-inline Node<ItemType>* BinarySearchTree<ItemType>::single_rotation_left(Node<ItemType>* p)
+Node<ItemType>* BinarySearchTree<ItemType>::single_rotation_left(Node<ItemType>* p)
 {
 	Node<ItemType> * tp;
 	tp = p->left;
@@ -210,7 +283,7 @@ inline Node<ItemType>* BinarySearchTree<ItemType>::single_rotation_left(Node<Ite
 }
 
 template<class ItemType>
-inline Node<ItemType>* BinarySearchTree<ItemType>::single_rotation_right(Node<ItemType>* p)
+Node<ItemType>* BinarySearchTree<ItemType>::single_rotation_right(Node<ItemType>* p)
 {
 	Node<ItemType> * tp;
 	tp = p->right;
@@ -231,14 +304,14 @@ inline Node<ItemType>* BinarySearchTree<ItemType>::single_rotation_right(Node<It
 }
 
 template<class ItemType>
-inline Node<ItemType>* BinarySearchTree<ItemType>::double_rotation_left(Node<ItemType>* p)
+Node<ItemType>* BinarySearchTree<ItemType>::double_rotation_left(Node<ItemType>* p)
 {
 	p->left = signle_rotation_left(p->left);
 	return single_rotation_right(p);
 }
 
 template<class ItemType>
-inline Node<ItemType>* BinarySearchTree<ItemType>::double_rotation_right(Node<ItemType>* p)
+Node<ItemType>* BinarySearchTree<ItemType>::double_rotation_right(Node<ItemType>* p)
 {
 	p->right = single_rotation_right(p->right);
 	return single_rotation_left(p);
@@ -246,16 +319,59 @@ inline Node<ItemType>* BinarySearchTree<ItemType>::double_rotation_right(Node<It
 
 // Tree에 새로운 node 추가
 template<class ItemType>
-void BinarySearchTree<ItemType>::Add(ItemType item)
+int BinarySearchTree<ItemType>::Add(ItemType item)
 {
 	Insert(root, item);					// 새 node 추가하는 함수 호출
+	return 1;
 }
 
 // Tree의 node를 지움
 template<class ItemType>
-void BinarySearchTree<ItemType>::DeleteItem(ItemType item)
+int BinarySearchTree<ItemType>::Delete(ItemType item)
 {
-	Delete(root, item);					// 존재하는 node 삭제하는 함수를 호출
+	DeleteItem(root, item);					// 존재하는 node 삭제하는 함수를 호출
+}
+
+template<class ItemType>
+int BinarySearchTree<ItemType>::Replace(ItemType item)
+{
+	if (Delete(item) != 1)
+		return 0;
+	if (Add(item) != 1)
+		return 0;
+	return 1;
+}
+
+template<class ItemType>
+int BinarySearchTree<ItemType>::Get(ItemType & item)
+{
+	bool found;
+	RetrieveItem(item, found);
+
+	if (found)
+		return 1;
+	else
+		return 0;
+}
+
+template<class ItemType>
+void BinarySearchTree<ItemType>::DisplayAll()
+{
+	if (!IsEmpty())
+		PrintInOrderTraversal(root);
+	else
+		cout << "\t-----Messege-----\n\t리스트가 비어 있습니다.\n\t-----Messege-----" << endl;
+	return;
+}
+
+template<class ItemType>
+inline void BinarySearchTree<ItemType>::DisplayAllBrief()
+{
+	if (!IsEmpty())
+		PrintInOrderTraversalBrief(root);
+	else
+		cout << "\t-----Messege-----\n\t리스트가 비어 있습니다.\n\t-----Messege-----" << endl;
+	return;
 }
 
 // Tree에서 찾고자 하는 값의 node를 검색
@@ -270,11 +386,11 @@ template<class ItemType>
 void BinarySearchTree<ItemType>::PrintTree(ostream &out)const
 {
 	cout << "[InOrder]" << endl;
-	PrintInOrderTraversal(root, out);			// InOrder 방법으로 출력
+	PrintInOrderTraversal(root);			// InOrder 방법으로 출력
 	cout << endl << "[PreOrder]" << endl;
-	PrintPreOrderTraversal(root, out);			// PreOrder 방법으로 출력
+	PrintPreOrderTraversal(root);			// PreOrder 방법으로 출력
 	cout << endl << "[PostOrder]" << endl;
-	PrintPostOrderTraversal(root, out);			// PostOrder 방법으로 출력
+	PrintPostOrderTraversal(root);			// PostOrder 방법으로 출력
 }
 
 /////////////////////////////Global functions//////////////////////////
@@ -355,12 +471,12 @@ void DeleteNode(Node<ItemType> *&root)
 
 // 내가 지우려고 하는 노드를 찾는 recursive 함수
 template<class ItemType>
-void Delete(Node<ItemType> *&root, ItemType item)
+void DeleteItem(Node<ItemType> *&root, ItemType item)
 {
 	if (item < root->data)				// root노드값보다 item노드가 작을 때
-		Delete(root->left, item);		// 왼쪽노드로 가서 delete함수 호출
+		DeleteItem(root->left, item);		// 왼쪽노드로 가서 delete함수 호출
 	else if (item > root->data)			// root노드값보다 item노드가 클 때
-		Delete(root->right, item);		// 오른쪽노드로 가서 delete함수 호출
+		DeleteItem(root->right, item);		// 오른쪽노드로 가서 delete함수 호출
 	else
 		DeleteNode(root);				// 찾고자 하는 값이 일치하는 경우 deletenode 함수 호출
 }
@@ -384,36 +500,48 @@ void Retrieve(Node<ItemType> *root, ItemType& item, bool &found)
 
 // InOrder 방법으로 출력하는 함수 
 template<class ItemType>
-void PrintInOrderTraversal(Node<ItemType>* root, ostream& out)
+void PrintInOrderTraversal(Node<ItemType>* root)
 {
 	if (root != NULL)								// root가 존재하는 경우
 	{
-		PrintInOrderTraversal(root->left, out);		// root의 왼쪽으로 가서 다시 InOrder 함수 호출
-		out << root->data;							// root 출력
-		PrintInOrderTraversal(root->right, out);	// root의 오른쪽으로 가서 다시 InOrder 함수 호출
+		PrintInOrderTraversal(root->left);		// root의 왼쪽으로 가서 다시 InOrder 함수 호출
+		root->data.DisplayRecordOnScreen();			// root 출력
+		PrintInOrderTraversal(root->right);	// root의 오른쪽으로 가서 다시 InOrder 함수 호출
+	}
+}
+
+// InOrder 방법으로 간단히 출력하는 함수 
+template<class ItemType>
+void PrintInOrderTraversalBrief(Node<ItemType>* root)
+{
+	if (root != NULL)								// root가 존재하는 경우
+	{
+		PrintInOrderTraversal(root->left);		// root의 왼쪽으로 가서 다시 InOrder 함수 호출
+		root->data.DisplayBriefOnScreen();		// root 출력
+		PrintInOrderTraversal(root->right);	// root의 오른쪽으로 가서 다시 InOrder 함수 호출
 	}
 }
 
 // PreOrder 방법으로 출력하는 함수
 template<class ItemType>
-void PrintPreOrderTraversal(Node<ItemType>* root, ostream& out)
+void PrintPreOrderTraversal(Node<ItemType>* root)
 {
 	if (root != NULL)								// root가 존재하는 경우
 	{
-		out << root->data;							// root를 먼저 출력
-		PrintPreOrderTraversal(root->left, out);	// root의 왼쪽으로 가서 PreOrder 함수 다시 호출
-		PrintPreOrderTraversal(root->right, out);	// root의 오른쪽으로 가서 PreOrder 함수 다시 호출
+		root->data.DisplayRecordOnScreen();			// root 출력
+		PrintPreOrderTraversal(root->left);	// root의 왼쪽으로 가서 PreOrder 함수 다시 호출
+		PrintPreOrderTraversal(root->right);	// root의 오른쪽으로 가서 PreOrder 함수 다시 호출
 	}
 }
 
 // PostOrder 방법으로 출력하는 함수
 template<class ItemType>
-void PrintPostOrderTraversal(Node<ItemType>* root, ostream& out)
+void PrintPostOrderTraversal(Node<ItemType>* root)
 {
 	if (root != NULL)								// root가 존재하는 경우
 	{
-		PrintPostOrderTraversal(root->left, out);	// root의 왼쪽으로 가서 다시 PostOrder 함수 호출
-		PrintPostOrderTraversal(root->right, out);	// root의 오른쪽으로 가서 다시 PostOrder 함수 호출
-		out << root->data;							// root의 값 출력
+		PrintPostOrderTraversal(root->left);	// root의 왼쪽으로 가서 다시 PostOrder 함수 호출
+		PrintPostOrderTraversal(root->right);	// root의 오른쪽으로 가서 다시 PostOrder 함수 호출
+		root->data.DisplayRecordOnScreen();			// root 출력
 	}
 }

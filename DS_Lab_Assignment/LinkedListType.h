@@ -133,20 +133,20 @@ public:
 	*/
 	int Get(T &item);
 
-	/**
-	*	@brief	리스트 내의 모든 노드들의 이름을 트리모양으로 출력
-	*	@pre	리스트 초기화
-	*	@post	리스트 내의 모든 노드들의 이름이 한 줄씩 트리모양으로 출력됨
-	*	@param	level	리스트의 단계(0단계 최상위~n단계)
-	*/
-	void DisplayAllStructure(int level);
+	///**
+	//*	@brief	리스트 내의 모든 노드들의 이름을 트리모양으로 출력
+	//*	@pre	리스트 초기화
+	//*	@post	리스트 내의 모든 노드들의 이름이 한 줄씩 트리모양으로 출력됨
+	//*	@param	level	리스트의 단계(0단계 최상위~n단계)
+	//*/
+	//void DisplayAllStructure(int level);
 
-	/**
-	*	@brief	리스트 내의 모든 노드들의 이름을 트리모양으로 출력(하위리스트 포함)
-	*	@pre	(최상위) 리스트 초기화
-	*	@post	DisplayAllStructure를 활용해 모든 리스트 데이터 트리모양으로 출력
-	*/
-	void DoDisplayAllStructure();
+	///**
+	//*	@brief	리스트 내의 모든 노드들의 이름을 트리모양으로 출력(하위리스트 포함)
+	//*	@pre	(최상위) 리스트 초기화
+	//*	@post	DisplayAllStructure를 활용해 모든 리스트 데이터 트리모양으로 출력
+	//*/
+	//void DoDisplayAllStructure();
 
 private:
 	NodeType<T>* m_pList;	///< 첫 노드 가리키는 포인터
@@ -417,53 +417,53 @@ void LinkedListType<T>::DisplayAllBrief()
 	return;
 }
 
-// 트리 모양으로 모든 노드 이름 출력
-template<typename T>
-void LinkedListType<T>::DisplayAllStructure(int level)
-{
-	if (!IsEmpty())
-	{
-		DoublyIterator<T> iter(*this);
-		T item;
-		for (int i = 0; i < this->GetLength(); i++)
-		{
-			for (int i = 0; i < level; i++)
-				cout << "  ";
-			cout << "├  ";
-			item = iter.Next();
-			cout << item.GetName() << endl;
-		}
-	}
-	else
-	{
-		for (int i = 0; i < level; i++)
-			cout << "  ";
-		cout << "├  (Empty List)" << endl;
-	}
-	return;
-}
+//// 트리 모양으로 모든 노드 이름 출력
+//template<typename T>
+//void LinkedListType<T>::DisplayAllStructure(int level)
+//{
+//	if (!IsEmpty())
+//	{
+//		DoublyIterator<T> iter(*this);
+//		T item;
+//		for (int i = 0; i < this->GetLength(); i++)
+//		{
+//			for (int i = 0; i < level; i++)
+//				cout << "  ";
+//			cout << "├  ";
+//			item = iter.Next();
+//			cout << item.GetName() << endl;
+//		}
+//	}
+//	else
+//	{
+//		for (int i = 0; i < level; i++)
+//			cout << "  ";
+//		cout << "├  (Empty List)" << endl;
+//	}
+//	return;
+//}
 
-// 트리 모양으로 모든 노드 이름 출력
-template<typename T>
-void LinkedListType<T>::DoDisplayAllStructure()
-{
-	if (!IsEmpty())
-	{
-		DoublyIterator<T> iter(*this);
-		T item;
-		T * p_item;
-		for (int i = 0; i < this->GetLength(); i++)
-		{
-			item = iter.Next();
-			p_item = GetData(item);
-			p_item->DoDisplayStructure();
-		}
-	}
-	else
-		cout << endl;
-
-	return;
-}
+//// 트리 모양으로 모든 노드 이름 출력
+//template<typename T>
+//void LinkedListType<T>::DoDisplayAllStructure()
+//{
+//	if (!IsEmpty())
+//	{
+//		DoublyIterator<T> iter(*this);
+//		T item;
+//		T * p_item;
+//		for (int i = 0; i < this->GetLength(); i++)
+//		{
+//			item = iter.Next();
+//			p_item = GetData(item);
+//			p_item->DoDisplayStructure();
+//		}
+//	}
+//	else
+//		cout << endl;
+//
+//	return;
+//}
 
 // Private멤버 함수: 리스트 내에 item과 일치하는 item 찾아 주소값 반환
 template<typename T>

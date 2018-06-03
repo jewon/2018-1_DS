@@ -42,10 +42,7 @@
     <ClInclude Include="Admin.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
-    <ClInclude Include="AVLTree.h">
-      <Filter>헤더 파일</Filter>
-    </ClInclude>
-    <ClInclude Include="BSTree_AVL.h">
+    <ClInclude Include="AVL.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
   </ItemGroup>
@@ -69,9 +66,6 @@
       <Filter>소스 파일</Filter>
     </ClCompile>
     <ClCompile Include="Admin.cpp">
-      <Filter>소스 파일</Filter>
-    </ClCompile>
-    <ClCompile Include="AVLtree.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
   </ItemGroup>

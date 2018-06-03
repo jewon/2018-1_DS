@@ -456,14 +456,14 @@ public:
 	*	@pre	.
 	*	@post	내부 구조 출력
 	*/
-	void DoDisplayStructure()
-	{
-		cout << "├  " << m_hName << endl;
-		if (SessionList != NULL)
-			SessionList->DoDisplayAllStructure();
-		else
-			cout << "  ├  (Empty List)" << endl;
-	}
+	//void DoDisplayStructure()
+	//{
+	//	cout << "├  " << m_hName << endl;
+	//	if (SessionList != NULL)
+	//		SessionList->DoDisplayAllStructure();
+	//	else
+	//		cout << "  ├  (Empty List)" << endl;
+	//}
 
 	/**
 	*	@brief	Infochange 클래스 정보 수정시 명령 입력 받음
