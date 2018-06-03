@@ -1,0 +1,32 @@
+﻿#	Conference	\n
+#		name	\n
+#		date	\n
+#	Paper	\n
+#		title	\n
+#		page	\n
+#		author	\n
+
+
+c	3DV_Vision	2016.10.25	\n
+p	Matching_Deformable_Objects_in_Clutter	1-10	\n
+a	LucaCosmo	EmanueleRodolà	Jonathan Masci	\n
+p	Progressive_3D_Modeling_All_the_Way	11-18	\n
+a	AlexLocher	MichalHavlena	LucVanGool	\n
+p	A_Hybrid_Structure/Trajectory_Constraint_for_Visual_SLAM	19-27	\n
+a	AngeliqueLoesch	SteveBourgeois	Vincent	MichelDhome	\n
+p	Real-Time_Surface_of_Revolution_Reconstruction_on_Dense_SLAM	28-36	\n
+a	LimingYang	HideakiUchiyama	\n
+c	ACII	2017.10.23	\n
+p	Monocular,_Real-Time_Surface_Reconstruction_Using_Dynamic_Level_of_Detail	37-46	\n
+a	JacekZienkiewicz	AkisTsiotsios	AndrewDavison	StefanLeutenegger	\n
+p	Energy-Based_Global_Ternary_Image_for_Action_Recognition_Using_Sole_Depth_Sequences	47-55	\n
+a	MengyuanLiu	HongLiu	ChenChen	MaryamNajafian	\n
+p	Robust_Recovery_of_Heavily_Degraded_Depth_Measurements	56-65	\n
+a	GiladDrozdov	YevgengyShapiro	GuyGilboa	\n
+p	Fast_Obstacle_Detection_Using_Sparse_Edge-Based_Disparity_Maps	66-72	\n
+a	DexmontAlejandro	Carrillo	Alistair	\n
+c	VISAPP	2018.01.27	\n
+p	A_Large-Scale_3D_Object_Recognition_Dataset	73-82	\n
+a	Henrik Aanes	\n
+p	Robust_Feature-Preserving_Denoising_of_3D_Point_Clouds	83-91	\n
+a	SkMohammadulHaque	VenuMadhavGovindu	\n

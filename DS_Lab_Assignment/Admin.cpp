@@ -33,6 +33,9 @@ void Admin::Run(BinarySearchTree<ConferenceType> * inList)
 			if(AuthorListToChange != NULL)
 				ChangePaper.Run(AuthorListToChange);
 			break;
+		case 4: // 파일입력
+			FileIn();
+			break;
 		//case 4: // 구조 출력
 		//	PrintALlStructure();
 		//	break;
@@ -58,6 +61,7 @@ int Admin::GetCommand()
 	cout << "\t   1 : 학술대회 내용 수정" << endl;
 	cout << "\t   2 : Paper 내용 수정" << endl;
 	cout << "\t   3 : Author 내용 수정" << endl;
+	cout << "\t   4 : 파일입력" << endl;
 	//cout << "\t   4 : 데이터 전체 구조 보기" << endl;
 	cout << "\t   0 : 메인 메뉴로" << endl;
 
@@ -115,6 +119,89 @@ BinarySearchTree<AuthorType>* Admin::GetChangeAuthorList()
 	else
 		cout << "\t-----Error Massage-----\n\t입력하신 이름을 가진 Paper이 없습니다.\n\t-----Error Massage-----\n";
 	return NULL;
+}
+
+void Admin::FileIn()
+{
+	ifstream fs;
+	fs.open("dblp.txt");
+
+	if (!fs.is_open())
+	{
+		cout << "파일 입력 오류";
+		return;
+	}
+
+	char temp[100];
+	BinarySearchTree<ConferenceType> * cl = new BinarySearchTree<ConferenceType>;
+	ConferenceType c;
+	PaperType p;
+	AuthorType a;
+
+	while (1)
+	{
+		fs >> temp;
+		if (temp[0] == 'c')
+			break;
+	}
+
+	while (!fs.eof())
+	{
+		if (temp[0] == '\n')
+		{
+			fs.ignore(100, '\n');
+			continue;
+		}
+
+		if (temp[0] == 'c')
+		{
+			fs >> temp;
+			c.SetName(temp);
+			fs >> temp;
+			c.SetDate(temp);
+			fs.ignore(100, '\n');
+			cl->Add(c);
+			cl->GetData(c)->MakePaperList();
+		}
+
+		else if (temp[0] == 'p')
+		{
+			fs >> temp;
+			p.SetName(temp);
+			fs >> temp;
+			p.SetPage(temp);
+			cl->GetData(c)->GetPaperList()->Add(p);
+			cl->GetData(c)->GetPaperList()->GetData(p)->MakeAuthorList();
+			fs.ignore(100, '\n');
+		}
+
+		else if (temp[0] == 'a')
+		{
+			while (1)
+			{
+				fs >> temp;
+				if (fs.peek() == '\n')
+				{
+					fs.ignore(100, '\n');
+					break;
+				}
+				a.SetName(temp);
+				cl->GetData(c)->GetPaperList()->GetData(p)->GetAuthorList()->Add(a);
+			}
+		}
+		else
+		{
+			cout << "\t 잘못된 입력입니다 : " << temp;
+			return;
+		}
+		fs >> temp;
+	}
+	Root_List = cl;
+}
+
+int Admin::ReadDataFromFile(ifstream & fin)
+{
+	return 0;
 }
 
 //void Admin::PrintALlStructure()

@@ -428,6 +428,7 @@ int BinarySearchTree<ItemType>::Insert(Node<ItemType>*& root, ItemType item)
 		root->height = 0;
 		added = 1;
 	}
+
 	else if (root->data > item)		// root가 존재하고, 그 값이 새로운 item 값보다 클 때
 	{
 		added = Insert(root->left, item);	// root의 왼쪽으로 Insert 함수 다시 호출

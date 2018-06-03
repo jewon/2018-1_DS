@@ -110,6 +110,17 @@ public:
 	}
 
 	/**
+	*	@brief	Paper명 입력
+	*	@pre	.
+	*	@post	Paper명 입력됨
+	*	@param	inName	입력할 Paper명
+	*/
+	void SetPage(string inPage)
+	{
+		m_sPage = inPage;
+	}
+
+	/**
 	*	@brief	Author리스트 입력
 	*	@pre	.
 	*	@post	Author리스트 입력됨
