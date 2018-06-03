@@ -5,7 +5,7 @@
 #include<string>
 using namespace std;
 
-#include"LinkedListType.h"
+#include"AVL.h"
 #include"ConferenceType.h"
 
 /**
@@ -17,7 +17,7 @@ public:
 	/**
 	*	생성자 : i_List에 리스트 받음
 	*/
-	MoreFeatures(LinkedListType<ConferenceType>& in_List) : i_List(in_List), i_Command(0) {}
+	MoreFeatures(BinarySearchTree<ConferenceType>& in_List) : i_List(in_List), i_Command(0) {}
 
 	/**
 	*	@brief	추가 기능을 실행한다. (사용자 메뉴)
@@ -34,16 +34,16 @@ public:
 	*/
 	int MoreFeaturesGetcommand();
 
-	/**
-	*	@brief	학술대회 목록을 간략히 출력한다.
-	*	@pre	.
-	*	@post	학술대회 목록이 간단히 출력됨.
-	*/
-	void DisplayConferenceBrief();
+	///**
+	//*	@brief	학술대회 목록을 간략히 출력한다.
+	//*	@pre	.
+	//*	@post	학술대회 목록이 간단히 출력됨.
+	//*/
+	//void DisplayConferenceBrief();
 	
 protected:
 	int i_Command;	///< 사용자로부터 입력받은 명령번호
-	const LinkedListType<ConferenceType> & i_List;	///< 탐색을 실행할 대상 리스트
+	const BinarySearchTree<ConferenceType> & i_List;	///< 탐색을 실행할 대상 리스트
 };
 
 #endif _MORE_FEATURES_H

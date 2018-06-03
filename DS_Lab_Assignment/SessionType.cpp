@@ -13,7 +13,7 @@ void SessionType::SetPaperListFromKB()
 	cout << "\t논문 리스트를 수정합니다\n";
 	if (PaperList==NULL)
 		MakePaperList();
-	LinkedListType<PaperType> temp = *PaperList;
+	BinarySearchTree<PaperType> temp = *PaperList;
 	InfoChange<PaperType> PaperChange;
 	PaperChange.Run(&temp);
 	SetPaperList(&temp);

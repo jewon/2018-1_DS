@@ -6,7 +6,7 @@
 #include <string>
 using namespace std;
 
-#include "LinkedListType.h"
+#include "AVL.h"
 #include "ConferenceType.h"
 #include "MoreFeatures.h"
 #include "Admin.h"
@@ -65,7 +65,7 @@ public:
 	void RunAdmin();
 
 private:
-	LinkedListType<ConferenceType> m_List;		///< item list.
+	BinarySearchTree<ConferenceType> m_List;		///< item list.
 	int m_Command;			///< current command number.
 };
 

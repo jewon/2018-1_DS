@@ -1,6 +1,8 @@
-#pragma once
-#include "ConferenceType.h"
+#ifndef _AVL_H
+#define _AVL_H
+
 #include <iostream>
+#include <string>
 using namespace std;
 
 // Tree를 구성하는 Node (node data, left 포인터, right 포인터)
@@ -17,6 +19,8 @@ struct Node
 template<class ItemType>
 class BinarySearchTree
 {
+	//friend class Admin; // Admin이 GetData() 사용할 수 있도록 함
+
 public:
 	// 생성자
 	BinarySearchTree();
@@ -37,7 +41,7 @@ public:
 	*	@post	none
 	*	@return	Tree가 비어있으면 true리턴, 아니면 false 리턴
 	*/
-	bool IsEmpty()const;
+	bool IsEmpty();
 
 	/**
 	*	@brief	Tree가 Full인지 확인
@@ -45,7 +49,7 @@ public:
 	*	@post	none
 	*	@return	Tree가 Full이면 true 리턴, 아니면 false 리턴
 	*/
-	bool IsFull()const;
+	bool IsFull();
 
 	/**
 	*	@brief	Tree를 비운다
@@ -60,7 +64,7 @@ public:
 	*	@post	none
 	*	@return	Tree의 node 개수를 리턴
 	*/
-	int GetLength() const;
+	int GetLength();
 
 	/**
 	*	@brief	특정 노드를 root로 하는 Tree의 height를 확인함
@@ -160,14 +164,14 @@ public:
 	*	@pre	찾고자 하는 item과 검색결과에 대한 found 설정
 	*	@post	node가 Tree에 있는지 검색결과를 알려줌
 	*/
-	void RetrieveItem(ItemType& item, bool &found)const;
+	void RetrieveItem(ItemType& item, bool &found);
 
 	/**
 	*	@brief	Tree의 node를 스크린에 출력한다.
 	*	@pre	none
 	*	@post	스크린에 Tree가 InOrder, PreOrder, PostOrder 방법으로 각각 출력됨.
 	*/
-	void PrintTree(ostream &out) const;
+	void PrintTree(ostream &out);
 
 	///**
 	//*	@brief	리스트 내의 모든 노드들의 이름을 트리모양으로 출력
@@ -184,9 +188,22 @@ public:
 	//*/
 	//void DoDisplayAllStructure();
 
+	int Insert(Node<ItemType>*& root, ItemType item);
+
+
+	ItemType * GetData(ItemType &item);
+	ItemType * RetrieveP(Node<ItemType> * root, ItemType &item);
+
 private:
 	Node<ItemType>* root;		///< Node 타입의 root
 	string TName;	///< 트리 노드 데이터 타입이름
+
+	/**
+	*	@brief	root 아래에 새 item를 추가한다(재귀적)
+	*	@pre	Add를 통한 호출
+	*	@post	root 아래에 새 itme이 추가됨
+	*/
+
 };
 
 // 생성자
@@ -206,14 +223,14 @@ BinarySearchTree<ItemType>::~BinarySearchTree()
 }
 
 template<class ItemType>
-inline string BinarySearchTree<ItemType>::GetTName()
+string BinarySearchTree<ItemType>::GetTName()
 {
 	return TName;
 }
 
 // Tree가 비어있는지 확인
 template<class ItemType>
-bool BinarySearchTree<ItemType>::IsEmpty()const
+bool BinarySearchTree<ItemType>::IsEmpty()
 {
 	if (root == NULL)			// root 노드가 NULL인 경우 true 리턴
 		return true;
@@ -223,7 +240,7 @@ bool BinarySearchTree<ItemType>::IsEmpty()const
 
 // Tree가 Full인지 확인
 template<class ItemType>
-bool BinarySearchTree<ItemType>::IsFull()const
+bool BinarySearchTree<ItemType>::IsFull()
 {
 	Node* room;					// 임시의 node를 만들고
 	try
@@ -247,7 +264,7 @@ void BinarySearchTree<ItemType>::MakeEmpty()
 
 // Tree의 node개수를 알려줌
 template<class ItemType>
-int BinarySearchTree<ItemType>::GetLength()const
+int BinarySearchTree<ItemType>::GetLength()
 {
 	return CountNodes(root);			// node 개수를 새는 함수 호출
 }
@@ -262,7 +279,7 @@ int BinarySearchTree<ItemType>::GetHeight(Node<ItemType> * p)
 }
 
 template<class ItemType>
-Node<ItemType>* BinarySearchTree<ItemType>::single_rotation_left(Node<ItemType>* p)
+Node<ItemType>* BinarySearchTree<ItemType>::single_rotation_right(Node<ItemType>* p)
 {
 	Node<ItemType> * tp;
 	tp = p->left;
@@ -283,7 +300,7 @@ Node<ItemType>* BinarySearchTree<ItemType>::single_rotation_left(Node<ItemType>*
 }
 
 template<class ItemType>
-Node<ItemType>* BinarySearchTree<ItemType>::single_rotation_right(Node<ItemType>* p)
+Node<ItemType>* BinarySearchTree<ItemType>::single_rotation_left(Node<ItemType>* p)
 {
 	Node<ItemType> * tp;
 	tp = p->right;
@@ -306,7 +323,7 @@ Node<ItemType>* BinarySearchTree<ItemType>::single_rotation_right(Node<ItemType>
 template<class ItemType>
 Node<ItemType>* BinarySearchTree<ItemType>::double_rotation_left(Node<ItemType>* p)
 {
-	p->left = signle_rotation_left(p->left);
+	p->left = single_rotation_left(p->left);
 	return single_rotation_right(p);
 }
 
@@ -321,8 +338,11 @@ Node<ItemType>* BinarySearchTree<ItemType>::double_rotation_right(Node<ItemType>
 template<class ItemType>
 int BinarySearchTree<ItemType>::Add(ItemType item)
 {
-	Insert(root, item);					// 새 node 추가하는 함수 호출
-	return 1;
+	// 새 node 추가하는 함수 호출
+	if (Insert(root, item) != 1)
+		return 0;
+	else
+		return 1;
 }
 
 // Tree의 node를 지움
@@ -330,6 +350,7 @@ template<class ItemType>
 int BinarySearchTree<ItemType>::Delete(ItemType item)
 {
 	DeleteItem(root, item);					// 존재하는 node 삭제하는 함수를 호출
+	return 1;
 }
 
 template<class ItemType>
@@ -365,7 +386,7 @@ void BinarySearchTree<ItemType>::DisplayAll()
 }
 
 template<class ItemType>
-inline void BinarySearchTree<ItemType>::DisplayAllBrief()
+void BinarySearchTree<ItemType>::DisplayAllBrief()
 {
 	if (!IsEmpty())
 		PrintInOrderTraversalBrief(root);
@@ -376,14 +397,14 @@ inline void BinarySearchTree<ItemType>::DisplayAllBrief()
 
 // Tree에서 찾고자 하는 값의 node를 검색
 template<class ItemType>
-void BinarySearchTree<ItemType>::RetrieveItem(ItemType& item, bool &found)const
+void BinarySearchTree<ItemType>::RetrieveItem(ItemType& item, bool &found)
 {
 	Retrieve(root, item, found);		// Tree 검색 함수 호출
 }
 
 // Tree의 node를 각각의 방법대로 출력함
 template<class ItemType>
-void BinarySearchTree<ItemType>::PrintTree(ostream &out)const
+void BinarySearchTree<ItemType>::PrintTree(ostream &out)
 {
 	cout << "[InOrder]" << endl;
 	PrintInOrderTraversal(root);			// InOrder 방법으로 출력
@@ -391,6 +412,69 @@ void BinarySearchTree<ItemType>::PrintTree(ostream &out)const
 	PrintPreOrderTraversal(root);			// PreOrder 방법으로 출력
 	cout << endl << "[PostOrder]" << endl;
 	PrintPostOrderTraversal(root);			// PostOrder 방법으로 출력
+}
+
+// BinarySearchTree에 새로운 노드 추가
+template<class ItemType>
+int BinarySearchTree<ItemType>::Insert(Node<ItemType>*& root, ItemType item)
+{
+	int added = 0;
+	if (root == NULL)				// root가 null일 경우 
+	{
+		root = new Node<ItemType>;	// root 노드 생성
+		root->left = NULL;			// root 노드이므로 left와 right는 NULL로 설정
+		root->right = NULL;
+		root->data = item;			// root 노드의 값
+		root->height = 0;
+		added = 1;
+	}
+	else if (root->data > item)		// root가 존재하고, 그 값이 새로운 item 값보다 클 때
+	{
+		added = Insert(root->left, item);	// root의 왼쪽으로 Insert 함수 다시 호출
+		if (GetHeight(root->left) - GetHeight(root->right) == 2)	// rotation
+		{
+			if (item < root->left->data)
+				root = single_rotation_right(root);
+			else
+				root = double_rotation_left(root);
+		}
+	}
+	else if (root->data < item)		// root가 존재하고, 그 값이 새로운 item 값보다 작을 때
+	{
+		added = Insert(root->right, item);	// root의 오른쪽으로 Insert 함수 다시 호출
+		if (GetHeight(root->right) - GetHeight(root->left) == 2)	// rotation
+		{
+			if (item > root->right->data)
+				root = single_rotation_left(root);
+			else
+				root = double_rotation_right(root);
+		}
+	}
+	else
+		return 0;
+	return added;
+}
+
+template<class ItemType>
+ItemType * BinarySearchTree<ItemType>::RetrieveP(Node<ItemType>* root, ItemType &item)
+{
+	if (root == NULL)						// root가 NULL인 경우 찾는 item 없음(NULL리턴)
+		return NULL;
+	else if (item < root->data)				// 찾고자 하는 아이템값이 root값보다 작을 때 
+		return RetrieveP(root->left, item);	// 왼쪽 노드로 가서 retrieve 함수 호출
+	else if (item > root->data)				// 찾고자 하는 아이템값이 root값보다 클 때
+		return RetrieveP(root->right, item);	// 오른쪽 노드로 가서 retrieve 함수 호출
+	else
+	{										// 찾고자 하는 값과 일치할 때
+		item = root->data;					// item에 노드 정보를 복사
+		return &(root->data);				// item 주소 리턴
+	}
+}
+
+template<class ItemType>
+ItemType * BinarySearchTree<ItemType>::GetData(ItemType &item)
+{
+	return RetrieveP(root, item);
 }
 
 /////////////////////////////Global functions//////////////////////////
@@ -411,28 +495,7 @@ int CountNodes(Node<ItemType>* root)
 		return CountNodes(root->left) + CountNodes(root->right) + 1;		// 노드의 왼쪽, 오른쪽에 대한 재귀적 호출과 root에 해당하는 1을 더해서 값을 리턴
 }
 
-// BinarySearchTree에 새로운 노드 추가
-template<class ItemType>
-void Insert(Node<ItemType>*& root, ItemType item)
-{
-	if (root == NULL)				// root가 null일 경우 
-	{
-		root = new Node<ItemType>;	// root 노드 생성
-		root->left = NULL;			// root 노드이므로 left와 right는 NULL로 설정
-		root->right = NULL;
-		root->data = item;			// root 노드의 값
-		root->height = 0;
-	}
-	else if (root->data > item)		// root가 존재하고, 그 값이 새로운 item 값보다 클 때
-	{
-		Insert(root->left, item);	// root의 왼쪽으로 Insert 함수 다시 호출
-			if (root->left->height - root->right->height == 2)
-				if (item < root->left->data)
 
-	}
-	else if (root->data < item)		// root가 존재하고, 그 값이 새로운 item 값보다 작을 때
-		Insert(root->right, item);	// root의 오른쪽으로 Insert 함수 다시 호출
-}
 
 // 가장 큰 값을 찾는 함수 
 template<class ItemType>
@@ -465,7 +528,7 @@ void DeleteNode(Node<ItemType> *&root)
 	{
 		GetPredecessor(root->left, item);	// 중간에 있는 노드를 지우고 싶을 때 (left, right, child 노드 있을 경우)
 		root->data = item;					// 지우려는 노드보다 작은 노드들 중에 가장 큰 노드를 찾음
-		Delete(root->left, item);			// 그 값을 지울 노드에 복사를 해서 지운 것처럼
+		DeleteItem(root->left, item);			// 그 값을 지울 노드에 복사를 해서 지운 것처럼
 	}
 }
 
@@ -545,3 +608,5 @@ void PrintPostOrderTraversal(Node<ItemType>* root)
 		root->data.DisplayRecordOnScreen();			// root 출력
 	}
 }
+
+#endif

@@ -5,7 +5,7 @@
 #include <string>
 using namespace std;
 
-#include"LinkedListType.h"
+#include"AVL.h"
 #include"InfoChange.h"
 #include"PaperType.h"
 
@@ -36,9 +36,9 @@ public:
 	*	@pre	ConferencTyepe 초기화
 	*	@post	PaperList에 새 세션 리스트 할당
 	*/
-	LinkedListType<PaperType> * MakePaperList()
+	BinarySearchTree<PaperType> * MakePaperList()
 	{
-		PaperList = new LinkedListType<PaperType>;
+		PaperList = new BinarySearchTree<PaperType>;
 		return PaperList;
 	}
 
@@ -93,7 +93,7 @@ public:
 	*	@post	.
 	*	@return	논문 리스트
 	*/
-	LinkedListType <PaperType> * GetPaperList()
+	BinarySearchTree <PaperType> * GetPaperList()
 	{
 		return PaperList;
 	}
@@ -115,7 +115,7 @@ public:
 	*	@post	논문리스트 입력됨
 	*	@param	inPaperList	입력할 논문리스트
 	*/
-	void SetPaperList(LinkedListType <PaperType> * inPaperList)
+	void SetPaperList(BinarySearchTree <PaperType> * inPaperList)
 	{
 		if(PaperList != NULL)
 			delete PaperList;
@@ -234,7 +234,7 @@ public:
 
 protected:
 	string m_sName;		///< 세션이름
-	LinkedListType <PaperType> * PaperList;	///< 세션에 발표된 논문 리스트
+	BinarySearchTree <PaperType> * PaperList;	///< 세션에 발표된 논문 리스트
 };
 
 #endif // _SESSION_TYPE_H

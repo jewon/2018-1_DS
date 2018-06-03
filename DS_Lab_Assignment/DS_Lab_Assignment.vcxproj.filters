@@ -24,16 +24,10 @@
     <ClInclude Include="SessionType.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
-    <ClInclude Include="LinkedListType.h">
-      <Filter>헤더 파일</Filter>
-    </ClInclude>
     <ClInclude Include="PaperType.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
     <ClInclude Include="InfoChange.h">
-      <Filter>헤더 파일</Filter>
-    </ClInclude>
-    <ClInclude Include="DoublyIterator.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
     <ClInclude Include="MoreFeatures.h">

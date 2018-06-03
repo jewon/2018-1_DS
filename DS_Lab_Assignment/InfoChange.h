@@ -5,10 +5,10 @@
 #include<string>
 using namespace std;
 
-#include"LinkedListType.h"
+#include"AVL.h"
 
 /**
-*	LinkedListType을 받아 사용자가 변경할 수 있게 함
+*	BinarySearchTree을 받아 사용자가 변경할 수 있게 함
 */
 template <typename T>
 class InfoChange
@@ -35,7 +35,7 @@ public :
 	*	@pre	정보변경 시작
 	*	@post	정보변경 끝
 	*/
-	void Run(LinkedListType<T> * inList);
+	void Run(BinarySearchTree<T> * inList);
 
 	/**
 	*	@brief	명령 목록을 화면에 출력하고 명령을 입력받는다
@@ -70,13 +70,13 @@ public :
 	int Change();
 
 private:
-	LinkedListType <T> * i_List;
+	BinarySearchTree <T> * i_List;
 	int i_Command;
 };
 
 // 정보 수정 실행
 template<typename T>
-void InfoChange<T>::Run(LinkedListType<T> * inList)
+void InfoChange<T>::Run(BinarySearchTree<T> * inList)
 {
 	i_List = inList;
 	while (1)
@@ -136,7 +136,7 @@ int InfoChange<T>::Add()
 	T item;
 	item.SetRecordFromKB();
 
-	if (!i_List->Add(item))
+	if (i_List->Add(item) != 1)
 	{
 		cout << "\t-----Error Massage-----\n\t레코드를 정상적으로 추가하지 못했습니다.\n\t-----Error Massage-----\n" << endl;
 		return 0;

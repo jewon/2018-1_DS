@@ -115,9 +115,7 @@
     <ClInclude Include="Application.h" />
     <ClInclude Include="AVL.h" />
     <ClInclude Include="ConferenceType.h" />
-    <ClInclude Include="DoublyIterator.h" />
     <ClInclude Include="InfoChange.h" />
-    <ClInclude Include="LinkedListType.h" />
     <ClInclude Include="MoreFeatures.h" />
     <ClInclude Include="PaperType.h" />
     <ClInclude Include="SessionType.h" />

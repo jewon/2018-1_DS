@@ -5,7 +5,7 @@
 #include <string>
 using namespace std;
 
-#include "LinkedListType.h"
+#include "AVL.h"
 #include "ConferenceType.h"
 
 /**
@@ -36,7 +36,7 @@ public:
 	*	@pre	기능 시작
 	*	@post	기능 끝
 	*/
-	void Run(LinkedListType<ConferenceType> * inList);
+	void Run(BinarySearchTree<ConferenceType> * inList);
 
 	/**
 	*	@brief	명령 목록을 화면에 출력하고 명령을 입력받는다
@@ -52,7 +52,7 @@ public:
 	*	@post	.
 	*	@return	.
 	*/
-	LinkedListType<SessionType> * GetChangeSessionList();
+	BinarySearchTree<SessionType> * GetChangeSessionList();
 
 	/**
 	*	@brief	논문리스트의 변경을 수행한다.
@@ -60,7 +60,7 @@ public:
 	*	@post	.
 	*	@return	.
 	*/
-	LinkedListType<PaperType> * GetChangePaperList();
+	BinarySearchTree<PaperType> * GetChangePaperList();
 
 	/**
 	*	@brief	현재 리스트에 포함된 모든 데이터를 구조화해 출력한다.
@@ -71,7 +71,7 @@ public:
 
 protected:
 	int m_Command;		///< 사용자 명령
-	LinkedListType<ConferenceType> * Root_List;		///< 컨퍼런스 리스트 포인터
+	BinarySearchTree<ConferenceType> * Root_List;		///< 컨퍼런스 리스트 포인터
 };
 
 #endif _ADMIN_H

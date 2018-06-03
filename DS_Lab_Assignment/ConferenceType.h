@@ -7,7 +7,7 @@
 
 using namespace std;
 
-#include "LinkedListType.h"
+#include "AVL.h"
 #include "SessionType.h"
 #include "InfoChange.h"
 
@@ -39,10 +39,10 @@ public:
 	*	@pre	ConferencTyepe 초기화
 	*	@post	SessionList에 새 세션 리스트 할당
 	*/
-	LinkedListType<SessionType> * MakeSessionList()
+	BinarySearchTree<SessionType> * MakeSessionList()
 	{
 		if(SessionList == NULL)
-			SessionList = new LinkedListType<SessionType>;
+			SessionList = new BinarySearchTree<SessionType>;
 		return SessionList;
 	}
 
@@ -140,7 +140,7 @@ public:
 	*	@post	.
 	*	@return	세션 리스트(LinkedList)
 	*/
-	LinkedListType <SessionType> * GetSessionList()
+	BinarySearchTree <SessionType> * GetSessionList()
 	{
 		return SessionList;
 	}
@@ -239,7 +239,7 @@ public:
 	*	@post	세션 리스트 입력됨
 	*	@param	inSessionList	입력할 세션 리스트(LinkedList)
 	*/
-	void SetSessionList(LinkedListType <SessionType> * inSessionList)
+	void SetSessionList(BinarySearchTree <SessionType> * inSessionList)
 	{
 		if(SessionList!=NULL)
 			delete SessionList;
@@ -260,7 +260,7 @@ public:
 	*	@param	inISBN	입력할 횟수
 	*	@param	inSessionList	입력할 세션리스트
 	*/
-	void SetRecord(string inName, string inDate, int inTimes, string inOrgan, string inSimple, string inPlace, string inDateTime, string inISBN, LinkedListType <SessionType> * inSessionList)
+	void SetRecord(string inName, string inDate, int inTimes, string inOrgan, string inSimple, string inPlace, string inDateTime, string inISBN, BinarySearchTree <SessionType> * inSessionList)
 	{
 		SetName(inName);
 		SetDate(inDate);
@@ -407,7 +407,7 @@ public:
 	/**
 	*	@brief	사용자로부터 세션 리스트 입력받음
 	*	@pre	.
-	*	@post	LinkedListType의 세션 리스트 입력 함수 실행
+	*	@post	BinarySearchTree의 세션 리스트 입력 함수 실행
 	*/
 	void SetSessionListFromKB();
 
@@ -502,7 +502,7 @@ protected:
 	string m_hPlace;	///< 학술대회 개최장소
 	string m_hDateTime;		///< 학술대회 개최일시
 	string m_hISBN;		///< ISBN
-	LinkedListType <SessionType> * SessionList;	///< 세션 리스트 포인터
+	BinarySearchTree <SessionType> * SessionList;	///< 세션 리스트 포인터
 };
 
 #endif	// _CONFERENCE_TYPE_H

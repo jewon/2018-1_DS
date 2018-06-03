@@ -1,7 +1,7 @@
 #include "Admin.h"
 
 // 부가 기능 실행
-void Admin::Run(LinkedListType<ConferenceType> * inList)
+void Admin::Run(BinarySearchTree<ConferenceType> * inList)
 {
 	Root_List = inList; // 루트리스트 가져옴
 
@@ -11,8 +11,8 @@ void Admin::Run(LinkedListType<ConferenceType> * inList)
 	InfoChange<PaperType> ChangePaper;
 
 	// 수정할 리스트 포인터를 저장할 변수
-	LinkedListType<SessionType> * SessionListToChange = NULL;
-	LinkedListType<PaperType> * PaperListToChange = NULL;
+	BinarySearchTree<SessionType> * SessionListToChange = NULL;
+	BinarySearchTree<PaperType> * PaperListToChange = NULL;
 
 	while (1)
 	{
@@ -68,7 +68,7 @@ int Admin::GetCommand()
 	return command;
 }
 
-LinkedListType<SessionType> * Admin::GetChangeSessionList()
+BinarySearchTree<SessionType> * Admin::GetChangeSessionList()
 {
 	Root_List->DisplayAllBrief();
 	ConferenceType item;
@@ -92,9 +92,9 @@ LinkedListType<SessionType> * Admin::GetChangeSessionList()
 	return NULL;
 }
 
-LinkedListType<PaperType>* Admin::GetChangePaperList()
+BinarySearchTree<PaperType>* Admin::GetChangePaperList()
 {
-	LinkedListType<SessionType> * ChangeSessionList = GetChangeSessionList();
+	BinarySearchTree<SessionType> * ChangeSessionList = GetChangeSessionList();
 	if (ChangeSessionList->IsEmpty())
 	{
 		cout << "\t-----Error Massage-----\n\t세션 리스트가 비어 있습니다. 먼저 세션을 추가해주세요.\n\t-----Error Massage-----\n";
