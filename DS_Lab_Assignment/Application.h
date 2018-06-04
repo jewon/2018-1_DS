@@ -27,6 +27,7 @@ public:
 	{
 		m_Command = 0;
 		PaperIndex = NULL;
+		//AuthorIndex = NULL;
 	}
 
 	/**
@@ -34,8 +35,8 @@ public:
 	*/
 	~Application() 
 	{
-		PaperIndex->MakeEmpty();
 		PaperIndex = NULL;
+		//AuthorIndex = NULL;
 	}
 
 	/**

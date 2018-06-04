@@ -19,7 +19,7 @@ struct Node
 template<class ItemType>
 class BinarySearchTree
 {
-	//friend class Admin; // Admin이 GetData() 사용할 수 있도록 함
+	friend class Admin; // Admin이 GetData() 등의 하위 노드, 리스트 접근을 사용할 수 있도록 함
 
 public:
 	// 생성자
@@ -188,28 +188,86 @@ public:
 	//*/
 	//void DoDisplayAllStructure();
 
-	int Insert(Node<ItemType>*& root, ItemType item);
-
-
-	ItemType * GetData(ItemType &item);
-	ItemType * RetrieveP(Node<ItemType> * root, ItemType &item);
-	BinarySearchTree<ItemType> operator+(BinarySearchTree<ItemType> const & tree2);
-	void InsertAll(Node<ItemType>* root, BinarySearchTree<ItemType>* tree);
-	BinarySearchTree<ItemType> clone();
-	ItemType** TreeToArr(int &t);
-	void AddNodeToVec(Node<ItemType> * root, ItemType *** vec, int &t);
+	/**
+	*	@brief	이름에 특정 문자열이 포함된 item 찾아서 출력
+	*	@pre	리스트 초기화
+	*	@post	찾은 item의 이름이 키워드부분이 강조되어 출력됨
+	*	@parm	f	찾을 스트링 키워드
+	*	@return	이름에 f가 포함된 item 갯수
+	*/
 	int NameSearch(string f);
-	int NameSearchRecur(string &f, Node<ItemType> * root);
+
+	/**
+	*	@brief	두 개의 트리를 하나의 새로운 트리로 구성해주는 오퍼레이터
+	*/
+	BinarySearchTree<ItemType> operator+(BinarySearchTree<ItemType> const & tree2);
+
 
 private:
 	Node<ItemType>* root;		///< Node 타입의 root
 	string TName;	///< 트리 노드 데이터 타입이름
 
+	// Private Member Functions : Admin클래스 또는 클래스 내부에서만 사용됨
+
+	/**
+	*	@brief	item을 root 아래에서 찾아 주소를 반환
+	*	@pre	트리 초기화
+	*	@post	.
+	*	@return	item의 주소
+	*/
+	ItemType * GetData(ItemType &item);
+
+	/**
+	*	@brief	item을 root 아래에서 찾아 주소를 반환(재귀)
+	*	@pre	GetData 호출
+	*	@post	.
+	*	@return	item의 주소
+	*/
+	ItemType * RetrieveP(Node<ItemType> * root, ItemType &item);
+
+	/**
+	*	@brief	현재 트리를 복제(deep copy)함, 단 하위트리는 복제되지 않음
+	*	@pre	트리 초기화
+	*	@post	트리 복제해 반환
+	*	@return	복제된 트리
+	*/
+	void InsertAll(Node<ItemType>* root, BinarySearchTree<ItemType>* tree);
+
+	/**
+	*	@brief	현재 트리를 복제(hard copy)함
+	*	@pre	트리 초기화
+	*	@post	트리 복제해 반환
+	*	@return	복제된 트리
+	*/
+	BinarySearchTree<ItemType> clone();
+
+	/**
+	*	@brief	현재 트리내의 모든 item을 포인터 배열로 만들어 반환
+	*	@pre	트리 초기화
+	*	@post	포인터 배열 만들어 반환
+	*	@parm	t	배열 길이 저장할 int
+	*	@return	만들어진 포인터 배열
+	*/
+	ItemType** TreeToArr(int &t);
+
 	/**
 	*	@brief	root 아래에 새 item를 추가한다(재귀적)
 	*	@pre	Add를 통한 호출
 	*	@post	root 아래에 새 itme이 추가됨
+	*	@parm	root	추가할 노드
+	*	@parm	vec	item의 포인터를 추가할 item * 배열의 포인터
 	*/
+	void AddNodeToVec(Node<ItemType> * root, ItemType *** vec, int &t);
+
+	/**
+	*	@brief	root 아래에 새 item를 추가한다(재귀적)
+	*	@pre	Add를 통한 호출
+	*	@post	root 아래에 새 itme이 추가됨
+	*	@parm	root	추가할 노드
+	*	@parm	item	추가할 아이템
+	*	@return	추가시 1, 실패시 0
+	*/
+	int Insert(Node<ItemType>*& root, ItemType item);
 
 };
 
@@ -535,22 +593,6 @@ int BinarySearchTree<ItemType>::NameSearch(string f)
 }
 
 template<class ItemType>
-int BinarySearchTree<ItemType>::NameSearchRecur(string & f, Node<ItemType>* root)
-{
-	{
-		int found = 0;
-		if (root != NULL)								// root가 존재하는 경우
-		{
-			found += NameSearchRecur(f, root->left);		// root의 왼쪽으로 가서 다시 InOrder 함수 호출
-			if (root->data.NameFind(f))			// root 출력
-				found++;
-			found += NameSearchRecur(f, root->right);	// root의 오른쪽으로 가서 다시 InOrder 함수 호출
-		}
-		return found;
-	}
-}
-
-template<class ItemType>
 ItemType * BinarySearchTree<ItemType>::GetData(ItemType &item)
 {
 	return RetrieveP(root, item);
@@ -690,6 +732,23 @@ void PrintPostOrderTraversal(Node<ItemType>* root)
 		PrintPostOrderTraversal(root->left);	// root의 왼쪽으로 가서 다시 PostOrder 함수 호출
 		PrintPostOrderTraversal(root->right);	// root의 오른쪽으로 가서 다시 PostOrder 함수 호출
 		root->data.DisplayRecordOnScreen();			// root 출력
+	}
+}
+
+
+template<class ItemType>
+int NameSearchRecur(string & f, Node<ItemType>* root)
+{
+	{
+		int found = 0;
+		if (root != NULL)								// root가 존재하는 경우
+		{
+			found += NameSearchRecur(f, root->left);		// root의 왼쪽으로 가서 다시 InOrder 함수 호출
+			if (root->data.NameFind(f))			// root 출력
+				found++;
+			found += NameSearchRecur(f, root->right);	// root의 오른쪽으로 가서 다시 InOrder 함수 호출
+		}
+		return found;
 	}
 }
 

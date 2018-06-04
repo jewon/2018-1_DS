@@ -8,14 +8,21 @@ void MoreFeatures::Run()
 		i_Command = MoreFeaturesGetcommand();
 		switch (i_Command)
 		{
-		//case 1: // 학술대회 한눈에보기
-		//	DisplayConferenceBrief();
-		//	break;
-		case 2: // 모든 논문 출력
+		case 1: // 학술대회 한눈에보기
+			DisplayConferenceBrief();
+			break;
+		case 2: // 학술대회 기워드로 검색
+			SearchConferenceByString();
+			break;
+		case 3: // 모든 논문 출력
 			DisplayAllPaper();
 			break;
-		case 3: // 논문 키워드로 검색
+		case 4: // 논문 키워드로 검색
 			SearchPaperByString();
+			break;
+			break;
+		case 5: // 통합검색
+			SearchAll();
 			break;
 		case 0: // 프로그램 종료
 			return;
@@ -33,7 +40,11 @@ int MoreFeatures::MoreFeaturesGetcommand()
 	cout << endl << endl;
 	cout << "\t-------<탐색 메뉴>-------" << endl;
 	cout << "\t---ID -- Command ----- " << endl;
-	//cout << "\t   1 : 전체 학술대회 한눈에보기" << endl;
+	cout << "\t   1 : 전체 학술대회 한눈에보기" << endl;
+	cout << "\t   2 : 학술대회 키워드로 검색" << endl;
+	cout << "\t   3 : 전체 논문 한눈에보기" << endl;
+	cout << "\t   4 : 논문 키워드로 검색" << endl;
+	cout << "\t   5 : 통합검색" << endl;
 	cout << "\t   0 : 메인 메뉴로 돌아가기" << endl;
 
 	cout << endl << "\t Choose a Command--> ";
@@ -55,24 +66,52 @@ void MoreFeatures::SearchPaperByString()
 	cin >> f;
 	
 	int founds = Paper_Index->NameSearch(f);
-	cout << "\t 검색 완료 (검색 결과" << founds << "개 항목 일치)\n";
+	cout << "\t 논문 검색 완료 (검색 결과" << founds << "개 항목 일치)\n";
 }
 
-//void MoreFeatures::DisplayConferenceBrief()
-//{
-//	ConferenceType temp;
+void MoreFeatures::SearchConferenceByString()
+{
+	string f;
+	cout << "\t 키워드 입력 : ";
+	cin >> f;
+
+	int founds = i_List->NameSearch(f);
+	cout << "\t 학술대회 검색 완료 (검색 결과" << founds << "개 항목 일치)\n";
+}
 //
-//	DoublyIterator<ConferenceType> iter(i_List);
-//	if (!iter.NotNull())
-//	{
-//		cout << "\t아무것도 입력되지 않았습니다.\n";
-//		return;
-//	}
-//	while (iter.NotNull())
-//	{
-//		temp = iter.Next();
-//		temp.DisplayBriefOnScreen();
-//	}
+//void MoreFeatures::SearchAuthorByString()
+//{
+//	string f;
+//	cout << "\t 키워드 입력 : ";
+//	cin >> f;
+//
+//	int founds = Author_Index->NameSearch(f);
+//	cout << "\t 저자 검색 완료 (검색 결과" << founds << "개 항목 일치)\n";
 //}
+//
+//void MoreFeatures::DisplayAllAuthor()
+//{
+//	Author_Index->DisplayAllBrief();
+//}
+
+void MoreFeatures::SearchAll()
+{
+	string f;
+	cout << "\t 키워드 입력 : ";
+	cin >> f;
+
+	int founds = 0;
+	cout << "\t 학술대회 검색 결과";
+	founds += i_List->NameSearch(f);
+	cout << "\n\n\t 논문 검색 결과";
+	founds += Paper_Index->NameSearch(f);
+	//founds += Author_Index->NameSearch(f);
+	cout << "\n\n\t 통합 검색 완료 (총 " << founds << "개 항목 일치)\n";
+}
+
+void MoreFeatures::DisplayConferenceBrief()
+{
+	i_List->DisplayAllBrief();
+}
 
 

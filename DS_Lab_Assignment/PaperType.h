@@ -226,7 +226,7 @@ public:
 	{
 		DisplayNameOnScreen();
 		if (AuthorList != NULL)
-			cout << "\tPapers : " << AuthorList->GetLength() << endl;
+			cout << "\tAuthors : " << AuthorList->GetLength() << endl;
 	}
 
 	/**
@@ -239,6 +239,12 @@ public:
 		DisplayNameOnScreen();
 	}
 
+	/**
+	*	@brief	이름에 키워드 f가 포함되었는지 검사해 출력
+	*	@pre	초기화
+	*	@post	f가 포함된 이름이면, 이름에 f 강조해 출력
+	*	@return	이름에 f가 포함되면 true, 포함되지 않았으면 false
+	*/
 	bool NameFind(string f)
 	{
 		int match;

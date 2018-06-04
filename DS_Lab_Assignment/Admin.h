@@ -36,7 +36,7 @@ public:
 	*	@pre	기능 시작
 	*	@post	기능 끝
 	*/
-	BinarySearchTree<PaperType> * Run(BinarySearchTree<ConferenceType> * inList);
+	void Run(BinarySearchTree<ConferenceType> * inList, BinarySearchTree<PaperType> *& pi);
 
 	/**
 	*	@brief	명령 목록을 화면에 출력하고 명령을 입력받는다
@@ -62,16 +62,12 @@ public:
 	*/
 	BinarySearchTree<AuthorType> * GetChangeAuthorList();
 
-	void FileIn();
-
 	/**
 	*	@brief	레코드를 파일에서 읽어들임
-	*	@pre	파일이 열려 있음
+	*	@pre	프로젝트 폴더에 dblp.txt 존재
 	*	@post	레코드가 입력됨
-	*	@param	fin	파일 이름
-	*	@return	성공시 1, 실패시 0 반환
 	*/
-	int ReadDataFromFile(ifstream& fin);
+	void FileIn();
 
 	/**
 	*	@brief	현재 리스트에 포함된 모든 데이터를 구조화해 출력한다.
@@ -81,6 +77,7 @@ public:
 //	void PrintALlStructure();
 
 	BinarySearchTree<PaperType> * MakerPaperTreeSearch();
+	BinarySearchTree<AuthorType>* MakerAuthorTreeSearch();
 	bool NameFind(string f) { return false; }
 
 protected:

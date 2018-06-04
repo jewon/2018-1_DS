@@ -187,7 +187,7 @@ public:
 		DisplayNameOnScreen();
 		DisplayDateOnScreen();
 		if (PaperList != NULL)
-			cout << "\tSessions : " << PaperList->GetLength() << endl;
+			cout << "\tPapers : " << PaperList->GetLength() << endl;
 	};
 
 	/**
@@ -197,7 +197,7 @@ public:
 	*/
 	void DisplayBriefOnScreen()
 	{
-		cout << m_hName << "(" << m_hDate.substr(0, 4) << ")" << endl;
+		cout << "\t" << m_hName << "(" << m_hDate.substr(0, 4) << ")" << endl;
 	};
 
 	/**
@@ -302,8 +302,35 @@ public:
 	*	@brief	대입연산자 오버로딩(PaperList포인터를 복사하지않고 NULL로 줌)
 	*/
 	ConferenceType& operator=(const ConferenceType& c);
-	bool NameFind(string f) { return false; }
 
+	/**
+	*	@brief	이름에 키워드 f가 포함되었는지 검사해 출력
+	*	@pre	초기화
+	*	@post	f가 포함된 이름이면, 이름에 f 강조해 출력
+	*	@return	이름에 f가 포함되면 true, 포함되지 않았으면 false
+	*/
+	bool NameFind(string f)
+	{
+		int match;
+		match = m_hName.find(f);
+		if (match == string::npos)
+			return false;
+		cout << "\n\t";
+		for (int i = 0; i < m_hName.length(); i++)
+		{
+			if (i < match)
+				cout << m_hName[i];
+			else if (i >= match + f.length())
+				cout << m_hName[i];
+			else
+			{
+				setcolor(0, 10);
+				cout << m_hName[i];
+			}
+			setcolor(15, 0);
+		}
+		return true;
+	}
 
 protected:
 	string m_hName;		///< 학술대회명
