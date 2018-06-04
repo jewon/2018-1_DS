@@ -302,6 +302,8 @@ public:
 	*	@brief	대입연산자 오버로딩(PaperList포인터를 복사하지않고 NULL로 줌)
 	*/
 	ConferenceType& operator=(const ConferenceType& c);
+	bool NameFind(string f) { return false; }
+
 
 protected:
 	string m_hName;		///< 학술대회명

@@ -26,12 +26,17 @@ public:
 	Application()
 	{
 		m_Command = 0;
+		PaperIndex = NULL;
 	}
 
 	/**
 	*	소멸자
 	*/
-	~Application() {}
+	~Application() 
+	{
+		PaperIndex->MakeEmpty();
+		PaperIndex = NULL;
+	}
 
 	/**
 	*	@brief	프로그램 실행
@@ -66,6 +71,7 @@ public:
 
 private:
 	BinarySearchTree<ConferenceType> m_List;		///< item list.
+	BinarySearchTree<PaperType> * PaperIndex;
 	int m_Command;			///< current command number.
 };
 

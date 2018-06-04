@@ -165,7 +165,7 @@ public:
 	*/
 	bool operator==(AuthorType item);
 
-
+	bool NameFind(string f) { return  false; }
 protected:
 	string m_pName;		///< AuthorÁ¦¸ñ
 };

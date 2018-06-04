@@ -47,7 +47,7 @@ int Application::GetCommand()
 // 부가기능 수행 (정보 수정에 없는 일부만 구현)
 void Application::RunMoreFeatures()
 {
-	MoreFeatures M(m_List);
+	MoreFeatures M(m_List, PaperIndex);
 	M.Run();
 
 	return;
@@ -57,7 +57,7 @@ void Application::RunMoreFeatures()
 void Application::RunAdmin()
 {
 	Admin A;
-	A.Run(&m_List);
+	PaperIndex = A.Run(&m_List);
 
 	return;
 }

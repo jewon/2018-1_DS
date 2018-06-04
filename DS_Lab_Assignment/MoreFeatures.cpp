@@ -11,6 +11,12 @@ void MoreFeatures::Run()
 		//case 1: // 학술대회 한눈에보기
 		//	DisplayConferenceBrief();
 		//	break;
+		case 2: // 모든 논문 출력
+			DisplayAllPaper();
+			break;
+		case 3: // 논문 키워드로 검색
+			SearchPaperByString();
+			break;
 		case 0: // 프로그램 종료
 			return;
 			break;
@@ -35,6 +41,21 @@ int MoreFeatures::MoreFeaturesGetcommand()
 	cout << endl;
 
 	return command;
+}
+
+void MoreFeatures::DisplayAllPaper()
+{
+	Paper_Index->DisplayAllBrief();
+}
+
+void MoreFeatures::SearchPaperByString()
+{
+	string f;
+	cout << "\t 키워드 입력 : ";
+	cin >> f;
+	
+	int founds = Paper_Index->NameSearch(f);
+	cout << "\t 검색 완료 (검색 결과" << founds << "개 항목 일치)\n";
 }
 
 //void MoreFeatures::DisplayConferenceBrief()

@@ -1,7 +1,7 @@
 #include "Admin.h"
 
 // 부가 기능 실행
-void Admin::Run(BinarySearchTree<ConferenceType> * inList)
+BinarySearchTree<PaperType> * Admin::Run(BinarySearchTree<ConferenceType> * inList)
 {
 	Root_List = inList; // 루트리스트 가져옴
 
@@ -40,13 +40,14 @@ void Admin::Run(BinarySearchTree<ConferenceType> * inList)
 		//	PrintALlStructure();
 		//	break;
 		case 0: // 프로그램 종료
-			return;
+			return MakerPaperTreeSearch();
 			break;
 		default:
 			cout << "\t잘못된 입력입니다...\n";
 			break;
 		}
 	}
+	
 
 	Root_List = NULL; // 리스트를 훼손하지 않기 위함
 }
@@ -201,6 +202,20 @@ void Admin::FileIn()
 int Admin::ReadDataFromFile(ifstream & fin)
 {
 	return 0;
+}
+
+BinarySearchTree<PaperType>* Admin::MakerPaperTreeSearch()
+{
+	BinarySearchTree<PaperType> * result = new BinarySearchTree<PaperType>;
+	ConferenceType temp;
+	int t = 0;
+	ConferenceType** ConfIndex = Root_List->TreeToArr(t);
+	int length = Root_List->GetLength();
+	for (int i = 0; i < t; i++)
+	{
+		*result = *result + *(ConfIndex[i]->GetPaperList());
+	}
+	return result;
 }
 
 //void Admin::PrintALlStructure()

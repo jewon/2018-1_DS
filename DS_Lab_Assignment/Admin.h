@@ -36,7 +36,7 @@ public:
 	*	@pre	기능 시작
 	*	@post	기능 끝
 	*/
-	void Run(BinarySearchTree<ConferenceType> * inList);
+	BinarySearchTree<PaperType> * Run(BinarySearchTree<ConferenceType> * inList);
 
 	/**
 	*	@brief	명령 목록을 화면에 출력하고 명령을 입력받는다
@@ -79,6 +79,9 @@ public:
 	*	@post	출력됨
 	*/
 //	void PrintALlStructure();
+
+	BinarySearchTree<PaperType> * MakerPaperTreeSearch();
+	bool NameFind(string f) { return false; }
 
 protected:
 	int m_Command;		///< 사용자 명령

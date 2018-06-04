@@ -193,6 +193,13 @@ public:
 
 	ItemType * GetData(ItemType &item);
 	ItemType * RetrieveP(Node<ItemType> * root, ItemType &item);
+	BinarySearchTree<ItemType> operator+(BinarySearchTree<ItemType> const & tree2);
+	void InsertAll(Node<ItemType>* root, BinarySearchTree<ItemType>* tree);
+	BinarySearchTree<ItemType> clone();
+	ItemType** TreeToArr(int &t);
+	void AddNodeToVec(Node<ItemType> * root, ItemType *** vec, int &t);
+	int NameSearch(string f);
+	int NameSearchRecur(string &f, Node<ItemType> * root);
 
 private:
 	Node<ItemType>* root;		///< Node 타입의 root
@@ -470,6 +477,76 @@ ItemType * BinarySearchTree<ItemType>::RetrieveP(Node<ItemType>* root, ItemType 
 	{										// 찾고자 하는 값과 일치할 때
 		item = root->data;					// item에 노드 정보를 복사
 		return &(root->data);				// item 주소 리턴
+	}
+}
+
+template<class ItemType>
+BinarySearchTree<ItemType> BinarySearchTree<ItemType>::operator+(BinarySearchTree<ItemType> const & intree)
+{
+	BinarySearchTree<ItemType> result = this->clone();
+	this->InsertAll(intree.root, &result);
+	return result;
+}
+
+template<class ItemType>
+void BinarySearchTree<ItemType>::InsertAll(Node<ItemType>* root, BinarySearchTree<ItemType>* tree)
+{
+	if (root != NULL)								// root가 존재하는 경우
+	{
+		InsertAll(root->left, tree);		// root의 왼쪽으로 가서 다시 InOrder 함수 호출
+		tree->Add(root->data);			// root 출력
+		InsertAll(root->right, tree);	// root의 오른쪽으로 가서 다시 InOrder 함수 호출
+	}
+}
+
+template<class ItemType>
+BinarySearchTree<ItemType> BinarySearchTree<ItemType>::clone()
+{
+	BinarySearchTree<ItemType> result;
+	InsertAll(root, &result);
+	return result;
+}
+
+template<class ItemType>
+ItemType** BinarySearchTree<ItemType>::TreeToArr(int &t)
+{
+	ItemType ** result = new ItemType* [this->GetLength()];
+	AddNodeToVec(root, &result, t);
+	return result;
+}
+
+
+template<class ItemType>
+void BinarySearchTree<ItemType>::AddNodeToVec(Node<ItemType>* root, ItemType *** vec, int& t)
+{
+	if (root != NULL)// root가 존재하는 경우
+	{
+		AddNodeToVec(root->left, vec, t);		// root의 왼쪽으로 가서 다시 InOrder 함수 호출
+		(*vec)[t] = &(root->data);		// root 출력
+		t++;
+		AddNodeToVec(root->right, vec, t);	// root의 오른쪽으로 가서 다시 InOrder 함수 호출
+	}
+}
+
+template<class ItemType>
+int BinarySearchTree<ItemType>::NameSearch(string f)
+{
+		return NameSearchRecur(f, root);
+}
+
+template<class ItemType>
+int BinarySearchTree<ItemType>::NameSearchRecur(string & f, Node<ItemType>* root)
+{
+	{
+		int found = 0;
+		if (root != NULL)								// root가 존재하는 경우
+		{
+			found += NameSearchRecur(f, root->left);		// root의 왼쪽으로 가서 다시 InOrder 함수 호출
+			if (root->data.NameFind(f))			// root 출력
+				found++;
+			found += NameSearchRecur(f, root->right);	// root의 오른쪽으로 가서 다시 InOrder 함수 호출
+		}
+		return found;
 	}
 }
 

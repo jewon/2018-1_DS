@@ -3,11 +3,14 @@
 
 #include <iostream>
 #include <string>
+#include <Windows.h>
 using namespace std;
 
 #include"AVL.h"
 #include"InfoChange.h"
 #include"AuthorType.h"
+
+void setcolor(int color, int bgcolor);
 
 /**
 *	Paper타입 클래스
@@ -236,6 +239,29 @@ public:
 		DisplayNameOnScreen();
 	}
 
+	bool NameFind(string f)
+	{
+		int match;
+		match = m_sName.find(f);
+		if (match == string::npos)
+			return false;
+		cout << "\n\t";
+		for (int i = 0; i < m_sName.length(); i++)
+		{
+			if (i < match)
+				cout << m_sName[i];
+			else if (i >= match + f.length())
+				cout << m_sName[i];
+			else
+			{
+				setcolor(0, 10);
+				cout << m_sName[i];
+			}
+			setcolor(15, 0);
+		}
+		return true;
+	}
+
 	/**
 	*	@brief	Paper 및 내부 구조 출력
 	*	@pre	.
@@ -255,5 +281,4 @@ protected:
 	string m_sPage;		///< 논문집 Page
 	BinarySearchTree <AuthorType> * AuthorList;	///< 저자 리스트
 };
-
 #endif // _SESSION_TYPE_H
