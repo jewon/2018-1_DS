@@ -1,10 +1,10 @@
 /**
-*	@mainpage	Sorted Array List  
-*				자료구조 Midterm 과제  
+*	@mainpage	DS_2018-1  
+*				자료구조 Final 과제  
 *				채옥삼 교수님  
 *				2013103571 최재원  
 *
-*	@date	2018.04.24
+*	@date	2018.64.04
 *	@author	최재원
 */
 

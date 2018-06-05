@@ -5,7 +5,9 @@
 #include <string>
 using namespace std;
 
-// Tree를 구성하는 Node (node data, left 포인터, right 포인터)
+/**
+*	Tree를 구성하는 Node (node data, left 포인터, right 포인터)
+*/
 template<class ItemType>
 struct Node
 {
@@ -15,7 +17,9 @@ struct Node
 	int height;
 };
 
-// Binary Search Tree 
+/**
+*	AVL 트리
+*/
 template<class ItemType>
 class BinarySearchTree
 {
